@@ -1,3 +1,10 @@
+# Tjek jeres node version
+
+Vi køre node v20.17.0
+I kan bruge nvm (node version manager) til at ændre jeres node version. 
+For at se hvilket version i køre kan i skrive `n -v`
+Det hjæpler med at søgere for at vi ikke får problemer med npm modules.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
