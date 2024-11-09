@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches: [ production ]
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'vite.config.ts'
+      - '.eslintrc.*'
+      - 'tsconfig.json'
+  pull_request:
+    branches: [ production ]
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'vite.config.ts'
+      - '.eslintrc.*'
+      - 'tsconfig.json'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run ESLint
+      run: npm run lint
+
+    - name: Type check
+      run: npm run typecheck
+    
+    - name: Run tests
+      run: npm run test
+    
+    - name: Build
+      run: npm run build
+
+    # This step stores test results for viewing in GitHub UI
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: coverage/
+        retention-days: 7
+
+    # This step stores build output for verification
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-output
+        path: dist/
+        retention-days: 7
+
+    - name: Notify on failure
+      if: failure()
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { owner, repo } = context.repo;
+          const run_id = context.runId;
+          const run_url = `https://github.com/${owner}/${repo}/actions/runs/${run_id}`;
+          
+          await github.rest.issues.createComment({
+            owner: owner,
+            repo: repo,
+            issue_number: context.issue.number,
+            body: `❌ CI failed! [View failure details](${run_url})`
+          });
+
+          // Send a notification to the slack channel if configured
+          if (process.env.SLACK_WEBHOOK_URL) {
+            const { default: fetch } = await import('node-fetch');
+            await fetch(process.env.SLACK_WEBHOOK_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                text: `❌ CI failed for ${owner}/${repo}\nBranch: ${context.ref}\nSee: ${run_url}`
+              })
+            });
+          }
