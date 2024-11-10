@@ -22,6 +22,12 @@ on:
       - '.eslintrc.*'
       - 'tsconfig.json'
 
+# Add permissions block to fix GitHub integration issues
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -37,8 +43,9 @@ jobs:
     
     - name: Install dependencies
       run: |
-        npm install
-        npm install -D vitest@latest @vitest/coverage-v8@latest
+        # Remove existing node_modules and lock file to ensure clean install
+        rm -rf node_modules package-lock.json
+        npm install --legacy-peer-deps
       
     - name: Run ESLint
       run: npm run lint
@@ -83,17 +90,5 @@ jobs:
               repo: repo,
               issue_number: context.payload.pull_request.number,
               body: `❌ CI failed! [View failure details](${run_url})`
-            });
-          }
-
-          // Slack notification (if configured)
-          if (process.env.SLACK_WEBHOOK_URL) {
-            const { default: fetch } = await import('node-fetch');
-            await fetch(process.env.SLACK_WEBHOOK_URL, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                text: `❌ CI failed for ${owner}/${repo}\nBranch: ${context.ref}\nSee: ${run_url}`
-              })
             });
           }
