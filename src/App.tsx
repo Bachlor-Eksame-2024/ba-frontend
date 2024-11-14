@@ -10,7 +10,7 @@ function App() {
   // how to fetch data with SWR
   const { data, error } = useSWR('https://httpbin.org/get');
 
-  if (error) return <div>Failed to load</div>;
+  if (error) return <div>Failed to load - try refresh</div>;
   if (!data) return <div>Loading...</div>;
 
   return (
