@@ -7,6 +7,7 @@ import useSWR from 'swr';
 function App() {
   const [count, setCount] = useState(0);
 
+  // how to fetch data with SWR
   const { data, error } = useSWR('https://httpbin.org/get');
 
   if (error) return <div>Failed to load</div>;
