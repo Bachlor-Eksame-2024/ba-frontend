@@ -15,7 +15,9 @@
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-jwt": "^1.2.2",
     "swr": "^2.2.5",
+    "wouter": "^3.3.5",
     "zustand": "^5.0.1"
   },
   "devDependencies": {
