@@ -39,10 +39,10 @@ function UserChartMobile() {
       <div className='absolute top-0 left-0 flex flex-col justify-center h-full w-full items-center z-[2]'>
         <h4 className='text-3xl text-center'>Workout</h4>
       </div>
-      <ResponsiveContainer>
+      <ResponsiveContainer height='90%' width={'95%'}>
         <BarChart
-          width={500}
-          height={250}
+          width={400}
+          height={200}
           data={data}
           margin={{
             top: 0,

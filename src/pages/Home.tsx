@@ -49,9 +49,9 @@ const miniCards = [
 
 export default function Home() {
   return (
-    <div className='flex flex-col gap-4 p-4'>
+    <div className='flex flex-col gap-4 md:p-8 max-md:p-4'>
       <h1 className='text-red-500'>Home</h1>
-      <div className='flex flex-col items-center gap-4'>
+      <div className='flex flex-col gap-4'>
         {normalCards.map((card, index) => (
           <div key={index} className='flex flex-col gap-2'>
             <span>{card.title}</span>
