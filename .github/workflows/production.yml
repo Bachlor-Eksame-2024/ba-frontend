@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches: 
-      - production
+      - master
     paths:
       - 'src/**'
       - 'tests/**'
@@ -14,7 +14,7 @@ on:
       - 'tsconfig.json'
   pull_request:
     branches: 
-      - production 
+      - master 
     paths:
       - 'src/**'
       - 'tests/**'
