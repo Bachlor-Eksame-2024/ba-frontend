@@ -2,7 +2,7 @@ import { Route, Link } from 'wouter';
 import './App.css';
 //import useSWR from 'swr';
 import LandingPage from './pages/LandingPage';
-import Login from './pages/Login';
+import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import Home from './pages/Home';
 import Booking from './pages/Booking';
@@ -31,7 +31,7 @@ function App() {
       </nav>
       <div>
         <Route path='/' component={LandingPage} />
-        <Route path='/login' component={Login} />
+        <Route path='/login' component={Signin} />
         <Route path='/signup' component={Signup} />
         <Route path='/home' component={Home} />
         <Route path='/booking' component={Booking} />
