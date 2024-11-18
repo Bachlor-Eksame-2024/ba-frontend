@@ -1,6 +1,6 @@
 import { Route, Link } from 'wouter';
 import './App.css';
-import useSWR from 'swr';
+//import useSWR from 'swr';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -12,11 +12,11 @@ import WorkoutPrograms from './pages/WorkoutPrograms';
 
 function App() {
   // how to fetch data with SWR
-  const { data, error } = useSWR('https://httpbin.org/get');
+  /*   const { data, error } = useSWR('https://httpbin.org/get');
 
   if (error) return <div>Failed to load fetch data</div>;
   if (!data) return <div>Loading...</div>;
-
+ */
   return (
     <div>
       <nav>
