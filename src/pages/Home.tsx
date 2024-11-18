@@ -1,4 +1,5 @@
 import Card from '../components/Card';
+import UserChartMobile from '../components/home/UserChartMobile';
 
 const normalCards = [
   {
@@ -8,13 +9,6 @@ const normalCards = [
     level: null,
     image:
       'https://images.unsplash.com/photo-1597076537061-a6b58163aa45?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  },
-  {
-    type: 'regular' as const,
-    title: 'Workouts Denne Måned',
-    description: '',
-    level: null,
-    image: 'https://blog.pope.tech/wp-content/uploads/2023/08/Fruit-sales-by-unit.png',
   },
   {
     type: 'regular' as const,
@@ -55,17 +49,27 @@ const miniCards = [
 
 export default function Home() {
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 p-4'>
       <h1 className='text-red-500'>Home</h1>
       <div className='flex flex-col items-center gap-4'>
         {normalCards.map((card, index) => (
-          <Card key={index} {...card} />
+          <div key={index} className='flex flex-col gap-2'>
+            <span>{card.title}</span>
+            <Card {...card} />
+          </div>
         ))}
-      </div>
-      <div className='flex gap-4 overflow-auto'>
-        {miniCards.map((card, index) => (
-          <Card key={index} {...card} />
-        ))}
+        <div className='flex flex-col gap-2'>
+          <span>Workouts</span>
+          <div className='flex gap-4 overflow-x-scroll min-w-72 '>
+            {miniCards.map((card, index) => (
+              <Card key={index} {...card} />
+            ))}
+          </div>
+        </div>
+        <div className='flex flex-col gap-2'>
+          <span>Activity</span>
+          <UserChartMobile />
+        </div>
       </div>
     </div>
   );
