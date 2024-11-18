@@ -1,6 +1,14 @@
 import { Route, Link } from 'wouter';
 import './App.css';
 import useSWR from 'swr';
+import LandingPage from './pages/LandingPage';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Home from './pages/Home';
+import Booking from './pages/Booking';
+import UserProfile from './pages/UserProfile';
+import AdminProfile from './pages/AdminProfile';
+import WorkoutPrograms from './pages/WorkoutPrograms';
 
 function App() {
   // how to fetch data with SWR
@@ -9,23 +17,27 @@ function App() {
   if (error) return <div>Failed to load fetch data</div>;
   if (!data) return <div>Loading...</div>;
 
-  function Home() {
-    return <h1>Home Page</h1>;
-  }
-
-  function About() {
-    return <h1>About Page</h1>;
-  }
-
   return (
     <div>
       <nav>
-        <Link href='/'>Home</Link>
-        <Link href='/about'>About</Link>
+        <Link href='/'>Fitbox</Link>
+        <Link href='/login'>Login</Link>
+        <Link href='/signup'>Signup</Link>
+        <Link href='/home'>Home</Link>
+        <Link href='/booking'>Booking</Link>
+        <Link href='/profile/user'>User</Link>
+        <Link href='/profile/admin'>Admin</Link>
+        <Link href='/workout-programs'>Workout programs</Link>
       </nav>
       <div>
-        <Route path='/' component={Home} />
-        <Route path='/about' component={About} />
+        <Route path='/' component={LandingPage} />
+        <Route path='/login' component={Login} />
+        <Route path='/signup' component={Signup} />
+        <Route path='/home' component={Home} />
+        <Route path='/booking' component={Booking} />
+        <Route path='/profile/user' component={UserProfile} />
+        <Route path='/profile/admin' component={AdminProfile} />
+        <Route path='/workout-programs' component={WorkoutPrograms} />
       </div>
     </div>
   );
