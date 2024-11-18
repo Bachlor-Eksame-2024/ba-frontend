@@ -10,12 +10,12 @@ function App() {
   // how to fetch data with SWR
   const { data, error } = useSWR('https://httpbin.org/get');
 
-  if (error) return <div>Failed to load - ci piline</div>;
+  if (error) return <div>Failed to load fetch data</div>;
   if (!data) return <div>Loading...</div>;
 
   return (
     <>
-      <div className='bg-red-500'>
+      <div className='bg-primary-100'>
         <a href='https://vite.dev' target='_blank'>
           <img src={viteLogo} className='logo' alt='Vite logo' />
         </a>
