@@ -1,5 +1,4 @@
-import AdminAreaChart from './AdminAreaChart';
-import AdminBarChart from './AdminBarChart';
+import { lazy, Suspense } from 'react';
 import AdminCardStats from './AdminCardStats';
 import AdminSidebar from './AdminSidebar';
 
@@ -8,6 +7,10 @@ interface AdminSidebarProps {
   selectedMenu: string;
 }
 
+// Dynamically import the AdminBarChart component
+const AdminBarChart = lazy(() => import('./AdminBarChart'));
+const AdminAreaChart = lazy(() => import('./AdminAreaChart'));
+
 function Dashboard({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
   return (
     <div className='md:flex  gap-4'>
@@ -15,7 +18,9 @@ function Dashboard({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
         <AdminSidebar setSelectedMenu={setSelectedMenu} selectedMenu={selectedMenu} />
       </div>
       <div className='basis-4/5 grid gap-4'>
-        <AdminBarChart />
+        <Suspense fallback={<div>Loading...</div>}>
+          <AdminBarChart />
+        </Suspense>
 
         <div className='grid lg:grid-cols-2 gap-4'>
           <div className='grid grid-cols-2 gap-4'>
@@ -103,7 +108,9 @@ function Dashboard({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
               <p>Antal Medlemer</p>
             </AdminCardStats>
           </div>
-          <AdminAreaChart />
+          <Suspense fallback={<div>Loading...</div>}>
+            <AdminAreaChart />
+          </Suspense>
         </div>
       </div>
     </div>
