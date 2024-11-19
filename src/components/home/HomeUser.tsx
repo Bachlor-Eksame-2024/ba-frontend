@@ -13,7 +13,7 @@ const normalCards = [
   },
   {
     type: 'regular' as const,
-    title: 'Udforsk Rummet',
+    title: 'Udforsk Boksene',
     description: '',
     level: null,
     image:

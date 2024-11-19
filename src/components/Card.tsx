@@ -9,7 +9,7 @@ interface CardProps {
 function Card({ image, type = 'regular', title = 'Title', description = '', level }: CardProps) {
   const RegularCard = () => {
     return (
-      <div className='min-w-72 min-h-40 aspect-video bg-default-200 rounded-lg flex flex-col justify-center items-center overflow-hidden p-4 relative cursor-pointer'>
+      <div className='min-w-72 min-h-40 aspect-video bg-default-100 rounded-lg flex flex-col justify-center items-center overflow-hidden p-4 relative cursor-pointer'>
         <div className='flex flex-col z-[2]'>
           <h4 className='text-3xl text-center'>{title}</h4>
           <p>{description}</p>
@@ -27,7 +27,7 @@ function Card({ image, type = 'regular', title = 'Title', description = '', leve
 
   const WorkoutCard = () => {
     return (
-      <div className='min-w-72 min-h-40 aspect-video bg-default-200 rounded-lg flex flex-col justify-center items-center overflow-hidden p-4 relative cursor-pointer'>
+      <div className='min-w-72 min-h-40 aspect-video bg-default-100 rounded-lg flex flex-col justify-center items-center overflow-hidden p-4 relative cursor-pointer'>
         <div className='absolute top-0 left-0 bg-purple-400 rounded-tl-lg rounded-br-lg'>
           <span className='py-2 px-3 font-thin'>{level}</span>
         </div>
@@ -45,7 +45,7 @@ function Card({ image, type = 'regular', title = 'Title', description = '', leve
   };
   const WorkoutCardMini = () => {
     return (
-      <div className='min-w-40 w-full flex-nowrap min-h-40 max-sm:aspect-[4/3] sm:aspect-video bg-default-200 rounded-lg flex flex-col justify-center items-center overflow-hidden p-2 relative cursor-pointer'>
+      <div className='min-w-40 w-full flex-nowrap min-h-40 max-sm:aspect-[4/3] sm:aspect-video bg-default-100 rounded-lg flex flex-col justify-center items-center overflow-hidden p-2 relative cursor-pointer'>
         <div className='absolute top-0 left-0 bg-purple-400 rounded-tl-lg rounded-br-lg z-[2]'>
           <span className='py-2 px-3 font-thin'>{level}</span>
         </div>
