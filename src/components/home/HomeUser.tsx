@@ -71,7 +71,7 @@ const miniCards = [
 ];
 
 function HomeUser() {
-  return (
+  const TabletAndMobile = () => (
     <div className='flex flex-col gap-4'>
       <div className='grid sm:grid-cols-2 gap-4'>
         <div className='flex flex-col gap-2'>
@@ -95,7 +95,6 @@ function HomeUser() {
           ))}
         </div>
       </div>
-
       <div className='max-sm:hidden grid sm:grid-cols-2 gap-4'>
         <UserInfoCard />
         {userCards.map((card, index) => (
@@ -108,6 +107,57 @@ function HomeUser() {
       <div className='flex flex-col gap-2'>
         <span>Activity</span>
         <UserChartMobile />
+      </div>
+    </div>
+  );
+
+  const Desktop = () => (
+    <div className='flex flex-col gap-4'>
+      <div className='grid grid-cols-2 gap-4'>
+        <UserInfoCard />
+        <div className='flex flex-col gap-2'>
+          <span>Activity</span>
+          <UserChartMobile />
+        </div>
+      </div>
+
+      <div className='grid sm:grid-cols-2 gap-4'>
+        <div className='flex flex-col gap-2'>
+          <span>{normalCards[0].title}</span>
+          <Card {...normalCards[0]} />
+        </div>
+        <div className='flex flex-col gap-2'>
+          <span>{normalCards[1].title}</span>
+          <Card {...normalCards[1]} />
+        </div>
+      </div>
+
+      <div className='flex flex-col gap-2 overflow-x-auto w-full'>
+        <span>Workouts</span>
+        <div className='flex flex-row gap-4 w-full h-full'>
+          {miniCards.map((card, index) => (
+            <Card key={index} {...card} />
+          ))}
+        </div>
+      </div>
+      <div className='max-sm:hidden grid sm:grid-cols-3 gap-4'>
+        {userCards.map((card, index) => (
+          <div key={index} className='flex flex-col gap-2'>
+            <span>{card.title}</span>
+            <Card {...card} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  return (
+    <div>
+      <div className='md:hidden'>
+        <TabletAndMobile />
+      </div>
+      <div className='max-md:hidden'>
+        <Desktop />
       </div>
     </div>
   );
