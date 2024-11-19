@@ -1,7 +1,7 @@
 name: CI
 on:
   push:
-    branches: 
+    branches:
       - develop
     paths:
       - 'src/**'
@@ -12,8 +12,8 @@ on:
       - 'eslint.config.js'
       - 'tsconfig.json'
   pull_request:
-    branches: 
-      - develop 
+    branches:
+      - develop
     paths:
       - 'src/**'
       - 'tests/**'
@@ -29,7 +29,7 @@ permissions:
 jobs:
   verify:
     runs-on: self-hosted
-    
+
     steps:
     - uses: actions/checkout@v4
     
