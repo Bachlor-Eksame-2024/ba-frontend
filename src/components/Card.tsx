@@ -45,7 +45,7 @@ function Card({ image, type = 'regular', title = 'Title', description = '', leve
   };
   const WorkoutCardMini = () => {
     return (
-      <div className='min-w-40 min-h-40 aspect-square bg-default-200 rounded-lg flex flex-col justify-center items-center overflow-hidden p-2 relative cursor-pointer'>
+      <div className='min-w-40 w-full flex-nowrap min-h-40 max-sm:aspect-[4/3] sm:aspect-video bg-default-200 rounded-lg flex flex-col justify-center items-center overflow-hidden p-2 relative cursor-pointer'>
         <div className='absolute top-0 left-0 bg-purple-400 rounded-tl-lg rounded-br-lg z-[2]'>
           <span className='py-2 px-3 font-thin'>{level}</span>
         </div>
