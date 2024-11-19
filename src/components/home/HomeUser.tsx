@@ -1,5 +1,5 @@
+import { lazy, Suspense } from 'react';
 import Card from '../Card';
-import UserChartMobile from './UserChartMobile';
 import UserInfoCard from './UserInfoCard';
 
 const normalCards = [
@@ -13,7 +13,7 @@ const normalCards = [
   },
   {
     type: 'regular' as const,
-    title: 'Udforsk Rummet',
+    title: 'Udforsk Boksene',
     description: '',
     level: null,
     image:
@@ -70,6 +70,9 @@ const miniCards = [
   },
 ];
 
+// Dynamically import the AdminBarChart component
+const UserChartMobile = lazy(() => import('./UserChartMobile'));
+
 function HomeUser() {
   const TabletAndMobile = () => (
     <div className='flex flex-col gap-4'>
@@ -106,7 +109,9 @@ function HomeUser() {
       </div>
       <div className='flex flex-col gap-2'>
         <span>Activity</span>
-        <UserChartMobile />
+        <Suspense fallback={<div>Loading...</div>}>
+          <UserChartMobile />
+        </Suspense>
       </div>
     </div>
   );
@@ -117,7 +122,9 @@ function HomeUser() {
         <UserInfoCard />
         <div className='flex flex-col gap-2'>
           <span>Activity</span>
-          <UserChartMobile />
+          <Suspense fallback={<div>Loading...</div>}>
+            <UserChartMobile />
+          </Suspense>
         </div>
       </div>
 
