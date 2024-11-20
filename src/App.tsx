@@ -35,6 +35,7 @@ function App() {
         <Route path='/signup' component={Signup} />
         <Route path='/home' component={Home} />
         <Route path='/booking' component={Booking} />
+        <Route path='/booking/select-time-slot' component={Booking} />
         <Route path='/profile/user' component={UserProfile} />
         <Route path='/profile/admin' component={AdminProfile} />
         <Route path='/workout-programs' component={WorkoutPrograms} />
