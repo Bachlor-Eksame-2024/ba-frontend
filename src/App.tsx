@@ -9,6 +9,7 @@ import Booking from './pages/Booking';
 import UserProfile from './pages/UserProfile';
 import AdminProfile from './pages/AdminProfile';
 import WorkoutPrograms from './pages/WorkoutPrograms';
+import MobileNavigation from './components/navigation/MobileNavigation';
 
 function App() {
   // how to fetch data with SWR
@@ -19,6 +20,7 @@ function App() {
  */
   return (
     <div className='min-h-screen'>
+      <MobileNavigation />
       <nav>
         <Link href='/'>Fitbox</Link>
         <Link href='/login'>Login</Link>
