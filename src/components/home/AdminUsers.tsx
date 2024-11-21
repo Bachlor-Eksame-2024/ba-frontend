@@ -18,7 +18,7 @@ function AdminUsers() {
     { name: 'Zoey Lang', medlem: 'JA', center: 'Østerbro', status: 'Afmeldt' },
   ];
 
-  const variants = ['Aktive', 'Inaktiv', 'Afmeldt'];
+  const variants = ['Aktiv', 'Inaktiv', 'Afmeldt'];
 
   const filteredData = fakeData.filter((user) =>
     user.name.toLowerCase().includes(searchTerm.toLowerCase())
