@@ -18,7 +18,7 @@ function App() {
   if (!data) return <div>Loading...</div>;
  */
   return (
-    <div>
+    <div className='min-h-screen'>
       <nav>
         <Link href='/'>Fitbox</Link>
         <Link href='/login'>Login</Link>
