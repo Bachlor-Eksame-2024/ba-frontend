@@ -9,7 +9,7 @@ interface EditProfileProps {
 function EditProfile({ isOpen, onOpenChange }: EditProfileProps) {
   return (
     <Modal size='5xl' isOpen={isOpen} onOpenChange={onOpenChange}>
-      <ModalContent className='bg-default-900 text-white'>
+      <ModalContent className='bg-default-800 text-white'>
         {(onClose) => (
           <>
             <ModalHeader className='flex flex-col gap-1'>Bruger Infomation</ModalHeader>
@@ -34,7 +34,7 @@ function EditProfile({ isOpen, onOpenChange }: EditProfileProps) {
               <Button color='danger' variant='light' onPress={onClose}>
                 Luk
               </Button>
-              <Button color='primary' onPress={onClose}>
+              <Button color='secondary' onPress={onClose}>
                 Gem
               </Button>
             </ModalFooter>
