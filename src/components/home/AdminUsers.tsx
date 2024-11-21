@@ -31,46 +31,89 @@ function AdminUsers() {
   /* Logic for at ændre status på bruger skal implimenteres */
 
   return (
-    <div className='grid gap-4 justify-items-center w-full'>
-      <Input onChange={handleSearchChange} type='text' label='Søg' />
-      <Table aria-label='Example static collection table'>
-        <TableHeader>
-          <TableColumn>NAVN</TableColumn>
-          <TableColumn>CENTER</TableColumn>
-          <TableColumn>MEDLEMSKAB</TableColumn>
-          <TableColumn>STATUS</TableColumn>
-        </TableHeader>
-        <TableBody>
-          {filteredData.map((user, index) => (
-            <TableRow key={index}>
-              <TableCell>{user.name}</TableCell>
-              <TableCell>{user.center}</TableCell>
-              <TableCell>{user.medlem}</TableCell>
-              <TableCell>
-                <Select
-                  color={
-                    user.status === 'Aktiv'
-                      ? 'success'
-                      : user.status === 'Inaktiv'
-                        ? 'warning'
-                        : 'danger'
-                  }
-                  label='Status'
-                  defaultSelectedKeys={[user.status]}
-                >
-                  {variants.map((variant) => (
-                    <SelectItem key={variant} value={variant}>
-                      {variant}
-                    </SelectItem>
-                  ))}
-                </Select>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <Pagination loop showControls color='secondary' total={5} initialPage={1} />
-    </div>
+    <>
+      <div className='sm:hidden grid gap-4'>
+        <Input onChange={handleSearchChange} type='text' label='Søg' />
+        {filteredData.map((user, index) => (
+          <div
+            key={index}
+            className='grid grid-cols-2 gap-4 justify-between items-center bg-default-100 p-4 rounded-lg'
+          >
+            <div className='flex flex-col gap-2'>
+              <p className='font-bold'>{user.name}</p>
+
+              <p>
+                <span className='text-xs text-default-700'>Center</span>
+                <br />
+                {user.center}
+              </p>
+              <p>
+                <span className='text-xs text-default-700'>Medlemskab</span>
+                <br />
+                {user.medlem}
+              </p>
+            </div>
+            <Select
+              color={
+                user.status === 'Aktiv'
+                  ? 'success'
+                  : user.status === 'Inaktiv'
+                    ? 'warning'
+                    : 'danger'
+              }
+              label='Status'
+              defaultSelectedKeys={[user.status]}
+            >
+              {variants.map((variant) => (
+                <SelectItem key={variant} value={variant}>
+                  {variant}
+                </SelectItem>
+              ))}
+            </Select>
+          </div>
+        ))}
+      </div>
+      <div className='max-sm:hidden grid gap-4 justify-items-center w-full'>
+        <Input onChange={handleSearchChange} type='text' label='Søg' />
+        <Table aria-label='Example static collection table'>
+          <TableHeader>
+            <TableColumn>NAVN</TableColumn>
+            <TableColumn>CENTER</TableColumn>
+            <TableColumn align='center'>MEDLEMSKAB</TableColumn>
+            <TableColumn>STATUS</TableColumn>
+          </TableHeader>
+          <TableBody>
+            {filteredData.map((user, index) => (
+              <TableRow key={index}>
+                <TableCell>{user.name}</TableCell>
+                <TableCell>{user.center}</TableCell>
+                <TableCell>{user.medlem}</TableCell>
+                <TableCell>
+                  <Select
+                    color={
+                      user.status === 'Aktiv'
+                        ? 'success'
+                        : user.status === 'Inaktiv'
+                          ? 'warning'
+                          : 'danger'
+                    }
+                    label='Status'
+                    defaultSelectedKeys={[user.status]}
+                  >
+                    {variants.map((variant) => (
+                      <SelectItem key={variant} value={variant}>
+                        {variant}
+                      </SelectItem>
+                    ))}
+                  </Select>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <Pagination loop showControls color='secondary' total={5} initialPage={1} />
+      </div>
+    </>
   );
 }
 
