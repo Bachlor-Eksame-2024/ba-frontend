@@ -145,8 +145,8 @@ function AdminBarChart() {
   };
 
   return (
-    <div>
-      <h2 className='text-xl'>Besøgende</h2>
+    <div className='grid gap-2'>
+      <h2 className='text-xl bg-default-100 rounded-md p-4 w-fit'>Besøgende Sidste 30 Dage.</h2>
       <div className='relative bg-default-100 min-w-72 min-h-40 w-full max-h-[350px] aspect-video rounded-lg flex justify-center items-center p-2 cursor-pointer'>
         <ResponsiveContainer height='90%' width={'95%'}>
           <BarChart
