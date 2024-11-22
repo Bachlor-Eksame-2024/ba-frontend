@@ -22,6 +22,9 @@ function SelectedWorkout() {
   return (
     <div className='grid gap-4 max-w-7xl mx-auto p-4'>
       <div className='relative min-h-96 max-h-[30vh] overflow-hidden flex items-center justify-center rounded-lg'>
+        <h1 className='absolute bottom-5 left-5 text-3xl font-bold'>
+          {filterWorkout.workout_name}
+        </h1>
         <img
           className='object-center object-cover h-full w-full'
           src={filterWorkout.workout_image}
@@ -30,7 +33,6 @@ function SelectedWorkout() {
       </div>
       <div className='basis-3/4'>
         <div className='grid gap-4'>
-          <h1 className='text-3xl font-bold'>{filterWorkout.workout_name}</h1>
           <div className='flex w-full flex-col'>
             <Tabs aria-label='Options'>
               {filterWorkout.workout_weeks.map((week: WorkoutWeeks) => (
@@ -43,7 +45,9 @@ function SelectedWorkout() {
                         {week.exercises.map((exercise) => (
                           <li key={exercise.exercise_id}>
                             <h4 className='font-semibold'>{exercise.exercise_name}</h4>
-                            <p className='text-zinc-200'>{exercise.exercise_description}</p>
+                            <p className='text-zinc-200 max-w-[60ch]'>
+                              {exercise.exercise_description}
+                            </p>
                           </li>
                         ))}
                       </ol>

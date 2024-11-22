@@ -1,6 +1,6 @@
 import { Workouts } from '../types/workouts';
 import { Card, CardFooter, CardHeader } from '@nextui-org/card';
-import { Button, Image } from '@nextui-org/react';
+import { Image } from '@nextui-org/react';
 import { Link } from 'wouter';
 import useSWR from 'swr';
 
@@ -34,13 +34,12 @@ export default function WorkoutPrograms() {
             <div className='flex flex-grow gap-2 items-center'>
               <p className='text-base text-white/60'>{workout.workout_description}</p>
             </div>
-            <Button color='secondary' size='sm'>
-              <Link
-                href={`/workout-programs/${workout.workout_name.replace(/\s+/g, '-').toLowerCase()}`}
-              >
-                Træn Nu
-              </Link>
-            </Button>
+            <Link
+              className={`link-btn-sm`}
+              href={`/workout-programs/${workout.workout_name.replace(/\s+/g, '-').toLowerCase()}`}
+            >
+              Træn Nu
+            </Link>
           </CardFooter>
         </Card>
       ))}
