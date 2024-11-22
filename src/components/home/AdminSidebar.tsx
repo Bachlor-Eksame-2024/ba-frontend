@@ -18,7 +18,7 @@ function AdminSidebar({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
 
   return (
     <aside>
-      <section className='grid gap-8 bg-default-100 w-[17rem] px-4 pt-6 pb-8 rounded-xl cursor-pointer'>
+      <section className='grid gap-8 bg-default-100 min-w-[17rem] w-80 min-h-[30rem] px-6 pt-6 pb-8 rounded-xl cursor-pointer'>
         {/* Replace with admin Profil */}
         <div className='flex gap-2 items-center' onClick={onOpen}>
           <img
@@ -36,7 +36,7 @@ function AdminSidebar({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
           {sidebarMenu.map((menu, index) => (
             <li
               key={index}
-              className={`${menu.name === selectedMenu && 'bg-secondary-500'} hover:bg-secondary-500 rounded-xl py-2 pl-2 w-full cursor-pointer text-base`}
+              className={`${menu.name === selectedMenu && 'bg-secondary'} hover:bg-secondary flex items-center rounded-xl py-2 pl-2 w-full cursor-pointer text-base`}
               onClick={() => setSelectedMenu(menu.name)}
             >
               <Link href=''>{menu.name}</Link>

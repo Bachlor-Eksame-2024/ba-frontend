@@ -9,7 +9,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <NextUIProvider>
       <Provider>
-        <main className='dark text-foreground bg-background'>
+        <main className='dark text-foreground bg-background min-h-screen'>
           <App />
         </main>
       </Provider>

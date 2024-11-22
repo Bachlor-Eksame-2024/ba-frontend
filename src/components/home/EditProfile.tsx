@@ -27,7 +27,7 @@ function EditProfile({ isOpen, onOpenChange }: EditProfileProps) {
                 <Input type='password' label='Nuværende Adgangskode' />
                 <Input type='password' label='Nyt Adgangskode' />
                 <Input type='password' label='Gentage Adgangskode' />
-                <Button className='bg-secondary-400 text-white py-6'>Skift Adgangskode</Button>
+                <Button className='bg-secondary text-white py-6'>Skift Adgangskode</Button>
               </div>
             </ModalBody>
             <ModalFooter>
