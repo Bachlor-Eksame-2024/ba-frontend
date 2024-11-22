@@ -3,6 +3,7 @@ import Dashboard from './Dashboard';
 import AdminUsers from './AdminUsers';
 import AdminSidebar from './AdminSidebar';
 import WorkoutPrograms from '../../pages/WorkoutPrograms';
+import AdminBokse from './AdminBokse';
 
 function HomeAdmin() {
   const [selectedMenu, setSelectedMenu] = useState('Dashboard');
@@ -14,6 +15,7 @@ function HomeAdmin() {
       {selectedMenu === 'Dashboard' && <Dashboard />}
       {selectedMenu === 'Brugere' && <AdminUsers />}
       {selectedMenu === 'Workout Programmer' && <WorkoutPrograms />}
+      {selectedMenu === 'Bokse' && <AdminBokse />}
     </div>
   );
 }
