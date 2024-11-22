@@ -4,9 +4,6 @@ import AdminUsers from './AdminUsers';
 import AdminSidebar from './AdminSidebar';
 import WorkoutPrograms from '../../pages/WorkoutPrograms';
 import AdminBokse from './AdminBokse';
-import WorkoutPrograms from '../../pages/WorkoutPrograms';
-import AdminBokse from './AdminBokse';
-
 
 function HomeAdmin() {
   const [selectedMenu, setSelectedMenu] = useState('Dashboard');
