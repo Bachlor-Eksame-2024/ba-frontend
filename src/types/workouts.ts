@@ -9,7 +9,7 @@ export interface Workouts {
   updated_at: string;
 }
 
-interface WorkoutWeeks {
+export interface WorkoutWeeks {
   week_id: number;
   week_name: string;
   week_description: string;

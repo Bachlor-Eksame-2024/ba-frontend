@@ -1,6 +1,9 @@
 import { lazy, Suspense } from 'react';
 import Card from '../Card';
 import UserInfoCard from './UserInfoCard';
+import useSWR from 'swr';
+import { Workouts } from '../../types/workouts';
+import WorkoutCard from '../workouts/WorkoutCard';
 
 const normalCards = [
   {
@@ -43,37 +46,16 @@ const userCards = [
     image: null,
   },
 ];
-const miniCards = [
-  {
-    type: 'workoutmini' as const,
-    title: 'FULL BODY WORKOUT',
-    description: '',
-    level: 'Beginner' as const,
-    image:
-      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  },
-  {
-    type: 'workoutmini' as const,
-    title: 'STRONG AND STEADY',
-    description: '',
-    level: 'Advanced' as const,
-    image:
-      'https://images.unsplash.com/photo-1521804906057-1df8fdb718b7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  },
-  {
-    type: 'workoutmini' as const,
-    title: 'THREE DAY POWER',
-    description: '',
-    level: 'Intermediate' as const,
-    image:
-      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  },
-];
 
 // Dynamically import the AdminBarChart component
 const UserChartMobile = lazy(() => import('./UserChartMobile'));
 
 function HomeUser() {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const { data, error } = useSWR(apiUrl + '/workout/get-workouts');
+  const workoutPrograms = data?.workouts;
+
+  console.log(workoutPrograms);
   const TabletAndMobile = () => (
     <div className='flex flex-col gap-4'>
       <div className='grid sm:grid-cols-2 gap-4'>
@@ -93,9 +75,13 @@ function HomeUser() {
       <div className='flex flex-col gap-2 overflow-x-auto w-full'>
         <span>Workouts</span>
         <div className='flex flex-row gap-4 w-full h-full'>
-          {miniCards.map((card, index) => (
-            <Card key={index} {...card} />
-          ))}
+          {error ? (
+            <div>Faild To Load Workouts</div>
+          ) : (
+            workoutPrograms?.map((workout: Workouts) => (
+              <WorkoutCard key={workout.workout_id} {...workout} />
+            ))
+          )}
         </div>
       </div>
       <div className='max-sm:hidden grid sm:grid-cols-2 gap-4'>
@@ -142,9 +128,13 @@ function HomeUser() {
       <div className='flex flex-col gap-2 overflow-x-auto w-full'>
         <span>Workouts</span>
         <div className='flex flex-row gap-4 w-full h-full'>
-          {miniCards.map((card, index) => (
-            <Card key={index} {...card} />
-          ))}
+          {error ? (
+            <div>Faild To Load Workouts</div>
+          ) : (
+            workoutPrograms?.map((workout: Workouts) => (
+              <WorkoutCard key={workout.workout_id} {...workout} />
+            ))
+          )}
         </div>
       </div>
       <div className='max-sm:hidden grid sm:grid-cols-3 gap-4'>
@@ -171,3 +161,7 @@ function HomeUser() {
 }
 
 export default HomeUser;
+
+/*  miniCards.map((card, index) => (
+            <Card key={index} {...card} />
+          ))}  */

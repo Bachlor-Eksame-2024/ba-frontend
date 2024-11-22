@@ -1,26 +1,20 @@
-import { useEffect, useState } from 'react';
 import { Workouts } from '../types/workouts';
 import { Card, CardFooter, CardHeader } from '@nextui-org/card';
-import { Button, Image } from '@nextui-org/react';
+import { Image } from '@nextui-org/react';
+import { Link } from 'wouter';
+import useSWR from 'swr';
 
 export default function WorkoutPrograms() {
   const apiUrl = import.meta.env.VITE_API_URL;
-  const [workoutPrograms, setWorkoutPrograms] = useState<Workouts[]>([]);
 
-  useEffect(() => {
-    const fetchWorkoutPrograms = async () => {
-      const response = await fetch(apiUrl + '/workout/get-workouts');
-      const data = await response.json();
-      setWorkoutPrograms(data.workouts);
-    };
-    fetchWorkoutPrograms();
-  }, []);
-
-  console.log(workoutPrograms);
-
+  // Fetch data with SWR hook for fetching "GET" data
+  const { data, error } = useSWR(apiUrl + '/workout/get-workouts');
+  if (error) return <div>Failed to load fetch data</div>;
+  if (!data) return <div>Loading...</div>;
+  const workoutPrograms = data?.workouts;
   return (
     <div className='flex flex-col items-center gap-4 w-full max-w-7xl mx-auto p-4'>
-      {workoutPrograms?.map((workout) => (
+      {workoutPrograms?.map((workout: Workouts) => (
         <Card
           key={workout.workout_id + 34}
           isFooterBlurred
@@ -40,32 +34,15 @@ export default function WorkoutPrograms() {
             <div className='flex flex-grow gap-2 items-center'>
               <p className='text-base text-white/60'>{workout.workout_description}</p>
             </div>
-            <Button color='secondary' size='sm'>
+            <Link
+              className={`link-btn-sm`}
+              href={`/workout-programs/${workout.workout_name.replace(/\s+/g, '-').toLowerCase()}`}
+            >
               Træn Nu
-            </Button>
+            </Link>
           </CardFooter>
         </Card>
       ))}
-      {/* {workoutPrograms?.map((workout) => (
-        <div key={workout.workout_id + 34}>
-          <h1>{workout.workout_name}</h1>
-          <p>{workout.workout_level}</p>
-          <p>{workout.workout_description}</p>
-          <div>
-            {workout.workout_weeks.map((week) => (
-              <div key={week.week_id}>
-                <h3>{week.week_name}</h3>
-                <h3>{week.week_description}</h3>
-                <div>
-                  {week.exercises.map((exercise) => (
-                    <p>{exercise.exercise_name}</p>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))} */}
     </div>
   );
 }

@@ -11,6 +11,7 @@ import AdminProfile from './pages/AdminProfile';
 import WorkoutPrograms from './pages/WorkoutPrograms';
 import MobileNavigation from './components/navigation/MobileNavigation';
 import DesktopNavigation from './components/navigation/DesktopNavigation';
+import SelectedWorkout from './pages/SelectedWorkout';
 
 function App() {
   // how to fetch data with SWR
@@ -33,6 +34,7 @@ function App() {
         <Route path='/profile/user' component={UserProfile} />
         <Route path='/profile/admin' component={AdminProfile} />
         <Route path='/workout-programs' component={WorkoutPrograms} />
+        <Route path='/workout-programs/:workout' component={SelectedWorkout} />
       </div>
     </div>
   );

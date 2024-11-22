@@ -9,7 +9,7 @@ function HomeAdmin() {
   const [selectedMenu, setSelectedMenu] = useState('Dashboard');
   return (
     <div className='md:flex  gap-4'>
-      <div className='max-md:hidden basis-1/5'>
+      <div className='max-md:hidden basis-1/4'>
         <AdminSidebar setSelectedMenu={setSelectedMenu} selectedMenu={selectedMenu} />
       </div>
       {selectedMenu === 'Dashboard' && <Dashboard />}
