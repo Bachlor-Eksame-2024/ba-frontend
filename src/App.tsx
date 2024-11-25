@@ -32,7 +32,7 @@ function App() {
         <Route path='/booking' component={Booking} />
         <Route path='/booking/select-time-slot' component={Booking} />
         <Route path='/profile/user' component={UserProfile} />
-        <Route path='/profile/admin' component={AdminProfile} />
+        <Route path='/admin/profile' component={AdminProfile} />
         <Route path='/workout-programs' component={WorkoutPrograms} />
         <Route path='/workout-programs/:workout' component={SelectedWorkout} />
       </div>
