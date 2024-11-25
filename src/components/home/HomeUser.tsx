@@ -4,6 +4,7 @@ import UserInfoCard from './UserInfoCard';
 import useSWR from 'swr';
 import { Workouts } from '../../types/workouts';
 import WorkoutCard from '../workouts/WorkoutCard';
+import LatestBooking from './LatestBooking';
 
 const normalCards = [
   {
@@ -54,10 +55,12 @@ function HomeUser() {
   const apiUrl = import.meta.env.VITE_API_URL;
   const { data, error } = useSWR(apiUrl + '/workout/get-workouts');
   const workoutPrograms = data?.workouts;
+  const LastedBooking = false;
 
   console.log(workoutPrograms);
   const TabletAndMobile = () => (
     <div className='flex flex-col gap-4'>
+      {LastedBooking && <LatestBooking />}
       <div className='grid sm:grid-cols-2 gap-4'>
         <div className='flex flex-col gap-2'>
           <span>{normalCards[0].title}</span>
@@ -104,6 +107,11 @@ function HomeUser() {
 
   const Desktop = () => (
     <div className='flex flex-col gap-4'>
+      {LastedBooking && (
+        <div className='grid grid-cols-2'>
+          <LatestBooking />
+        </div>
+      )}
       <div className='grid grid-cols-2 gap-4'>
         <UserInfoCard />
         <div className='flex flex-col gap-2'>
