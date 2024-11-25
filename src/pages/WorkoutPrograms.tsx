@@ -3,22 +3,28 @@ import { Card, CardFooter, CardHeader } from '@nextui-org/card';
 import { Image } from '@nextui-org/react';
 import { Link } from 'wouter';
 import useSWR from 'swr';
+import useWorkoutStore from '../stores/WorkoutStore';
 
 export default function WorkoutPrograms() {
   const apiUrl = import.meta.env.VITE_API_URL;
+  const { workoutPrograms, setWorkoutPrograms } = useWorkoutStore();
 
   // Fetch data with SWR hook for fetching "GET" data
-  const { data, error } = useSWR(apiUrl + '/workout/get-workouts');
+  const { data, error } = useSWR(apiUrl + '/workout/get-workouts', {
+    onSuccess: (data) => {
+      setWorkoutPrograms(data.workouts);
+    },
+  });
   if (error) return <div>Failed to load fetch data</div>;
   if (!data) return <div>Loading...</div>;
-  const workoutPrograms = data?.workouts;
+
   return (
     <div className='flex flex-col items-center gap-4 w-full max-w-7xl mx-auto p-4'>
       {workoutPrograms?.map((workout: Workouts) => (
         <Card
           key={workout.workout_id + 34}
           isFooterBlurred
-          className='md:w-3/4 max-md:w-full h-[300px] col-span-12 sm:col-span-7'
+          className='w-full max-w-3xl h-[300px] col-span-12 sm:col-span-7'
         >
           <CardHeader className='absolute z-10 top-1 flex-col items-start'>
             <p className='text-tiny text-white/60 uppercase font-bold'>{workout.workout_level}</p>

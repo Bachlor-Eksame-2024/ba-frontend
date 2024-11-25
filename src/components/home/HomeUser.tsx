@@ -5,6 +5,7 @@ import useSWR from 'swr';
 import { Workouts } from '../../types/workouts';
 import WorkoutCard from '../workouts/WorkoutCard';
 import LatestBooking from './LatestBooking';
+import useWorkoutStore from '../../stores/WorkoutStore';
 
 const normalCards = [
   {
@@ -53,11 +54,15 @@ const UserChartMobile = lazy(() => import('./UserChartMobile'));
 
 function HomeUser() {
   const apiUrl = import.meta.env.VITE_API_URL;
-  const { data, error } = useSWR(apiUrl + '/workout/get-workouts');
-  const workoutPrograms = data?.workouts;
+  const { workoutPrograms, setWorkoutPrograms } = useWorkoutStore();
+  const { data, error } = useSWR(apiUrl + '/workout/get-workouts', {
+    onSuccess: (data) => {
+      setWorkoutPrograms(data.workouts);
+    },
+  });
+
   const LastedBooking = false;
 
-  console.log(workoutPrograms);
   const TabletAndMobile = () => (
     <div className='flex flex-col gap-4'>
       {LastedBooking && <LatestBooking />}
@@ -78,7 +83,7 @@ function HomeUser() {
       <div className='flex flex-col gap-2 overflow-x-auto w-full'>
         <span>Workouts</span>
         <div className='flex flex-row gap-4 w-full h-full'>
-          {error ? (
+          {error && data ? (
             <div>Faild To Load Workouts</div>
           ) : (
             workoutPrograms?.map((workout: Workouts) => (

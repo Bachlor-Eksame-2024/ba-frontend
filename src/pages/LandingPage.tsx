@@ -1,4 +1,5 @@
 import { Button } from '@nextui-org/react';
+import { Link } from 'wouter';
 
 export default function LandingPage() {
   return (
@@ -12,16 +13,16 @@ export default function LandingPage() {
           </h1>
           <p className='text-lg sm:text-xl pb-4 sm:pb-8'>Prøv 2 Bokse gratis, herefter 299,- md.</p>
           <div className='flex flex-col sm:flex-row gap-4'>
-            <a href='/login' className='w-full sm:w-auto'>
+            <Link href='/login' className='w-full sm:w-auto'>
               <Button type='submit' color='secondary' className='w-full' size='lg'>
                 Login
               </Button>
-            </a>
-            <a href='/signup' className='w-full sm:w-auto'>
+            </Link>
+            <Link href='/signup' className='w-full sm:w-auto'>
               <Button type='submit' color='default' variant='bordered' className='w-full' size='lg'>
                 Opret bruger
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
