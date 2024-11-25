@@ -4,8 +4,12 @@ import { Elements, PaymentElement } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { useEffect, useState } from 'react';
 
-const appearance = {
-  theme: 'flat', // You can use 'stripe', 'flat', 'night', 'none'
+const appearance: {
+  theme: 'flat' | 'stripe' | 'night' | undefined;
+  variables: { [key: string]: string };
+  rules: { [key: string]: { [key: string]: string } };
+} = {
+  theme: 'flat', // You can use 'stripe', 'flat', 'night'
   variables: {
     colorPrimary: '#0570de',
     colorBackground: '#27272a',
