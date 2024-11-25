@@ -2,8 +2,8 @@ import { useState } from 'react';
 import Dashboard from './Dashboard';
 import AdminUsers from './AdminUsers';
 import AdminSidebar from './AdminSidebar';
-import WorkoutPrograms from '../../pages/WorkoutPrograms';
 import AdminBokse from './AdminBokse';
+import AdminWorkout from './AdminWorkout';
 
 function HomeAdmin() {
   const [selectedMenu, setSelectedMenu] = useState('Dashboard');
@@ -15,7 +15,7 @@ function HomeAdmin() {
       {selectedMenu === 'Dashboard' && <Dashboard />}
       {selectedMenu === 'Brugere' && <AdminUsers />}
       {selectedMenu === 'Bokse' && <AdminBokse />}
-      {selectedMenu === 'Workout Programmer' && <WorkoutPrograms />}
+      {selectedMenu === 'Workout Programmer' && <AdminWorkout />}
     </div>
   );
 }
