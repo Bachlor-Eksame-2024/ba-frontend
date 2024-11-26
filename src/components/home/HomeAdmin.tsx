@@ -3,7 +3,7 @@ import Dashboard from './Dashboard';
 import AdminUsers from './AdminUsers';
 import AdminSidebar from './AdminSidebar';
 import AdminBokse from './AdminBokse';
-import AdminWorkout from './AdminWorkout';
+import AdminWorkout from './admin-workout/AdminWorkout';
 
 function HomeAdmin() {
   const [selectedMenu, setSelectedMenu] = useState('Dashboard');

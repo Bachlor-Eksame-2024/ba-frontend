@@ -1,8 +1,8 @@
 import { Card, CardFooter, CardHeader } from '@nextui-org/card';
-import { Workouts } from '../../types/workouts';
+import { Workouts } from '../../../types/workouts';
 import { Button, Image, useDisclosure } from '@nextui-org/react';
 import { Link } from 'wouter';
-import useWorkoutStore from '../../stores/WorkoutStore';
+import useWorkoutStore from '../../../stores/WorkoutStore';
 import useSWR from 'swr';
 import { useState } from 'react';
 import AdminNewWorkout from './AdminNewWorkout';
