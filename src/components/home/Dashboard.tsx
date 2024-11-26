@@ -7,7 +7,7 @@ const AdminAreaChart = lazy(() => import('./AdminAreaChart'));
 
 function Dashboard() {
   return (
-    <div className='grid gap-4'>
+    <div className='grid gap-4 w-full'>
       <Suspense fallback={<div>Loading...</div>}>
         <AdminBarChart />
       </Suspense>
