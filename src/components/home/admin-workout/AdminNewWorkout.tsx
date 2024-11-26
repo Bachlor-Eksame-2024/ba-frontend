@@ -198,7 +198,6 @@ function AdminNewWorkout({ isOpen, onOpenChange }: AdminNewWorkoutProps) {
                     </button>
                   )}
                 </div>
-                <button type='submit'>SAVE WORKOUT</button>
                 <ModalFooter>
                   <Button color='danger' variant='light' onPress={onClose}>
                     Close
