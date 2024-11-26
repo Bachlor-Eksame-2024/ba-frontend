@@ -3,13 +3,13 @@ import { User } from '../types/user';
 
 interface UserStore {
   userInfo: User | null;
-  setUser: (user: User) => void;
+  setUser: (user: User | null) => void;
   clearUser: () => void;
 }
 
 const useUserStore = create<UserStore>((set) => ({
   userInfo: null,
-  setUser: (userInfo: User) => set({ userInfo }),
+  setUser: (userInfo: User | null) => set({ userInfo }),
   clearUser: () => set({ userInfo: null }),
 }));
 
