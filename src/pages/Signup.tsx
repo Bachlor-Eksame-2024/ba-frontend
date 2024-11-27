@@ -1,18 +1,71 @@
 import { Button } from '@nextui-org/react';
 import { Checkbox } from '@nextui-org/react';
 import { Select, SelectItem } from '@nextui-org/react';
+//import useUserStore from '../stores/UserStore';
 // Import {centers} from ./centers.tsx ?
 
 export default function Signup() {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiKey = import.meta.env.VITE_API_KEY;
+
+  //const { setUser } = useUserStore();
+  const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log('Opret bruger');
+
+    const formData = new FormData(event.target as HTMLFormElement);
+    const email = formData.get('email') as string;
+    const first_name = formData.get('first_name') as string;
+    const last_name = formData.get('last_name') as string;
+    const fitness_center = formData.get('fitness_center') as string;
+    const password = formData.get('password') as string;
+    const phone = formData.get('phone') as string;
+
+    console.log(email);
+    console.log(first_name);
+    console.log(last_name);
+    console.log(fitness_center);
+    console.log(password);
+    console.log(phone);
+
+    const response = await fetch(apiUrl + '/auth/signupp', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': apiKey,
+      },
+      body: JSON.stringify({
+        email: email,
+        first_name: first_name,
+        last_name: last_name,
+        fitness_center_id: fitness_center,
+        password: password,
+        repeat_password: password,
+        phone: phone,
+      }),
+    });
+
+    console.log('Response from backend', response);
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Signup successful:', data);
+      // setUser(data.user);
+      // setLocation('/home');
+    } else {
+      console.error('Signup failed:', response.status);
+      // Handle signup error
+    }
+  };
   const centers = [
-    { key: 'fitnessx', label: 'Fitness X' },
-    { key: 'sats', label: 'SATS' },
-    { key: 'puregym', label: 'Puregym' },
-    { key: 'fitogsund', label: 'Fit & Sund' },
-    { key: 'loopfitness', label: 'Loop Fitness' },
-    { key: 'copenhagengym', label: 'Copenhagen Gym' },
-    { key: 'powerhouse', label: 'Power House' },
-    { key: 'ground', label: 'Ground' },
+    { key: '1', label: 'Fitness X' },
+    { key: '2', label: 'SATS' },
+    { key: '3', label: 'Puregym' },
+    { key: '4', label: 'Fit & Sund' },
+    { key: '5', label: 'Loop Fitness' },
+    { key: '6', label: 'Copenhagen Gym' },
+    { key: '7', label: 'Power House' },
+    { key: '8', label: 'Ground' },
   ]; // Evt. ryk de her ind i egen fil og importer dem oppe i toppen
   return (
     <div className="relative h-screen w-full bg-[url('./assets/HealthFitness1.jpeg')] bg-cover bg-center">
@@ -20,7 +73,7 @@ export default function Signup() {
       <div className='relative z-10 flex items-center justify-center h-full px-4'>
         <div className='bg-zinc-900 p-6 sm:p-10 md:p-20 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 max-w-2xl rounded-md'>
           <h1 className='text-3xl md:text-4xl pb-8'>Opret en bruger</h1>
-          <form className='flex flex-col space-y-4'>
+          <form onSubmit={handleSignUp} className='flex flex-col space-y-4'>
             <label htmlFor='email' className='text-base'>
               Email
             </label>
@@ -33,25 +86,25 @@ export default function Signup() {
             />
             <div className='flex flex-col sm:flex-row sm:justify-between sm:space-x-4 space-y-4 sm:space-y-0 pb-6'>
               <div className='flex flex-col w-full sm:w-1/2'>
-                <label htmlFor='fornavn' className='text-base'>
+                <label htmlFor='first_name' className='text-base'>
                   Fornavn
                 </label>
                 <input
                   type='text'
-                  id='fornavn'
-                  name='fornavn'
+                  id='first_name'
+                  name='first_name'
                   className='p-2 rounded-md bg-zinc-800 text-white w-full'
                   required
                 />
               </div>
               <div className='flex flex-col w-full sm:w-1/2'>
-                <label htmlFor='efternavn' className='text-base'>
+                <label htmlFor='last_name' className='text-base'>
                   Efternavn
                 </label>
                 <input
                   type='text'
-                  id='efternavn'
-                  name='efternavn'
+                  id='last_name'
+                  name='last_name'
                   className='p-2 rounded-md bg-zinc-800 text-white w-full'
                   required
                 />
@@ -60,6 +113,7 @@ export default function Signup() {
             <Select
               radius='sm'
               isRequired
+              name='fitness_center'
               labelPlacement='outside'
               label='Nuværende center'
               placeholder='Vælg et fitness center'
@@ -87,6 +141,16 @@ export default function Signup() {
               type='password'
               id='repassword'
               name='repassword'
+              className='p-2 rounded-md bg-zinc-800 text-white w-full'
+              required
+            />
+            <label htmlFor='phone' className='text-base'>
+              Telefon nummer
+            </label>
+            <input
+              type='tel'
+              id='phone'
+              name='phone'
               className='p-2 rounded-md bg-zinc-800 text-white w-full'
               required
             />
