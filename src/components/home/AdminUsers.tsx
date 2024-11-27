@@ -3,6 +3,7 @@ import { Input, Pagination, Select, SelectItem } from '@nextui-org/react';
 import { useState } from 'react';
 import useAdminUsersStore from '../../stores/adminUsersStore';
 import useSWR from 'swr';
+import { AdminUser } from '../../types/user';
 
 function AdminUsers() {
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -90,8 +91,42 @@ function AdminUsers() {
     }
   };
 
+  // update user Status
+  const handleUpdateUserStatus = async (userId: number, is_member: boolean) => {
+    try {
+      const response = await fetch(apiUrl + `/admin/update-membership`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': import.meta.env.VITE_API_KEY as string,
+        },
+        body: JSON.stringify({
+          user_id: userId,
+          is_member: !is_member,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+      if (data.message) {
+        console.log('User status updated successfully');
+        const newUsers = adminUsers;
+        newUsers.users = newUsers.users.map((user: AdminUser) => {
+          if (user.user_id === userId) {
+            user.is_member = !is_member;
+          }
+          return user;
+        });
+        setAdminUsers(newUsers);
+      }
+    } catch (error) {
+      console.error('Failed to update user status:', error);
+    }
+  };
+
   // setup delete user in the future
 
+  console.log(adminUsers);
   return (
     <>
       <div className='sm:hidden grid gap-4'>
@@ -157,6 +192,7 @@ function AdminUsers() {
                 <TableCell>{user.is_member ? 'Ja' : 'Nej'}</TableCell>
                 <TableCell>
                   <Select
+                    onChange={() => handleUpdateUserStatus(user.user_id, user.is_member)}
                     className='w-32'
                     color={user.is_member ? 'success' : 'danger'}
                     defaultSelectedKeys={[user.is_member ? 'Aktiv' : 'Afmeldt']}

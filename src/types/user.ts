@@ -9,6 +9,14 @@ export interface User {
 }
 
 // Admin user
+
+export interface AdminUsersResponse {
+  users: AdminUser[];
+  total: number;
+  page: number;
+  page_size: number;
+  total_pages: number;
+}
 export interface AdminUser {
   user_id: number;
   first_name: string;
@@ -17,12 +25,4 @@ export interface AdminUser {
   phone: string;
   is_member: boolean;
   role: string;
-}
-
-export interface AdminUsersResponse {
-  users: AdminUser[];
-  total: number;
-  page: number;
-  page_size: number;
-  total_pages: number;
 }
