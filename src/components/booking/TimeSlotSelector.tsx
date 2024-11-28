@@ -32,6 +32,7 @@ const TimeSlotSelector: React.FC = () => {
   return (
     <div className='fixed inset-0 bg-default-50 flex items-center justify-center z-50 overflow-auto transition-colors'>
       <div className='px-6 w-96'>
+        <h2 className='text-xl font-bold mb-4 mt-8'>Vælg dato</h2>
         <Calendar />
         <h2 className='text-xl font-bold mb-4 mt-8'>Vælg antal timer</h2>
         <div className='flex gap-2 p-2 rounded bg-default-800 bg-opacity-10'>
