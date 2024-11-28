@@ -37,7 +37,6 @@ export default function Calendar() {
 
   return (
     <div className='relative'>
-      <h2 className='text-xl font-bold mb-4 mt-8'>Vælg dato</h2>
       <Input
         value={selectedDate}
         placeholder={'dd/mm/yyyy'}
@@ -48,7 +47,7 @@ export default function Calendar() {
         isReadOnly
       />
       <svg
-        className='absolute pointer-events-none top-[3.4rem] right-5'
+        className='absolute pointer-events-none top-[3.4rem] right-3'
         height='21'
         viewBox='0 0 21 21'
         width='21'
