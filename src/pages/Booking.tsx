@@ -41,11 +41,11 @@ const BookingInterface = () => {
 
   return (
     <div>
-      <div className='w-full h-screen bg-default-50 text-white'>
-        <div className='p-4'>
+      <div className='h-screen bg-default-50'>
+        <div className='px-6 w-96'>
           <h2 className='text-xl mb-4'>Mine bookinger</h2>
 
-          <div className='space-y-2 bg-default-100 p-3 rounded text-center'>
+          <div className='space-y-2 bg-default-800 bg-opacity-10 p-3 rounded text-center'>
             {/* Header */}
             <div className='grid grid-cols-4 mb-2 text-gray-300'>
               <div className='col-start-2'>Dato</div>
@@ -58,8 +58,8 @@ const BookingInterface = () => {
             {bookings.map((booking) => (
               <div
                 key={booking.date}
-                className={`grid grid-cols-4 items-center text-center py-2 rounded-full cursor-pointer ${
-                  selectedDates.includes(booking.date) ? 'bg-neutral-700' : 'hover:bg-neutral-800'
+                className={`grid grid-cols-4 items-center text-center py-2 rounded-full cursor-pointer transition-colors ${
+                  selectedDates.includes(booking.date) ? 'bg-default-300' : 'hover:bg-default-200'
                 }`}
                 onClick={() => handleSelection(booking.date)}
               >
@@ -81,7 +81,7 @@ const BookingInterface = () => {
               onClick={() => {
                 history.pushState(null, '', '/booking/select-time-slot');
               }}
-              className='w-full py-4 bg-success-500 bg-opacity-10 hover:bg-opacity-15 text-success-500 border-1 border-success-500 rounded transition-colors'
+              className='w-full py-4 bg-secondary-400 hover:bg-secondary-500 text-secondary-900 rounded transition-colors'
             >
               Book tid
             </button>
