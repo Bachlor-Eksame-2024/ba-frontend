@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
+import Calendar from './Calendar';
 
 const TimeSlotSelector: React.FC = () => {
   const [, setLocation] = useLocation();
@@ -29,9 +30,10 @@ const TimeSlotSelector: React.FC = () => {
   };
 
   return (
-    <div className='fixed inset-0 bg-default-50 flex items-center justify-center z-50'>
-      <div className='p-6 w-96'>
-        <h2 className='text-xl font-bold mb-4'>Vælg antal timer</h2>
+    <div className='fixed inset-0 bg-default-50 flex items-center justify-center z-50 overflow-auto transition-colors'>
+      <div className='px-6 w-96'>
+        <Calendar />
+        <h2 className='text-xl font-bold mb-4 mt-8'>Vælg antal timer</h2>
         <div className='flex gap-2 p-2 rounded bg-default-800 bg-opacity-10'>
           {timeAmount.map((amount) => (
             <button
@@ -47,7 +49,7 @@ const TimeSlotSelector: React.FC = () => {
             </button>
           ))}
         </div>
-        <h2 className='text-xl font-bold mb-4 mt-12'>Vælg periode</h2>
+        <h2 className='text-xl font-bold mb-4 mt-8'>Vælg periode</h2>
         <div className='flex flex-col gap-2'>
           {timeSlots.map((slot) => (
             <button
