@@ -30,6 +30,7 @@ export default function Calendar() {
         value={selectedDate}
         placeholder={'dd/mm/yyyy'}
         onFocus={() => setOpen(true)}
+        onClick={() => setOpen(true)}
         onBlur={handleBlur}
         type='text'
         isReadOnly
