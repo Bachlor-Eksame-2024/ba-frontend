@@ -51,7 +51,9 @@ export default function Calendar() {
         <div className='absolute w-fit left-1/2 transform -translate-x-1/2' ref={calendarRef}>
           <CalendarNext
             value={calendarDate}
+            minValue={today(getLocalTimeZone())}
             onChange={handleDate}
+            color='secondary'
             aria-label='Date (No Selection)'
           />
         </div>
