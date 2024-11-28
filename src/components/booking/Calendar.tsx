@@ -28,7 +28,7 @@ export default function Calendar() {
       <h2 className='text-xl font-bold mb-4 mt-8'>Vælg dato</h2>
       <Input
         value={selectedDate}
-        placeholder={selectedDate}
+        placeholder={'dd/mm/yyyy'}
         onFocus={() => setOpen(true)}
         onBlur={handleBlur}
         type='text'
