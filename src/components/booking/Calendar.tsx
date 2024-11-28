@@ -47,7 +47,7 @@ export default function Calendar() {
         isReadOnly
       />
       <svg
-        className='absolute pointer-events-none top-[3.4rem] right-3'
+        className='absolute pointer-events-none top-[0.7rem] right-[1rem]'
         height='21'
         viewBox='0 0 21 21'
         width='21'
