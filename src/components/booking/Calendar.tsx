@@ -1,7 +1,7 @@
 import { DatePicker } from '@nextui-org/react';
 
 export default function Calendar() {
-  const variant = 'underlined';
+  const variant = 'bordered';
   return (
     <div>
       <h2 className='text-xl font-bold mb-4 mt-8'>Vælg dato</h2>
