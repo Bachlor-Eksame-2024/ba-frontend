@@ -82,7 +82,7 @@ function Payment() {
     return (
       <form className='w-full bg-default-50 p-4 rounded-lg flex flex-col gap-4'>
         <PaymentElement />
-        <Button className='bg-secondary-400 w-fit'>Submit</Button>
+        <Button className='bg-secondary w-fit'>Submit</Button>
       </form>
     );
   };

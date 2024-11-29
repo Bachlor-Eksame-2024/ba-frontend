@@ -41,7 +41,7 @@ const TimeSlotSelector: React.FC = () => {
               onClick={() => setSelectedAmount(amount)}
               className={`h-16 w-1/4 rounded ${
                 selectedAmount === amount
-                  ? 'bg-secondary-400 text-secondary-900'
+                  ? 'bg-secondary text-secondary-900'
                   : 'text-default-800 hover:bg-default-800 hover:bg-opacity-15'
               }`}
             >
@@ -57,7 +57,7 @@ const TimeSlotSelector: React.FC = () => {
               onClick={() => setSelectedSlot(slot)}
               className={`h-16 rounded ${
                 selectedSlot === slot
-                  ? 'bg-secondary-400 text-secondary-900'
+                  ? 'bg-secondary text-secondary-900'
                   : 'bg-default-800 bg-opacity-10 text-default-800 hover:bg-default-800 hover:bg-opacity-15'
               }`}
             >

@@ -57,6 +57,9 @@ module.exports = {
           },
         },
         dark: {
+          colors: {
+            secondary: '#7828C8',
+          },
           layout: {
             hoverOpacity: 0.9, //  this value is applied as opacity-[value] when the component is hovered
             boxShadow: {

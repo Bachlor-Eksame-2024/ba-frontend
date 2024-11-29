@@ -36,7 +36,7 @@ function AdminSidebar({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
           {sidebarMenu.map((menu, index) => (
             <li
               key={index}
-              className={`${menu.name === selectedMenu && 'bg-secondary-400'} hover:bg-secondary-400 flex items-center rounded-xl py-2 pl-2 w-full cursor-pointer text-base`}
+              className={`${menu.name === selectedMenu && 'bg-secondary'} hover:bg-secondary flex items-center rounded-xl py-2 pl-2 w-full cursor-pointer text-base`}
               onClick={() => setSelectedMenu(menu.name)}
             >
               <Link href=''>{menu.name}</Link>

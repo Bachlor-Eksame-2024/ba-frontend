@@ -1,4 +1,4 @@
-import { Route } from 'wouter';
+import { Route, Switch } from 'wouter';
 import './App.css';
 //import useSWR from 'swr';
 import LandingPage from './pages/LandingPage';
@@ -12,6 +12,7 @@ import WorkoutPrograms from './pages/WorkoutPrograms';
 import MobileNavigation from './components/navigation/MobileNavigation';
 import DesktopNavigation from './components/navigation/DesktopNavigation';
 import SelectedWorkout from './pages/SelectedWorkout';
+import PageNotFound from './components/PageNotFound';
 
 function App() {
   // how to fetch data with SWR
@@ -24,7 +25,7 @@ function App() {
     <div className='md:pt-14'>
       <MobileNavigation />
       <DesktopNavigation />
-      <div>
+      <Switch>
         <Route path='/' component={LandingPage} />
         <Route path='/login' component={Signin} />
         <Route path='/signup' component={Signup} />
@@ -35,7 +36,8 @@ function App() {
         <Route path='/admin/profile' component={AdminProfile} />
         <Route path='/workout-programs' component={WorkoutPrograms} />
         <Route path='/workout-programs/:workout' component={SelectedWorkout} />
-      </div>
+        <Route path='*' component={PageNotFound} />
+      </Switch>
     </div>
   );
 }
