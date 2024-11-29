@@ -13,6 +13,7 @@ import MobileNavigation from './components/navigation/MobileNavigation';
 import DesktopNavigation from './components/navigation/DesktopNavigation';
 import SelectedWorkout from './pages/SelectedWorkout';
 import PageNotFound from './components/PageNotFound';
+import BookingProcess from './pages/BookingProcess';
 
 function App() {
   // how to fetch data with SWR
@@ -31,7 +32,7 @@ function App() {
         <Route path='/signup' component={Signup} />
         <Route path='/home' component={Home} />
         <Route path='/booking' component={Booking} />
-        <Route path='/booking/select-time-slot' component={Booking} />
+        <Route path='/booking/select-time-slot' component={BookingProcess} />
         <Route path='/profile/user' component={UserProfile} />
         <Route path='/admin/profile' component={AdminProfile} />
         <Route path='/workout-programs' component={WorkoutPrograms} />

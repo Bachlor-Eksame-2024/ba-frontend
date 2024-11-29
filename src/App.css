@@ -3,3 +3,7 @@
 .link-btn-sm {
     @apply bg-secondary text-white text-tiny font-normal py-2 px-3 outline-none tap-highlight-transparent transition-transform-colors-opacity hover:opacity-90 rounded-small;
 }
+
+html {
+   background-color: #18181B !important;
+}
