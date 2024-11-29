@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import TimeSlotSelector from '../components/booking/TimeSlotSelector';
 import Payment from '../components/booking/Payment';
 
