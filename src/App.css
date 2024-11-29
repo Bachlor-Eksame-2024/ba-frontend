@@ -1,12 +1,11 @@
 /* /Users/jonathanweldon/vsCode/ba-frontend/src/App.css */
 
 .link-btn-sm {
-
-    @apply bg-secondary text-white text-tiny font-normal py-2 px-3 outline-none tap-highlight-transparent transition-transform-colors-opacity hover:opacity-90 rounded-small;
+  @apply bg-secondary text-white text-tiny font-normal py-2 px-3 outline-none tap-highlight-transparent transition-transform-colors-opacity hover:opacity-90 rounded-small;
 }
 
 html {
-   background-color: #18181B !important;
+  background-color: #18181b !important;
 }
 
 .confsvg {
@@ -39,7 +38,7 @@ html {
   margin: 20px 0 60px;
   font-size: 1.25em;
   &.success {
-    color: #73af55;
+    color: #7828c8;
   }
 }
 @-webkit-keyframes dash {
@@ -77,4 +76,3 @@ html {
     stroke-dashoffset: 900;
   }
 }
-
