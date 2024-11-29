@@ -81,7 +81,7 @@ const BookingInterface = () => {
               onClick={() => {
                 history.pushState(null, '', '/booking/select-time-slot');
               }}
-              className='w-full py-4 bg-secondary-400 hover:bg-secondary-500 text-secondary-900 rounded transition-colors'
+              className='w-full py-4 bg-secondary hover:bg-secondary-500 text-secondary-900 rounded transition-colors'
             >
               Book tid
             </button>

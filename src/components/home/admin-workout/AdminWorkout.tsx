@@ -46,7 +46,7 @@ function AdminWorkout() {
   return (
     <div className='flex flex-col items-center gap-4 w-full mx-auto '>
       <div className='w-full flex items-start'>
-        <Button onClick={onOpen} className='bg-secondary-400'>
+        <Button onClick={onOpen} className='bg-secondary'>
           Opret ny Workout
         </Button>
       </div>
