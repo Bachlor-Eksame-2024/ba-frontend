@@ -38,7 +38,7 @@ const TimeSlotSelector: React.FC = () => {
       <div className='px-6 w-96'>
         <h2 className='text-xl font-bold mb-4 mt-4'>Vælg dato</h2>
         <Calendar />
-        <h2 className='text-xl font-bold mb-4 mt-8'>Vælg antal timer</h2>
+        <h2 className='text-md font-bold mb-4 mt-8'>Vælg antal timer</h2>
         <div className='flex gap-2 p-2 rounded bg-default-800 bg-opacity-10'>
           {timeAmount.map((amount) => (
             <button
@@ -46,7 +46,7 @@ const TimeSlotSelector: React.FC = () => {
               onClick={() => setSelectedAmount(amount)}
               className={`h-16 w-1/4 rounded ${
                 selectedAmount === amount
-                  ? 'bg-secondary-400 text-secondary-900'
+                  ? 'bg-secondary text-secondary-900'
                   : 'text-default-800 hover:bg-default-800 hover:bg-opacity-15'
               }`}
             >
@@ -54,7 +54,7 @@ const TimeSlotSelector: React.FC = () => {
             </button>
           ))}
         </div>
-        <h2 className='text-xl font-bold mb-4 mt-8'>Vælg periode</h2>
+        <h2 className='text-md font-bold mb-4 mt-8'>Vælg periode</h2>
         <div className='flex flex-col gap-2'>
           {timeSlots.map((slot) => (
             <button
@@ -62,7 +62,7 @@ const TimeSlotSelector: React.FC = () => {
               onClick={() => setSelectedSlot(slot)}
               className={`h-16 rounded ${
                 selectedSlot === slot
-                  ? 'bg-secondary-400 text-secondary-900'
+                  ? 'bg-secondary text-secondary-900'
                   : 'bg-default-800 bg-opacity-10 text-default-800 hover:bg-default-800 hover:bg-opacity-15'
               }`}
             >

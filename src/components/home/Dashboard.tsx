@@ -7,7 +7,7 @@ const AdminAreaChart = lazy(() => import('./AdminAreaChart'));
 
 function Dashboard() {
   return (
-    <div className='grid gap-4'>
+    <div className='grid gap-4 w-full'>
       <Suspense fallback={<div>Loading...</div>}>
         <AdminBarChart />
       </Suspense>
@@ -15,8 +15,8 @@ function Dashboard() {
       <div className='grid lg:grid-cols-2 gap-4'>
         <div className='grid grid-cols-2 gap-4'>
           <AdminCardStats>
-            <div className='flex gap-1'>
-              <h3 className='text-2xl'>21</h3>
+            <div className='flex  gap-1'>
+              <h3 className='text-lg'>21</h3>
               <span className='flex items-center text-green-400 text-xs'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -39,7 +39,7 @@ function Dashboard() {
           </AdminCardStats>
           <AdminCardStats>
             <div className='flex gap-1'>
-              <h3 className='text-2xl'>54</h3>
+              <h3 className='text-lg'>54</h3>
               <span className='flex items-center text-red-400 text-xs'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -63,7 +63,7 @@ function Dashboard() {
           <div className='col-span-2'>
             <AdminCardStats>
               <div className='flex gap-1'>
-                <h3 className='text-2xl'>123.660</h3>
+                <h3 className='text-lg'>123.660</h3>
                 <span className='flex items-center text-green-400 text-xs'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -87,13 +87,13 @@ function Dashboard() {
           </div>
           <AdminCardStats>
             <div className='flex gap-1'>
-              <h3 className='text-2xl'>8/25</h3>
+              <h3 className='text-lg'>8/25</h3>
             </div>
             <p>Ledige Rum</p>
           </AdminCardStats>
           <AdminCardStats>
             <div className='flex gap-1'>
-              <h3 className='text-2xl'>2748</h3>
+              <h3 className='text-lg'>2748</h3>
             </div>
             <p>Antal Medlemer</p>
           </AdminCardStats>

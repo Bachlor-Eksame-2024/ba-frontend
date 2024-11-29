@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { useRoute } from 'wouter';
+import { Link, useRoute } from 'wouter';
 import { Workouts, WorkoutWeeks } from '../types/workouts';
 import { Tab, Tabs } from '@nextui-org/tabs';
 import { Card, CardBody } from '@nextui-org/card';
@@ -21,10 +21,28 @@ function SelectedWorkout() {
 
   return (
     <div className='grid gap-4 max-w-7xl mx-auto p-4'>
-      <div className='relative min-h-96 max-h-[30vh] overflow-hidden flex items-center justify-center rounded-lg'>
-        <h1 className='absolute bottom-5 left-5 text-3xl font-bold'>
-          {filterWorkout.workout_name}
-        </h1>
+      <div className='relative min-h-96 max-h-[30vh] overflow-hidden flex items-center justify-center rounded'>
+        <Link
+          href='/workout-programs'
+          className='absolute top-5 left-5 bg-default-100 p-2 rounded-full'
+        >
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth={1.5}
+            stroke='currentColor'
+            className='size-6'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              d='M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18'
+            />
+          </svg>
+        </Link>
+
+        <h1 className='absolute bottom-5 left-5 text-xl font-bold'>{filterWorkout.workout_name}</h1>
         <img
           className='object-center object-cover h-full w-full'
           src={filterWorkout.workout_image}

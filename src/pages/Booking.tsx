@@ -43,7 +43,7 @@ const BookingInterface = () => {
     <div>
       <div className='h-screen bg-default-50'>
         <div className='px-6 w-96'>
-          <h2 className='text-xl mb-4'>Mine bookinger</h2>
+          <h2 className='text-lg mb-4'>Mine bookinger</h2>
 
           <div className='space-y-2 bg-default-800 bg-opacity-10 p-3 rounded text-center'>
             {/* Header */}
@@ -81,7 +81,7 @@ const BookingInterface = () => {
               onClick={() => {
                 history.pushState(null, '', '/booking/select-time-slot');
               }}
-              className='w-full py-4 bg-secondary-400 hover:bg-secondary-500 text-secondary-900 rounded transition-colors'
+              className='w-full py-4 bg-secondary hover:bg-secondary-500 text-secondary-900 rounded transition-colors'
             >
               Book tid
             </button>
