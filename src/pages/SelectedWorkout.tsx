@@ -21,7 +21,7 @@ function SelectedWorkout() {
 
   return (
     <div className='grid gap-4 max-w-7xl mx-auto p-4'>
-      <div className='relative min-h-96 max-h-[30vh] overflow-hidden flex items-center justify-center rounded-lg'>
+      <div className='relative min-h-96 max-h-[30vh] overflow-hidden flex items-center justify-center rounded'>
         <Link
           href='/workout-programs'
           className='absolute top-5 left-5 bg-default-100 p-2 rounded-full'
@@ -42,9 +42,7 @@ function SelectedWorkout() {
           </svg>
         </Link>
 
-        <h1 className='absolute bottom-5 left-5 text-3xl font-bold'>
-          {filterWorkout.workout_name}
-        </h1>
+        <h1 className='absolute bottom-5 left-5 text-xl font-bold'>{filterWorkout.workout_name}</h1>
         <img
           className='object-center object-cover h-full w-full'
           src={filterWorkout.workout_image}

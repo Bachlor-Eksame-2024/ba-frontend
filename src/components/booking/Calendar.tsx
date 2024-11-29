@@ -49,7 +49,7 @@ const Calendar = () => {
   return (
     <div className='mb-'>
       <div className='flex items-center justify-between mb-4'>
-        <div className='text-xl font-bold'>
+        <div className='text-md font-bold'>
           {currentMonth} {currentYear}
         </div>
         <div className='flex items-center'>

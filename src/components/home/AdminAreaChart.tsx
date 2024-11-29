@@ -51,7 +51,7 @@ function AdminAreaChart() {
   const CustomTooltip: React.FC<TooltipProps<number, string>> = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <div className='custom-tooltip bg-default-200 p-2 rounded-lg'>
+        <div className='custom-tooltip bg-default-200 p-2 rounded'>
           <p className='label'>{`2023 : ${payload[0].value}`}</p>
           <p className='label'>{`2024 : ${payload[1].value}`}</p>
           <p className='desc'>Medlemskaber</p>
@@ -63,7 +63,7 @@ function AdminAreaChart() {
 
   return (
     <div>
-      <div className='relative bg-default-100 min-w-72 min-h-40 w-full max-h-[350px] h-full aspect-video rounded-lg flex justify-center items-center p-2 cursor-pointer'>
+      <div className='relative bg-default-100 min-w-72 min-h-40 w-full max-h-[350px] h-full aspect-video rounded flex justify-center items-center p-2 cursor-pointer'>
         <ResponsiveContainer width='100%' height='100%'>
           <AreaChart
             width={500}

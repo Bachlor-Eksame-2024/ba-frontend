@@ -17,7 +17,7 @@ const AddExercise = ({ weekIndex }: AddExerciseProps) => {
   return (
     <div className='space-y-4'>
       {[...Array(exercises)].map((_, i) => (
-        <div key={i} className='space-y-2 p-4 bg-default-700 rounded-lg relative'>
+        <div key={i} className='space-y-2 p-4 bg-default-700 rounded relative'>
           <div className='absolute right-1 top-1'>
             {exercises > 1 && (
               <button
@@ -42,13 +42,13 @@ const AddExercise = ({ weekIndex }: AddExerciseProps) => {
             required
             name={'exerciseTitle' + i + weekIndex}
             type='text'
-            className='p-4 w-full bg-default-800 rounded-xl text-background'
+            className='p-4 w-full bg-default-800 rounded text-background'
             placeholder='Øvelse Navn'
           />
           <textarea
             required
             name={'exerciseDescription' + i + weekIndex}
-            className='p-4 w-full bg-default-800 rounded-xl text-background'
+            className='p-4 w-full bg-default-800 rounded text-background'
             placeholder='Øvelse Beskrivelse'
           />
         </div>
@@ -58,7 +58,7 @@ const AddExercise = ({ weekIndex }: AddExerciseProps) => {
         <button
           onClick={addNewExerciseField}
           type='button'
-          className='bg-default-600 text-background px-4 py-2 rounded-lg hover:bg-default-500 transition-colors'
+          className='bg-default-600 text-background px-4 py-2 rounded hover:bg-default-500 transition-colors'
         >
           Add Another Exercise
         </button>
