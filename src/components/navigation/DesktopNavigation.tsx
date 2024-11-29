@@ -34,7 +34,7 @@ const DesktopNavigation = () => {
   ];
 
   return (
-    <div className='fixed top-0 left-0 right-0 bg-default-50 bg-opacity-95 backdrop-blur-md justify-between items-center px-14 h-14 z-50 hidden md:flex'>
+    <div className='top-0 left-0 right-0 bg-default-50 bg-opacity-95 backdrop-blur-md justify-between items-center px-14 h-14 z-50 hidden md:flex'>
       <div className='flex items-center'>
         <Link href='/home' onClick={() => setActiveTab('')}>
           <img src={Logo} alt='fitboks logo' className='h-8 cursor-pointer' />

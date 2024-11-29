@@ -23,23 +23,25 @@ function App() {
   if (!data) return <div>Loading...</div>;
  */
   return (
-    <div className='md:pt-14'>
-      <MobileNavigation />
-      <DesktopNavigation />
-      <Switch>
-        <Route path='/' component={LandingPage} />
-        <Route path='/login' component={Signin} />
-        <Route path='/signup' component={Signup} />
-        <Route path='/home' component={Home} />
-        <Route path='/booking' component={Booking} />
-        <Route path='/booking/select-time-slot' component={BookingProcess} />
-        <Route path='/profile/user' component={UserProfile} />
-        <Route path='/admin/profile' component={AdminProfile} />
-        <Route path='/workout-programs' component={WorkoutPrograms} />
-        <Route path='/workout-programs/:workout' component={SelectedWorkout} />
-        <Route path='*' component={PageNotFound} />
-      </Switch>
-    </div>
+    <>
+      <div className='min-h-screen flex flex-col'>
+        <MobileNavigation />
+        <DesktopNavigation />
+        <Switch>
+          <Route path='/' component={LandingPage} />
+          <Route path='/login' component={Signin} />
+          <Route path='/signup' component={Signup} />
+          <Route path='/home' component={Home} />
+          <Route path='/booking' component={Booking} />
+          <Route path='/booking/select-time-slot' component={BookingProcess} />
+          <Route path='/profile/user' component={UserProfile} />
+          <Route path='/admin/profile' component={AdminProfile} />
+          <Route path='/workout-programs' component={WorkoutPrograms} />
+          <Route path='/workout-programs/:workout' component={SelectedWorkout} />
+          <Route path='*' component={PageNotFound} />
+        </Switch>
+      </div>
+    </>
   );
 }
 

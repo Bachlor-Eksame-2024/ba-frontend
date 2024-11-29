@@ -68,10 +68,10 @@ export default function Signin() {
   };
 
   return (
-    <div className="relative h-screen w-full bg-[url('./assets/HealthFitness1.jpeg')] bg-cover bg-center">
+    <div className="relative h-full flex items-center justify-center flex-1 w-full bg-[url('./assets/HealthFitness1.jpeg')] bg-cover bg-center">
       <div className='absolute inset-0 bg-gray-800 opacity-50 backdrop-blur-sm'></div>
       <div className='relative z-10 flex items-center justify-center h-full px-4'>
-        <div className='bg-zinc-900 p-6 sm:p-10 md:p-20 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 max-w-2xl rounded'>
+        <div className='bg-zinc-900 p-16 min-w-16 max-w-96 rounded'>
           <h1 className='text-lg pb-8'>Login</h1>
           <form onSubmit={handleLogin} className='flex flex-col space-y-4'>
             <label htmlFor='email' className='text-sm'>
@@ -98,7 +98,7 @@ export default function Signin() {
               <Button type='submit' color='secondary' className='w-full sm:w-auto'>
                 Login
               </Button>
-              <p className='py-2 text-center sm:text-left text-sm'>
+              <p className='py-2 text-center sm:text-left text-sm flex gap-2 flex-wrap'>
                 Mangler du en konto?
                 <a href='/signup' className='text-indigo-500 underline ml-1 text-sm'>
                   Opret en konto her
