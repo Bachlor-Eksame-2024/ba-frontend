@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'wouter';
+import Logo from '../../assets/logo/logo.svg';
 
 const DesktopNavigation = () => {
   const [location] = useLocation();
@@ -36,7 +37,7 @@ const DesktopNavigation = () => {
     <div className='fixed top-0 left-0 right-0 bg-default-50 bg-opacity-95 backdrop-blur-md justify-between items-center px-14 h-14 z-50 hidden md:flex'>
       <div className='flex items-center'>
         <Link href='/home' onClick={() => setActiveTab('')}>
-          <span className='text-xl font-bold cursor-pointer'>fitboks</span>
+          <img src={Logo} alt='fitboks logo' className='h-8 cursor-pointer' />
         </Link>
       </div>
       <div className='flex space-x-4'>
