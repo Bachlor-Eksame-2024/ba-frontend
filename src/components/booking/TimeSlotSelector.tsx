@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
 import Calendar from './Calendar';
+import MobileNavigation from '../navigation/MobileNavigation';
+import DesktopNavigation from '../navigation/DesktopNavigation';
 
 const TimeSlotSelector: React.FC = () => {
   const [, setLocation] = useLocation();
@@ -31,7 +33,10 @@ const TimeSlotSelector: React.FC = () => {
 
   return (
     <div className='fixed inset-0 bg-default-50 flex items-center justify-center z-50 overflow-auto transition-colors'>
+      <MobileNavigation />
+      <DesktopNavigation />
       <div className='px-6 w-96'>
+        <h2 className='text-xl font-bold mb-4 mt-4'>Vælg dato</h2>
         <Calendar />
         <h2 className='text-md font-bold mb-4 mt-8'>Vælg antal timer</h2>
         <div className='flex gap-2 p-2 rounded bg-default-800 bg-opacity-10'>
@@ -65,18 +70,14 @@ const TimeSlotSelector: React.FC = () => {
             </button>
           ))}
         </div>
-        <div className='mt-4 flex justify-between'>
-          <button onClick={handleClose} className='bg-gray-300 text-black px-4 py-2 rounded'>
-            Cancel
-          </button>
+        {selectedSlot && selectedAmount && (
           <button
             onClick={handleConfirm}
-            className='bg-green-500 text-white px-4 py-2 rounded'
-            disabled={!selectedSlot && !selectedAmount}
+            className='fixed bottom-20 left-2 right-2 bg-secondary-400 flex justify-around py-5 rounded-full z-50'
           >
-            Confirm
+            Book
           </button>
-        </div>
+        )}
       </div>
     </div>
   );
