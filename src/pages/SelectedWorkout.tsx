@@ -42,9 +42,7 @@ function SelectedWorkout() {
           </svg>
         </Link>
 
-        <h1 className='absolute bottom-5 left-5 text-3xl font-bold'>
-          {filterWorkout.workout_name}
-        </h1>
+        <h1 className='absolute bottom-5 left-5 text-xl font-bold'>{filterWorkout.workout_name}</h1>
         <img
           className='object-center object-cover h-full w-full'
           src={filterWorkout.workout_image}

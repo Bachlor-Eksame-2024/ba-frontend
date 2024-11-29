@@ -12,9 +12,9 @@ function Card({ image, type = 'regular', title = 'Title', description = '' }: Ca
   const RegularCard = () => {
     return (
       <div className='min-w-72 min-h-40 aspect-video bg-default-100 rounded-lg flex flex-col justify-center items-center overflow-hidden p-4 relative cursor-pointer'>
-        <div className='flex flex-col z-[2]'>
-          <h4 className='text-3xl text-center'>{title}</h4>
-          <p>{description}</p>
+        <div className='flex flex-col z-[2] items-center justify-center'>
+          <h4 className='text-md text-center'>{title}</h4>
+          <p className='text-center'>{description}</p>
         </div>
 
         {image && (

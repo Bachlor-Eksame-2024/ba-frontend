@@ -7,7 +7,7 @@ function UserInfoCard() {
     <div className='flex flex-col gap-2 cursor-pointer' onClick={onOpen}>
       <span>Medlem</span>
       <div className='min-w-72 min-h-40 aspect-video bg-default-100 rounded-lg p-4 grid gap-2'>
-        <h3 className='text-2xl'>Medlemskab</h3>
+        <h3 className='text-lg'>Medlemskab</h3>
         <div className='flex gap-2 justify-between'>
           <div className='grid gap-1'>
             <span>Startdato</span>

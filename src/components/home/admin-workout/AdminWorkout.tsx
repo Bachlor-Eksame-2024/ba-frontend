@@ -59,7 +59,7 @@ function AdminWorkout() {
         >
           <CardHeader className='absolute z-10 top-1 flex-col items-start'>
             <p className='text-tiny text-white/60 uppercase font-bold'>{workout.workout_level}</p>
-            <h4 className='text-white/90 font-medium text-xl'>{workout.workout_name}</h4>
+            <h4 className='text-white/90 font-medium text-lg'>{workout.workout_name}</h4>
           </CardHeader>
           <Image
             removeWrapper
