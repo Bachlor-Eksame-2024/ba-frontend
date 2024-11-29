@@ -118,19 +118,19 @@ function AdminNewWorkout({ isOpen, onOpenChange }: AdminNewWorkoutProps) {
                   required
                   name='workoutTitle'
                   type='text'
-                  className='p-4 w-full bg-default-700 rounded-xl text-background'
+                  className='p-4 w-full bg-default-700 rounded text-background'
                   placeholder='Titel'
                 />
                 <textarea
                   required
                   name='workoutDescription'
-                  className='p-4 min-h-16 w-full bg-default-700 rounded-xl text-background'
+                  className='p-4 min-h-16 w-full bg-default-700 rounded text-background'
                   rows={4}
                   placeholder='Beskrivelse'
                 />
                 <select
                   name='workoutLevel'
-                  className='p-4 w-full bg-default-700 rounded-xl text-background'
+                  className='p-4 w-full bg-default-700 rounded text-background'
                 >
                   <option value='Beginner'>Beginner</option>
                   <option value='Advanced'>Advanced</option>
@@ -140,7 +140,7 @@ function AdminNewWorkout({ isOpen, onOpenChange }: AdminNewWorkoutProps) {
                   required
                   name='workoutImageUrl'
                   type='text'
-                  className='p-4 w-full bg-default-700 rounded-xl text-background'
+                  className='p-4 w-full bg-default-700 rounded text-background'
                   placeholder='Billede URL'
                 />
                 {[...Array(weeks)].map((_, index) => (
