@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { useLocation } from 'wouter';
 import Calendar from './Calendar';
 import MobileNavigation from '../navigation/MobileNavigation';
 import DesktopNavigation from '../navigation/DesktopNavigation';
 
-const TimeSlotSelector: React.FC = () => {
-  const [, setLocation] = useLocation();
+interface TimeSlotSelectorProps {
+  setShowPayment: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [selectedAmount, setSelectedAmount] = useState<string | null>(null);
 
@@ -20,14 +22,10 @@ const TimeSlotSelector: React.FC = () => {
     '14:00 - 16.00',
   ];
 
-  const handleClose = () => {
-    setLocation('/booking');
-  };
-
   const handleConfirm = () => {
     if (selectedSlot && selectedAmount) {
-      alert(`Booked for ${selectedSlot}`);
-      handleClose();
+      // alert(`Booked for ${selectedSlot}`);
+      setShowPayment(true);
     }
   };
 

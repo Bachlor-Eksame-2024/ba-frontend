@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { useLocation } from 'wouter';
-import TimeSlotSelector from '../components/booking/TimeSlotSelector';
+import { Link } from 'wouter';
 
 const CheckIcon = () => (
   <svg
@@ -20,7 +19,6 @@ const CheckIcon = () => (
 
 const BookingInterface = () => {
   const [selectedDates, setSelectedDates] = useState<string[]>([]);
-  const [location] = useLocation();
 
   const bookings = [
     { date: '24. Nov', room: '7', period: '11-13' },
@@ -77,14 +75,12 @@ const BookingInterface = () => {
 
           {/* Action buttons */}
           <div className='space-y-3 mt-6'>
-            <button
-              onClick={() => {
-                history.pushState(null, '', '/booking/select-time-slot');
-              }}
-              className='w-full py-4 bg-secondary hover:bg-secondary-500 text-secondary-900 rounded transition-colors'
+            <Link
+              href='/booking/select-time-slot'
+              className='w-full py-4 px-4 bg-secondary hover:bg-secondary-500 text-secondary-900 rounded transition-colors'
             >
               Book tid
-            </button>
+            </Link>
             {selectedDates.length > 0 && (
               <button
                 className='w-full py-4 bg-danger-500 bg-opacity-10 border-1 border-danger-500 text-danger-500 rounded hover:bg-opacity-15 transition-colors'
@@ -96,8 +92,6 @@ const BookingInterface = () => {
           </div>
         </div>
       </div>
-
-      {location === '/booking/select-time-slot' && <TimeSlotSelector />}
     </div>
   );
 };
