@@ -23,7 +23,7 @@ function Card({ image, type = 'regular', title = 'Title', description = '' }: Ca
             <Image
               removeWrapper
               isZoomed
-              className='absolute top-0 object-cover w-full h-full z-0'
+              className='absolute top-0 object-cover w-full h-full z-0 rounded'
               src={image}
               alt=''
             />
