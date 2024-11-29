@@ -71,7 +71,7 @@ export default function Signup() {
     <div className="relative h-screen w-full bg-[url('./assets/HealthFitness1.jpeg')] bg-cover bg-center">
       <div className='absolute inset-0 bg-gray-800 opacity-50 backdrop-blur-sm'></div>
       <div className='relative z-10 flex items-center justify-center h-full px-4'>
-        <div className='bg-zinc-900 p-6 sm:p-10 md:p-20 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 max-w-2xl rounded-md'>
+        <div className='bg-zinc-900 p-6 sm:p-10 md:p-20 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 max-w-2xl rounded'>
           <h1 className='text-xl pb-8'>Opret en bruger</h1>
           <form onSubmit={handleSignUp} className='flex flex-col space-y-4'>
             <label htmlFor='email' className='text-sm'>
@@ -81,7 +81,7 @@ export default function Signup() {
               type='email'
               id='email'
               name='email'
-              className='p-2 rounded-md bg-zinc-800 text-white w-full'
+              className='p-2 rounded bg-zinc-800 text-white w-full'
               required
             />
             <div className='flex flex-col sm:flex-row sm:justify-between sm:space-x-4 space-y-4 sm:space-y-0 pb-6'>
@@ -93,7 +93,7 @@ export default function Signup() {
                   type='text'
                   id='first_name'
                   name='first_name'
-                  className='p-2 rounded-md bg-zinc-800 text-white w-full'
+                  className='p-2 rounded bg-zinc-800 text-white w-full'
                   required
                 />
               </div>
@@ -105,7 +105,7 @@ export default function Signup() {
                   type='text'
                   id='last_name'
                   name='last_name'
-                  className='p-2 rounded-md bg-zinc-800 text-white w-full'
+                  className='p-2 rounded bg-zinc-800 text-white w-full'
                   required
                 />
               </div>
@@ -131,7 +131,7 @@ export default function Signup() {
               type='password'
               id='password'
               name='password'
-              className='p-2 rounded-md bg-zinc-800 text-white w-full'
+              className='p-2 rounded bg-zinc-800 text-white w-full'
               required
             />
             <label htmlFor='repassword' className='text-sm'>
@@ -141,7 +141,7 @@ export default function Signup() {
               type='password'
               id='repassword'
               name='repassword'
-              className='p-2 rounded-md bg-zinc-800 text-white w-full'
+              className='p-2 rounded bg-zinc-800 text-white w-full'
               required
             />
             <label htmlFor='phone' className='text-sm'>
@@ -151,7 +151,7 @@ export default function Signup() {
               type='tel'
               id='phone'
               name='phone'
-              className='p-2 rounded-md bg-zinc-800 text-white w-full'
+              className='p-2 rounded bg-zinc-800 text-white w-full'
               required
             />
             <Checkbox defaultSelected color='secondary' className='my-2'>

@@ -135,7 +135,7 @@ function AdminBarChart() {
   const CustomTooltip: React.FC<TooltipProps<number, string>> = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className='custom-tooltip bg-default-200 p-2 rounded-lg'>
+        <div className='custom-tooltip bg-default-200 p-2 rounded'>
           <p className='label'>{`${label} : ${payload[0].value}`}</p>
           <p className='desc'>Antal Besøgende</p>
         </div>
@@ -146,8 +146,8 @@ function AdminBarChart() {
 
   return (
     <div className='grid gap-2'>
-      <h2 className='text-md bg-default-100 rounded-md p-4 w-fit'>Besøgende Sidste 30 Dage.</h2>
-      <div className='relative bg-default-100 min-w-72 min-h-40 w-full max-h-[350px] aspect-video rounded-lg flex justify-center items-center p-2 cursor-pointer'>
+      <h2 className='text-md bg-default-100 rounded p-4 w-fit'>Besøgende Sidste 30 Dage.</h2>
+      <div className='relative bg-default-100 min-w-72 min-h-40 w-full max-h-[350px] aspect-video rounded flex justify-center items-center p-2 cursor-pointer'>
         <ResponsiveContainer height='90%' width={'95%'}>
           <BarChart
             width={400}

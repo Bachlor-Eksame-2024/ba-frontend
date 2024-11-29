@@ -134,7 +134,7 @@ function AdminUsers() {
         {adminUsers?.users?.map((user, index) => (
           <div
             key={index}
-            className='grid grid-cols-2 gap-4 justify-between items-center bg-default-100 p-4 rounded-lg'
+            className='grid grid-cols-2 gap-4 justify-between items-center bg-default-100 p-4 rounded'
           >
             <div className='flex flex-col gap-2'>
               <p className='font-bold'>{user.first_name}</p>

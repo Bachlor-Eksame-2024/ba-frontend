@@ -7,7 +7,7 @@ function WorkoutCard({ ...workout }: Workouts) {
     return (
       <Link
         href={`/workout-programs/${workout.workout_name.replace(/\s+/g, '-').toLowerCase()}`}
-        className='max-md:hidden min-w-72 min-h-64 aspect-video bg-default-100 rounded-lg flex flex-col justify-center items-center overflow-hidden p-4 relative cursor-pointer'
+        className='max-md:hidden min-w-72 min-h-64 aspect-video bg-default-100 rounded flex flex-col justify-center items-center overflow-hidden p-4 relative cursor-pointer'
       >
         <div className='absolute top-0 left-0 bg-secondary rounded-tl-lg rounded-br-lg z-[2]'>
           <span className='py-2 px-3 font-thin'>{workout.workout_level}</span>
@@ -34,7 +34,7 @@ function WorkoutCard({ ...workout }: Workouts) {
     return (
       <Link
         href={`/workout-programs/${workout.workout_name.replace(/\s+/g, '-').toLowerCase()}`}
-        className='md:hidden min-w-40 w-full flex-nowrap min-h-40 max-sm:aspect-[4/3] sm:aspect-video bg-default-100 rounded-lg flex flex-col justify-center items-center overflow-hidden p-2 relative cursor-pointer'
+        className='md:hidden min-w-40 w-full flex-nowrap min-h-40 max-sm:aspect-[4/3] sm:aspect-video bg-default-100 rounded flex flex-col justify-center items-center overflow-hidden p-2 relative cursor-pointer'
       >
         <div className='absolute top-0 left-0 bg-secondary rounded-tl-lg rounded-br-lg z-[2] '>
           <span className='py-2 px-3 font-thin'>{workout.workout_level}</span>
