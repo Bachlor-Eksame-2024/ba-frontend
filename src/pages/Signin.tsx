@@ -71,7 +71,7 @@ export default function Signin() {
     <div className="relative h-screen flex items-center justify-center flex-1 w-full bg-[url('./assets/HealthFitness1.jpeg')] bg-cover bg-center">
       <div className='absolute inset-0 bg-gray-800 opacity-50 backdrop-blur-sm'></div>
       <div className='relative z-10 flex items-center justify-center h-full px-4'>
-        <div className='bg-zinc-900 p-16 min-w-16 max-w-96 rounded'>
+        <div className='bg-zinc-900 p-24 min-w-[24rem] max-w-[48rem] rounded'>
           <h1 className='text-lg pb-8'>Login</h1>
           <form onSubmit={handleLogin} className='flex flex-col space-y-4'>
             <label htmlFor='email' className='text-sm'>
@@ -94,7 +94,7 @@ export default function Signin() {
               className='p-2 rounded bg-zinc-800 text-white w-full'
               required
             />
-            <div className='flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4'>
+            <div className='flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 pb-4 pt-4'>
               <Button type='submit' color='secondary' className='w-full sm:w-auto'>
                 Login
               </Button>

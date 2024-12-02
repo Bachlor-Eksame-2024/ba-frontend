@@ -77,19 +77,35 @@ export default function Signup() {
       <div className='absolute inset-0 bg-gray-800 opacity-50 backdrop-blur-sm'></div>
       <div className='relative z-10 flex items-center justify-center h-full px-4'>
         <div className='bg-zinc-900 p-6 sm:p-10 md:p-20 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 max-w-2xl rounded'>
-          <h1 className='text-xl pb-8'>Opret en bruger</h1>
+          <h1 className='text-lg pb-8'>Opret en bruger</h1>
           <form onSubmit={handleSignUp} className='flex flex-col space-y-4'>
-            <label htmlFor='email' className='text-sm'>
-              Email
-            </label>
-            <input
-              type='email'
-              id='email'
-              name='email'
-              className='p-2 rounded bg-zinc-800 text-white w-full'
-              required
-            />
-            <div className='flex flex-col sm:flex-row sm:justify-between sm:space-x-4 space-y-4 sm:space-y-0 pb-6'>
+            <div className='flex flex-col sm:flex-row sm:justify-between sm:space-x-4 space-y-4 sm:space-y-0 pb-4'>
+              <div className='flex flex-col w-full sm:w-1/2'>
+                <label htmlFor='email' className='text-sm'>
+                  Email
+                </label>
+                <input
+                  type='email'
+                  id='email'
+                  name='email'
+                  className='p-2 rounded bg-zinc-800 text-white w-full'
+                  required
+                />
+              </div>
+              <div className='flex flex-col w-full sm:w-1/2'>
+                <label htmlFor='phone' className='text-sm'>
+                  Telefon nummer
+                </label>
+                <input
+                  type='tel'
+                  id='phone'
+                  name='phone'
+                  className='p-2 rounded bg-zinc-800 text-white w-full'
+                  required
+                />
+              </div>
+            </div>
+            <div className='flex flex-col sm:flex-row sm:justify-between sm:space-x-4 space-y-4 sm:space-y-0 pb-8'>
               <div className='flex flex-col w-full sm:w-1/2'>
                 <label htmlFor='first_name' className='text-sm'>
                   Fornavn
@@ -123,42 +139,38 @@ export default function Signup() {
               label='Nuværende center'
               placeholder='Vælg et fitness center'
               defaultSelectedKeys={['fitnessx']}
-              className='max-w-full'
+              className='max-w-full pb-4'
             >
               {centers.map((center) => (
                 <SelectItem key={center.key}>{center.label}</SelectItem>
               ))}
             </Select>
-            <label htmlFor='password' className='text-sm'>
-              Password
-            </label>
-            <input
-              type='password'
-              id='password'
-              name='password'
-              className='p-2 rounded bg-zinc-800 text-white w-full'
-              required
-            />
-            <label htmlFor='repassword' className='text-sm'>
-              Re-Password
-            </label>
-            <input
-              type='password'
-              id='repassword'
-              name='repassword'
-              className='p-2 rounded bg-zinc-800 text-white w-full'
-              required
-            />
-            <label htmlFor='phone' className='text-sm'>
-              Telefon nummer
-            </label>
-            <input
-              type='tel'
-              id='phone'
-              name='phone'
-              className='p-2 rounded bg-zinc-800 text-white w-full'
-              required
-            />
+            <div className='flex flex-col sm:flex-row sm:justify-between sm:space-x-4 space-y-4 sm:space-y-0 pb-4'>
+              <div className='flex flex-col w-full sm:w-1/2'>
+                <label htmlFor='password' className='text-sm'>
+                  Kodeord
+                </label>
+                <input
+                  type='password'
+                  id='password'
+                  name='password'
+                  className='p-2 rounded bg-zinc-800 text-white w-full'
+                  required
+                />
+              </div>
+              <div className='flex flex-col w-full sm:w-1/2'>
+                <label htmlFor='repassword' className='text-sm'>
+                  Gentag kodeord
+                </label>
+                <input
+                  type='password'
+                  id='repassword'
+                  name='repassword'
+                  className='p-2 rounded bg-zinc-800 text-white w-full'
+                  required
+                />
+              </div>
+            </div>
             <Checkbox defaultSelected color='secondary' className='my-2'>
               Jeg godkender x y og x betingelser.
             </Checkbox>
