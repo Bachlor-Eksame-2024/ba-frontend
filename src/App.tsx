@@ -14,6 +14,7 @@ import DesktopNavigation from './components/navigation/DesktopNavigation';
 import SelectedWorkout from './pages/SelectedWorkout';
 import PageNotFound from './components/PageNotFound';
 import BookingProcess from './pages/BookingProcess';
+import Verify from './pages/Verify';
 
 function App() {
   // how to fetch data with SWR
@@ -38,6 +39,7 @@ function App() {
           <Route path='/admin/profile' component={AdminProfile} />
           <Route path='/workout-programs' component={WorkoutPrograms} />
           <Route path='/workout-programs/:workout' component={SelectedWorkout} />
+          <Route path='/verify' component={Verify} />
           <Route path='*' component={PageNotFound} />
         </Switch>
       </div>

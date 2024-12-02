@@ -1,11 +1,12 @@
 export interface User {
-  id: string;
+  user_id: string;
   first_name: string;
   last_name: string;
   email: string;
-  phone: string;
+  user_phone: string;
   fitness_center: string;
-  role: string;
+  user_role: string;
+  user_role_name: string;
 }
 
 // Admin user
