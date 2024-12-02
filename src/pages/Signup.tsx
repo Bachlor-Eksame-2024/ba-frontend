@@ -1,12 +1,17 @@
 import { Button } from '@nextui-org/react';
 import { Checkbox } from '@nextui-org/react';
 import { Select, SelectItem } from '@nextui-org/react';
+import useUserStore from '../stores/UserStore';
+import { useLocation } from 'wouter';
 //import useUserStore from '../stores/UserStore';
 // Import {centers} from ./centers.tsx ?
 
 export default function Signup() {
   const apiUrl = import.meta.env.VITE_API_URL;
   const apiKey = import.meta.env.VITE_API_KEY;
+  const { setUser } = useUserStore();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_location, navigate] = useLocation();
 
   //const { setUser } = useUserStore();
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -28,7 +33,7 @@ export default function Signup() {
     console.log(password);
     console.log(phone);
 
-    const response = await fetch(apiUrl + '/auth/signupp', {
+    const response = await fetch(apiUrl + '/auth/signup', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -50,8 +55,8 @@ export default function Signup() {
     if (response.ok) {
       const data = await response.json();
       console.log('Signup successful:', data);
-      // setUser(data.user);
-      // setLocation('/home');
+      setUser(data.user);
+      navigate('/home');
     } else {
       console.error('Signup failed:', response.status);
       // Handle signup error

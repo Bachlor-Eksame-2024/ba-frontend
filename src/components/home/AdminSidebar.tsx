@@ -1,6 +1,7 @@
 import { Link } from 'wouter';
 import EditProfile from './EditProfile';
 import { useDisclosure } from '@nextui-org/modal';
+import useUserStore from '../../stores/UserStore';
 
 interface AdminSidebarProps {
   setSelectedMenu: (menu: string) => void;
@@ -8,6 +9,7 @@ interface AdminSidebarProps {
 }
 
 function AdminSidebar({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
+  const { userInfo } = useUserStore();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const sidebarMenu = [
     { name: 'Dashboard', link: '/admin/dashboard' },
@@ -27,8 +29,12 @@ function AdminSidebar({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
             alt=''
           />
           <div>
-            <h3>Junior Garcia</h3>
-            <p className='text-xs text-gray-300'>Admin - Østerbrogade</p>
+            <h3>{userInfo ? userInfo.first_name + ' ' + userInfo.last_name : 'Junior Garcia'}</h3>
+            <p className='text-xs text-gray-300'>
+              {userInfo
+                ? userInfo.user_role_name + ' - ' + userInfo.fitness_center
+                : 'Admin - Østerbrogade'}
+            </p>
           </div>
         </div>
         {/* Sidebar Menu options */}
