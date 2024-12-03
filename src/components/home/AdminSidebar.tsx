@@ -24,12 +24,18 @@ function AdminSidebar({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
     <div className='md:hidden'>
       <Dropdown className='dark'>
         <DropdownTrigger>
-          <Button color={'secondary'} size='lg' variant={'solid'} className='capitalize '>
+          <Button color={'secondary'} size='lg' variant={'solid'} className='capitalize rounded'>
             {selectedMenu}
           </Button>
         </DropdownTrigger>
         <DropdownMenu
-          onAction={(key) => setSelectedMenu(key as string)}
+          onAction={(key) => {
+            if (key === 'Log ud') {
+              console.log('Log ud');
+              return;
+            }
+            setSelectedMenu(key as string);
+          }}
           className='text-white'
           aria-label='Dropdown Variants'
           color={'secondary'}
@@ -39,7 +45,7 @@ function AdminSidebar({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
           <DropdownItem key='Brugere'>Brugere</DropdownItem>
           <DropdownItem key='Bokse'>Bokse</DropdownItem>
           <DropdownItem key='Workout Programmer'>Workout Programmer</DropdownItem>
-          <DropdownItem key='Log ud' color='danger'>
+          <DropdownItem key='Log ud' color='danger' className='text-danger'>
             Log ud
           </DropdownItem>
         </DropdownMenu>
