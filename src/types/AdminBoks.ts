@@ -18,5 +18,11 @@ export interface BoksTime {
 }
 export interface BoksAvailabilty {
   available: boolean;
-  booking: string;
+  booking: Boksbooking | null;
+}
+
+interface Boksbooking {
+  start_hour: number;
+  duration: number;
+  end_hour: number;
 }

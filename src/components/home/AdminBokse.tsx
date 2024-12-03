@@ -1,20 +1,11 @@
-import { Button } from '@nextui-org/button';
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure,
-} from '@nextui-org/modal';
+import { useDisclosure } from '@nextui-org/modal';
 import { Pagination } from '@nextui-org/pagination';
 import { Select, SelectItem } from '@nextui-org/select';
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/table';
 import { useState } from 'react';
 import useSWR from 'swr';
 import { Boks, BoksData } from '../../types/AdminBoks';
-import { Tab, Tabs } from '@nextui-org/tabs';
-import { Card, CardBody } from '@nextui-org/card';
+import AdminBoksPopup from './AdminBoksPopup';
 
 const apiURL = import.meta.env.VITE_API_URL;
 
@@ -54,52 +45,6 @@ function AdminBokse() {
     );
     const data = await response.json();
     setSelectedBoks(data);
-  };
-
-  const TiderModal = () => {
-    return (
-      <Modal
-        size='5xl'
-        className='bg-default-800 text-white'
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
-      >
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className='flex flex-col gap-1'>
-                Boks {selectedBoks?.box_id} - Tider
-              </ModalHeader>
-              <ModalBody>
-                <div className='flex w-full flex-col'>
-                  <Tabs className='dark' aria-label='Options'>
-                    {selectedBoks?.dates &&
-                      Object.keys(selectedBoks.dates).map((date, index) => (
-                        <Tab key={index} title={date}>
-                          <Card className='dark'>
-                            <CardBody>
-                              <ul>
-                                {Object.keys(selectedBoks.dates[date]).map((time, index) => (
-                                  <li key={index}>{time} - Fri</li>
-                                ))}
-                              </ul>
-                            </CardBody>
-                          </Card>
-                        </Tab>
-                      ))}
-                  </Tabs>
-                </div>
-              </ModalBody>
-              <ModalFooter>
-                <Button color='secondary' onPress={onClose}>
-                  Luk
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
-    );
   };
 
   return (
@@ -149,7 +94,7 @@ function AdminBokse() {
             ))}
           </TableBody>
         </Table>
-        <TiderModal />
+        <AdminBoksPopup selectedBoks={selectedBoks} isOpen={isOpen} onOpenChange={onOpenChange} />
         <span className='text-sm text-gray-300'>Bokse total: {data.boks.length}</span>
         <Pagination
           onChange={(page) => changePage(page)}
