@@ -22,7 +22,23 @@ export interface BoksAvailabilty {
 }
 
 interface Boksbooking {
+  booking_id: number;
   start_hour: number;
   duration: number;
+  end_hour: number;
+}
+
+export interface BookingByID {
+  booking_id: number;
+  user_id: number;
+  user_first_name: string;
+  user_last_name: string;
+  fitness_center_id: number;
+  fitness_center_name: string;
+  box_id: number;
+  booking_date: string;
+  booking_code: string;
+  start_hour: number;
+  duration_hours: number;
   end_hour: number;
 }

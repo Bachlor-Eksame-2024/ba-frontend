@@ -82,6 +82,7 @@ function AdminBokse() {
                 </TableCell>
                 <TableCell>
                   <Select
+                    size='sm'
                     color={
                       boks.box_availability === 'available'
                         ? 'success'

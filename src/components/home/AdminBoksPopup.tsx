@@ -2,7 +2,9 @@ import { Button } from '@nextui-org/button';
 import { Card, CardBody } from '@nextui-org/card';
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { Tab, Tabs } from '@nextui-org/tabs';
-import { BoksData } from '../../types/AdminBoks';
+import { BoksData, BookingByID } from '../../types/AdminBoks';
+import { Accordion, AccordionItem } from '@nextui-org/react';
+import { useState } from 'react';
 
 interface AdminBoksPopupProps {
   isOpen: boolean;
@@ -11,6 +13,27 @@ interface AdminBoksPopupProps {
 }
 
 function AdminBoksPopup({ isOpen, onOpenChange, selectedBoks }: AdminBoksPopupProps) {
+  const [booking, setBooking] = useState<BookingByID | null>(null);
+
+  const getBooking = async (bookingId: { anchorKey: string }) => {
+    const booking_id = bookingId.anchorKey.split('-')[0];
+    console.log(booking_id);
+    const response = await fetch(
+      import.meta.env.VITE_API_URL + '/admin/get-booking-by-id?booking_id=' + booking_id,
+      {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': import.meta.env.VITE_API_KEY as string,
+        },
+      }
+    );
+    const data = await response.json();
+    console.log(data, 'data');
+    setBooking(data);
+  };
+
   return (
     <Modal
       size='5xl'
@@ -33,28 +56,61 @@ function AdminBoksPopup({ isOpen, onOpenChange, selectedBoks }: AdminBoksPopupPr
                       <Tab key={index} title={date}>
                         <Card className='dark'>
                           <CardBody>
-                            <ul>
-                              {Object.entries(selectedBoks.dates[date]).map(([time, timeData]) => (
-                                <li
-                                  key={time}
-                                  className={`p-2 rounded flex justify-between items-center ${
-                                    timeData.available
-                                      ? 'bg-success-100 text-success-700'
-                                      : 'bg-danger-100 text-danger-700'
-                                  }`}
-                                >
-                                  <span>{time}:00</span>
-                                  {timeData.booking && (
-                                    <span>
-                                      {timeData.booking?.start_hour} - {timeData.booking?.end_hour}:{' '}
-                                      {timeData.booking?.duration}{' '}
-                                      {timeData.booking?.duration > 1 ? 'Timer' : 'Time'}
-                                    </span>
-                                  )}
-                                  <span>{timeData.available ? 'Available' : 'Unavailable'}</span>
-                                </li>
-                              ))}
-                            </ul>
+                            <Accordion className='' onSelectionChange={(e) => getBooking(e)}>
+                              {Object.entries(selectedBoks.dates[date]).map(([time, timeData]) => {
+                                // if (timeData.booking) {
+                                return (
+                                  <AccordionItem
+                                    key={
+                                      timeData.booking
+                                        ? `${timeData.booking.booking_id}-${time}`
+                                        : time
+                                    }
+                                    isCompact={true}
+                                    isDisabled={timeData.available}
+                                    className={`px-2 mb-2 rounded opacity-100  ${
+                                      timeData.available
+                                        ? 'bg-success-100 text-success-700'
+                                        : 'bg-danger-100 text-danger-700'
+                                    }`}
+                                    aria-label='Accordion 1'
+                                    title={
+                                      <div className='flex justify-between'>
+                                        <span>{time + ':00'}</span>
+                                        {timeData.booking && (
+                                          <span>
+                                            {timeData.booking?.start_hour} -{' '}
+                                            {timeData.booking?.end_hour}:{' '}
+                                            {timeData.booking?.duration}{' '}
+                                            {timeData.booking?.duration > 1 ? 'Timer' : 'Time'}
+                                          </span>
+                                        )}
+                                        <span>
+                                          {timeData.available ? 'Available' : 'Unavailable'}
+                                        </span>
+                                      </div>
+                                    }
+                                  >
+                                    <div className='grid sm:grid-cols-2 gap-2'>
+                                      <p>Fitness Center: {booking?.fitness_center_name}</p>
+                                      <p>
+                                        Booket Af:{' '}
+                                        {`${booking?.user_first_name} ${booking?.user_last_name}`}
+                                      </p>
+                                      <p>Booking Kode: {booking?.booking_code}</p>
+                                      <p>Booking Dato: {booking?.booking_date}</p>
+                                      <Button
+                                        color='danger'
+                                        size='sm'
+                                        onClick={() => alert('Det vel en "Nice to have".')}
+                                      >
+                                        Slet Booking
+                                      </Button>
+                                    </div>
+                                  </AccordionItem>
+                                );
+                              })}
+                            </Accordion>
                           </CardBody>
                         </Card>
                       </Tab>
