@@ -6,7 +6,7 @@ export default function Home() {
   const { userInfo } = useUserStore();
   console.log(userInfo);
   return (
-    <div className='flex flex-col gap-4 md:p-8 max-md:p-4 max-w-7xl mx-auto'>
+    <div className='flex flex-col gap-4 md:p-8 max-md:p-4 max-w-7xl mx-auto mt-14'>
       {userInfo?.user_role_name === 'user' ? <HomeUser /> : <HomeAdmin />}
     </div>
   );
