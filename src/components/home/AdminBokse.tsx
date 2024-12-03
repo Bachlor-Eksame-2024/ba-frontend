@@ -1,53 +1,50 @@
-import { Button } from '@nextui-org/button';
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure,
-} from '@nextui-org/modal';
+import { useDisclosure } from '@nextui-org/modal';
 import { Pagination } from '@nextui-org/pagination';
 import { Select, SelectItem } from '@nextui-org/select';
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/table';
 import { useState } from 'react';
+import useSWR from 'swr';
+import { Boks, BoksData } from '../../types/AdminBoks';
+import AdminBoksPopup from './AdminBoksPopup';
+
+const apiURL = import.meta.env.VITE_API_URL;
 
 function AdminBokse() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [selectedBoks, setSelectedBoks] = useState<number | null>(null);
-  // maks 10 bokse af gang vi henter bokse fra databasen ved hjælp af limit 10
-  const fakeData = [
-    { boks: 1, status: 'Ledig', tider: ['06:00 - 07:00', '07:00-08:00'] },
-    { boks: 2, status: 'Booket', tider: ['10:00 - 12:00', '12:00-13:00'] },
-    { boks: 3, status: 'Lukket', tider: ['14:00 - 16:00', '16:00-20:00'] },
-  ];
+  const [selectedBoks, setSelectedBoks] = useState<BoksData | null>(null);
+  const [updateArray, setUpdateArray] = useState([0, 10]);
+  // the id need to come from userInfo when we have the login system ready
+  const { data, error } = useSWR(apiURL + '/admin/get-boks?fitness_center_id=1');
+  if (error) return <div>failed to load</div>;
+  if (!data) return <div>loading...</div>;
   const variants = ['Book', 'Frigiv', 'Luk'];
 
-  const TiderModal = () => {
-    return (
-      <Modal className='bg-default-800 text-white' isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className='flex flex-col gap-1'>Tider</ModalHeader>
-              <ModalBody>
-                {fakeData
-                  .find((boks) => boks.boks === selectedBoks)
-                  ?.tider.map((tid, index) => <p key={index}>{tid}</p>)}
-              </ModalBody>
-              <ModalFooter>
-                <Button color='danger' variant='light' onPress={onClose}>
-                  Close
-                </Button>
-                <Button color='primary' onPress={onClose}>
-                  Action
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
+  const changePage = (page: number) => {
+    if (page === 1) {
+      setUpdateArray([0, 10]);
+    }
+    if (page === 2) {
+      setUpdateArray([10, 20]);
+    }
+    if (page === 3) {
+      setUpdateArray([20, 30]);
+    }
+  };
+
+  const getBoksTimes = async (boks: number) => {
+    const response = await fetch(
+      apiURL + '/admin/get-boks-avaliability-by-id?fitness_center_id=1&boks_id=' + boks,
+      {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': import.meta.env.VITE_API_KEY as string,
+        },
+      }
     );
+    const data = await response.json();
+    setSelectedBoks(data);
   };
 
   return (
@@ -61,13 +58,13 @@ function AdminBokse() {
             <TableColumn>HANDLING</TableColumn>
           </TableHeader>
           <TableBody>
-            {fakeData.map((boks, index) => (
+            {data.boks.slice(updateArray[0], updateArray[1]).map((boks: Boks, index: number) => (
               <TableRow key={index}>
-                <TableCell>{boks.boks}</TableCell>
-                <TableCell>{boks.status}</TableCell>
+                <TableCell>Nr. {boks.box_number}</TableCell>
+                <TableCell>{boks.box_availability}</TableCell>
                 <TableCell
                   onClick={() => {
-                    setSelectedBoks(boks.boks);
+                    getBoksTimes(boks.box_number);
                     onOpen();
                   }}
                   className='cursor-pointer'
@@ -77,14 +74,14 @@ function AdminBokse() {
                 <TableCell>
                   <Select
                     color={
-                      boks.status === 'Ledig'
+                      boks.box_availability === 'available'
                         ? 'success'
-                        : boks.status === 'Booket'
+                        : boks.box_availability === 'Booket'
                           ? 'warning'
                           : 'danger'
                     }
-                    label='Handling'
-                    defaultSelectedKeys={[boks.status]}
+                    label={boks.box_availability}
+                    defaultSelectedKeys={[boks.box_availability]}
                   >
                     {variants.map((variant) => (
                       <SelectItem key={variant} value={variant}>
@@ -97,8 +94,16 @@ function AdminBokse() {
             ))}
           </TableBody>
         </Table>
-        <TiderModal />
-        <Pagination loop showControls color='secondary' total={5} initialPage={1} />
+        <AdminBoksPopup selectedBoks={selectedBoks} isOpen={isOpen} onOpenChange={onOpenChange} />
+        <span className='text-sm text-gray-300'>Bokse total: {data.boks.length}</span>
+        <Pagination
+          onChange={(page) => changePage(page)}
+          loop
+          showControls
+          color='secondary'
+          total={3}
+          initialPage={1}
+        />
       </div>
     </section>
   );
