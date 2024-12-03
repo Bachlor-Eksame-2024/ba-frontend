@@ -2,6 +2,8 @@ import { Link } from 'wouter';
 import EditProfile from './EditProfile';
 import { useDisclosure } from '@nextui-org/modal';
 import useUserStore from '../../stores/UserStore';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/dropdown';
+import { Button } from '@nextui-org/button';
 
 interface AdminSidebarProps {
   setSelectedMenu: (menu: string) => void;
@@ -18,9 +20,36 @@ function AdminSidebar({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
     { name: 'Workout Programmer', link: '/admin/workout-programmer' },
   ];
 
+  const MobileManu = () => (
+    <div className='md:hidden'>
+      <Dropdown className='dark'>
+        <DropdownTrigger>
+          <Button color={'secondary'} size='lg' variant={'solid'} className='capitalize '>
+            {selectedMenu}
+          </Button>
+        </DropdownTrigger>
+        <DropdownMenu
+          onAction={(key) => setSelectedMenu(key as string)}
+          className='text-white'
+          aria-label='Dropdown Variants'
+          color={'secondary'}
+          variant={'solid'}
+        >
+          <DropdownItem key='Dashboard'>Dashboard</DropdownItem>
+          <DropdownItem key='Brugere'>Brugere</DropdownItem>
+          <DropdownItem key='Bokse'>Bokse</DropdownItem>
+          <DropdownItem key='Workout Programmer'>Workout Programmer</DropdownItem>
+          <DropdownItem key='Log ud' color='danger'>
+            Log ud
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+    </div>
+  );
+
   return (
     <aside>
-      <section className='grid gap-8 bg-default-100 min-w-[17rem] w-80 min-h-[30rem] px-6 pt-6 pb-8 rounded cursor-pointer'>
+      <section className='md:grid max-md:flex max-md:items-center max-md:justify-between gap-8 bg-default-100 min-w-[17rem] md:w-80 md:min-h-[30rem] max-md:mb-4 max-md:p-4 md:px-6 md:pt-6 md:pb-8 rounded cursor-pointer'>
         {/* Replace with admin Profil */}
         <div className='flex gap-2 items-center' onClick={onOpen}>
           <img
@@ -38,7 +67,7 @@ function AdminSidebar({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
           </div>
         </div>
         {/* Sidebar Menu options */}
-        <ul className='grid gap-4'>
+        <ul className='max-md:hidden grid gap-4'>
           {sidebarMenu.map((menu, index) => (
             <li
               key={index}
@@ -48,7 +77,13 @@ function AdminSidebar({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
               <Link href=''>{menu.name}</Link>
             </li>
           ))}
+          <li
+            className={`hover:bg-danger flex items-center rounded py-2 pl-2 w-full cursor-pointer text-sm`}
+          >
+            <Link href=''>Log ud</Link>
+          </li>
         </ul>
+        <MobileManu />
       </section>
       <EditProfile isOpen={isOpen} onOpenChange={onOpenChange} />
     </aside>
