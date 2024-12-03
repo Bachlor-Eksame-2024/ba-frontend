@@ -1,10 +1,12 @@
 export interface User {
-  user_id: string;
+  email: string;
   first_name: string;
   last_name: string;
-  email: string;
-  user_phone: string;
   fitness_center: string;
+  fitness_center_id: number;
+  is_verified: boolean;
+  user_id: number;
+  user_phone: string;
   user_role: string;
   user_role_name: string;
 }

@@ -19,7 +19,7 @@ export default function WorkoutPrograms() {
   if (!data) return <div>Loading...</div>;
 
   return (
-    <div className='flex flex-col items-center gap-4 w-full max-w-7xl mx-auto p-4'>
+    <div className='flex flex-col items-center gap-4 w-full max-w-7xl mx-auto p-4 pt-20'>
       {workoutPrograms?.map((workout: Workouts) => (
         <Card
           key={workout.workout_id + 34}

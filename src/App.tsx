@@ -12,38 +12,79 @@ import WorkoutPrograms from './pages/WorkoutPrograms';
 import MobileNavigation from './components/navigation/MobileNavigation';
 import DesktopNavigation from './components/navigation/DesktopNavigation';
 import SelectedWorkout from './pages/SelectedWorkout';
-import PageNotFound from './components/PageNotFound';
+import PageNotFound from './pages/PageNotFound';
 import BookingProcess from './pages/BookingProcess';
 import Verify from './pages/Verify';
+import { useAuth } from './hooks/useAuth';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 function App() {
-  // how to fetch data with SWR
-  /*   const { data, error } = useSWR('https://httpbin.org/get');
+  const { isLoading } = useAuth();
+  if (isLoading) return <div>Loading...</div>;
 
-  if (error) return <div>Failed to load fetch data</div>;
-  if (!data) return <div>Loading...</div>;
- */
   return (
-    <>
-      <div className='min-h-screen'>
-        <MobileNavigation />
-        <DesktopNavigation />
-        <Switch>
-          <Route path='/' component={LandingPage} />
-          <Route path='/login' component={Signin} />
-          <Route path='/signup' component={Signup} />
-          <Route path='/home' component={Home} />
-          <Route path='/booking' component={Booking} />
-          <Route path='/booking/select-time-slot' component={BookingProcess} />
-          <Route path='/profile/user' component={UserProfile} />
-          <Route path='/admin/profile' component={AdminProfile} />
-          <Route path='/workout-programs' component={WorkoutPrograms} />
-          <Route path='/workout-programs/:workout' component={SelectedWorkout} />
-          <Route path='/verify' component={Verify} />
-          <Route path='*' component={PageNotFound} />
-        </Switch>
-      </div>
-    </>
+    <div className='min-h-screen'>
+      <MobileNavigation />
+      <DesktopNavigation />
+      <Switch>
+        {/* Public Routes */}
+        <Route path='/'>
+          <ProtectedRoute requireAuth={false}>
+            <LandingPage />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/login'>
+          <ProtectedRoute requireAuth={false}>
+            <Signin />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/signup'>
+          <ProtectedRoute requireAuth={false}>
+            <Signup />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/verify' component={Verify} />
+
+        {/* Protected Routes */}
+        <Route path='/home'>
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/booking'>
+          <ProtectedRoute>
+            <Booking />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/booking/select-time-slot'>
+          <ProtectedRoute>
+            <BookingProcess />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/profile/user'>
+          <ProtectedRoute>
+            <UserProfile />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/admin/profile'>
+          <ProtectedRoute>
+            <AdminProfile />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/workout-programs'>
+          <ProtectedRoute>
+            <WorkoutPrograms />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/workout-programs/:workout'>
+          <ProtectedRoute>
+            <SelectedWorkout />
+          </ProtectedRoute>
+        </Route>
+
+        <Route path='*' component={PageNotFound} />
+      </Switch>
+    </div>
   );
 }
 

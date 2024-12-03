@@ -4,6 +4,7 @@ import { useDisclosure } from '@nextui-org/modal';
 import useUserStore from '../../stores/UserStore';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/dropdown';
 import { Button } from '@nextui-org/button';
+import { useLogout } from '../../hooks/useLogout';
 
 interface AdminSidebarProps {
   setSelectedMenu: (menu: string) => void;
@@ -12,6 +13,8 @@ interface AdminSidebarProps {
 
 function AdminSidebar({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
   const { userInfo } = useUserStore();
+  const { logout, isLoading } = useLogout();
+  console.log(userInfo, 'userInfo');
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const sidebarMenu = [
     { name: 'Dashboard', link: '/admin/dashboard' },
@@ -31,7 +34,7 @@ function AdminSidebar({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
         <DropdownMenu
           onAction={(key) => {
             if (key === 'Log ud') {
-              console.log('Log ud');
+              logout();
               return;
             }
             setSelectedMenu(key as string);
@@ -83,11 +86,14 @@ function AdminSidebar({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
               <Link href=''>{menu.name}</Link>
             </li>
           ))}
-          <li
-            className={`hover:bg-danger flex items-center rounded py-2 pl-2 w-full cursor-pointer text-sm`}
+          <Button
+            className={`hover:bg-danger hover:text-white text-danger flex items-center justify-start bg-transparent rounded py-2 pl-2 w-full cursor-pointer text-sm`}
+            onClick={logout}
+            spinner={isLoading}
+            isLoading={isLoading}
           >
-            <Link href=''>Log ud</Link>
-          </li>
+            LOGOUT
+          </Button>
         </ul>
         <MobileManu />
       </section>
