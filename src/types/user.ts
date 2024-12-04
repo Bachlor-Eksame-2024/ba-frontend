@@ -5,6 +5,7 @@ export interface User {
   email: string;
   user_phone: string;
   fitness_center: string;
+  fitness_center_id: string;
   user_role: string;
   user_role_name: string;
 }
