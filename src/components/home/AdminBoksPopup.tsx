@@ -3,7 +3,7 @@ import { Card, CardBody } from '@nextui-org/card';
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { Tab, Tabs } from '@nextui-org/tabs';
 import { BoksData, BookingByID } from '../../types/AdminBoks';
-import { Accordion, AccordionItem } from '@nextui-org/react';
+import { Accordion, AccordionItem, Selection } from '@nextui-org/react';
 import { useState } from 'react';
 
 interface AdminBoksPopupProps {
@@ -15,9 +15,10 @@ interface AdminBoksPopupProps {
 function AdminBoksPopup({ isOpen, onOpenChange, selectedBoks }: AdminBoksPopupProps) {
   const [booking, setBooking] = useState<BookingByID | null>(null);
 
-  const getBooking = async (bookingId: { anchorKey: string }) => {
-    const booking_id = bookingId.anchorKey.split('-')[0];
-    console.log(booking_id);
+  const getBooking = async (key: Selection) => {
+    const getBookingID = Array.from(key)[0];
+    const booking_id = getBookingID.toString().split('-')[0];
+
     const response = await fetch(
       import.meta.env.VITE_API_URL + '/admin/get-booking-by-id?booking_id=' + booking_id,
       {
@@ -56,7 +57,7 @@ function AdminBoksPopup({ isOpen, onOpenChange, selectedBoks }: AdminBoksPopupPr
                       <Tab key={index} title={date}>
                         <Card className='dark'>
                           <CardBody>
-                            <Accordion className='' onSelectionChange={(e) => getBooking(e)}>
+                            <Accordion className='' onSelectionChange={(key) => getBooking(key)}>
                               {Object.entries(selectedBoks.dates[date]).map(([time, timeData]) => {
                                 // if (timeData.booking) {
                                 return (
