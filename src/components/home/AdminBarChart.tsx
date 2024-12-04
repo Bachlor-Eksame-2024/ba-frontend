@@ -9,129 +9,11 @@ import {
   YAxis,
 } from 'recharts';
 
-const desktopData = [
-  {
-    name: '1',
-    pv: 208,
-  },
-  {
-    name: '2',
-    pv: 309,
-  },
-  {
-    name: '3',
-    pv: 239,
-  },
-  {
-    name: '4',
-    pv: 256,
-  },
-  {
-    name: '5',
-    pv: 179,
-  },
-  {
-    name: '6',
-    pv: 109,
-  },
-  {
-    name: '7',
-    pv: 274,
-  },
-  {
-    name: '8',
-    pv: 398,
-  },
-  {
-    name: '9',
-    pv: 400,
-  },
-  {
-    name: '10',
-    pv: 243,
-  },
-  {
-    name: '11',
-    pv: 189,
-  },
-  {
-    name: '12',
-    pv: 158,
-  },
-  {
-    name: '13',
-    pv: 263,
-  },
-  {
-    name: '14',
-    pv: 245,
-  },
-  {
-    name: '15',
-    pv: 378,
-  },
-  {
-    name: '16',
-    pv: 296,
-  },
-  {
-    name: '17',
-    pv: 145,
-  },
-  {
-    name: '18',
-    pv: 198,
-  },
-  {
-    name: '19',
-    pv: 278,
-  },
-  {
-    name: '20',
-    pv: 308,
-  },
-  {
-    name: '21',
-    pv: 165,
-  },
-  {
-    name: '22',
-    pv: 271,
-  },
-  {
-    name: '23',
-    pv: 208,
-  },
-  {
-    name: '24',
-    pv: 301,
-  },
-  {
-    name: '25',
-    pv: 324,
-  },
-  {
-    name: '26',
-    pv: 265,
-  },
-  {
-    name: '27',
-    pv: 194,
-  },
-  {
-    name: '28',
-    pv: 310,
-  },
-  {
-    name: '29',
-    pv: 233,
-  },
-  {
-    name: '30',
-    pv: 120,
-  },
-];
-function AdminBarChart() {
+interface MonthlyVisitor {
+  name: string;
+  pv: number;
+}
+function AdminBarChart({ monthlyVisitors }: { monthlyVisitors: MonthlyVisitor[] }) {
   const CustomTooltip: React.FC<TooltipProps<number, string>> = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
@@ -152,7 +34,7 @@ function AdminBarChart() {
           <BarChart
             width={400}
             height={200}
-            data={desktopData}
+            data={monthlyVisitors}
             margin={{
               top: 0,
               right: 0,
