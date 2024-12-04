@@ -41,9 +41,8 @@ const BookingInterface = () => {
     <div>
       <div className='h-screen bg-default-50'>
         <div className='px-6 w-96'>
-          <h2 className='text-lg mb-4'>Mine bookinger</h2>
-
-          <div className='space-y-2 bg-default-800 bg-opacity-10 p-3 rounded text-center'>
+          <h2 className='text-md font-medium mb-4 mt-3'>Mine bookinger</h2>
+          <div className='bg-default-800 bg-opacity-10 p-3 rounded text-center'>
             {/* Header */}
             <div className='grid grid-cols-4 mb-2 text-gray-300'>
               <div className='col-start-2'>Dato</div>
@@ -74,12 +73,11 @@ const BookingInterface = () => {
           </div>
 
           {/* Action buttons */}
-          <div className='space-y-3 mt-6'>
-            <Link
-              href='/booking/select-time-slot'
-              className='w-full py-4 px-4 bg-secondary hover:bg-secondary-500 text-secondary-900 rounded transition-colors'
-            >
-              Book tid
+          <div className='mt-6'>
+            <Link href='/booking/select-time-slot' className=''>
+              <button className='w-full py-4 bg-secondary hover:bg-secondary-500 text-white rounded transition-colors'>
+                Book tid
+              </button>
             </Link>
             {selectedDates.length > 0 && (
               <button
