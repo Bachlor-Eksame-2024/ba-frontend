@@ -2,6 +2,7 @@ import { Input } from '@nextui-org/react';
 import { Calendar as CalendarNext } from '@nextui-org/react';
 import { useEffect, useRef, useState } from 'react';
 import { today, getLocalTimeZone, CalendarDate } from '@internationalized/date';
+import CalendarIcon from '../../assets/icons/calendar2.svg';
 
 export default function Calendar() {
   const [isOpen, setOpen] = useState(false);
@@ -36,8 +37,7 @@ export default function Calendar() {
   }, [calendarDate]);
 
   return (
-
-    <div className='relative'>
+    <div className='relative md:hidden'>
       <Input
         value={selectedDate}
         placeholder={'dd/mm/yyyy'}
@@ -47,27 +47,13 @@ export default function Calendar() {
         type='text'
         isReadOnly
       />
-      <svg
+      <img
+        src={CalendarIcon}
+        alt='Calendar'
         className='absolute pointer-events-none top-[0.7rem] right-[1rem]'
-        height='21'
-        viewBox='0 0 21 21'
         width='21'
-        xmlns='http://www.w3.org/2000/svg'
-      >
-        <g
-          fill='none'
-          fillRule='evenodd'
-          stroke='currentColor'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          transform='translate(2 2)'
-        >
-          <path d='m2.5.5h12c1.1045695 0 2 .8954305 2 2v12c0 1.1045695-.8954305 2-2 2h-12c-1.1045695 0-2-.8954305-2-2v-12c0-1.1045695.8954305-2 2-2z' />
-          <path d='m.5 4.5h16' />
-          <path d='m8.5 7.5v6.056' />
-          <path d='m8.5 7.5v6' transform='matrix(0 1 -1 0 19 2)' />
-        </g>
-      </svg>
+        height='21'
+      />
 
       {isOpen && (
         <div className='absolute w-fit left-1/2 transform -translate-x-1/2' ref={calendarRef}>
