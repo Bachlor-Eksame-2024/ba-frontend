@@ -20,7 +20,7 @@ function SelectedWorkout() {
   if (!filterWorkout) return <div>Workout not found</div>;
 
   return (
-    <div className='grid gap-4 max-w-7xl mx-auto p-4'>
+    <div className='grid gap-4 max-w-7xl mx-auto p-4 pt-20'>
       <div className='relative min-h-96 max-h-[30vh] overflow-hidden flex items-center justify-center rounded'>
         <Link
           href='/workout-programs'

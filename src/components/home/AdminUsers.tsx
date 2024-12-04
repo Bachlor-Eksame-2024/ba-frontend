@@ -130,7 +130,7 @@ function AdminUsers() {
   return (
     <>
       <div className='sm:hidden grid gap-4'>
-        <Input onChange={handleInputChange} type='text' label='Søg' value={searchTerm} />
+        <Input onChange={handleInputChange} type='text' label='Søg' size='sm' value={searchTerm} />
         {adminUsers?.users?.map((user, index) => (
           <div
             key={index}
@@ -153,6 +153,7 @@ function AdminUsers() {
             <Select
               color={user.is_member ? 'success' : 'danger'}
               label='Status'
+              size='sm'
               defaultSelectedKeys={[user.is_member ? 'Aktiv' : 'Afmeldt']}
             >
               {variants.map((variant) => (
@@ -174,7 +175,7 @@ function AdminUsers() {
         />
       </div>
       <div className='max-sm:hidden grid gap-4 justify-items-center w-full'>
-        <Input onChange={handleInputChange} type='text' label='Søg' value={searchTerm} />
+        <Input onChange={handleInputChange} type='text' label='Søg' size='sm' value={searchTerm} />
         <Table aria-label='Example static collection table'>
           <TableHeader>
             <TableColumn>NAVN</TableColumn>
@@ -194,6 +195,7 @@ function AdminUsers() {
                   <Select
                     onChange={() => handleUpdateUserStatus(user.user_id, user.is_member)}
                     className='w-32'
+                    size='sm'
                     color={user.is_member ? 'success' : 'danger'}
                     defaultSelectedKeys={[user.is_member ? 'Aktiv' : 'Afmeldt']}
                   >

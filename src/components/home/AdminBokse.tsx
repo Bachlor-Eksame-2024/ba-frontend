@@ -6,15 +6,20 @@ import { useState } from 'react';
 import useSWR from 'swr';
 import { Boks, BoksData } from '../../types/AdminBoks';
 import AdminBoksPopup from './AdminBoksPopup';
+import useUserStore from '../../stores/UserStore';
 
 const apiURL = import.meta.env.VITE_API_URL;
 
 function AdminBokse() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { userInfo } = useUserStore();
   const [selectedBoks, setSelectedBoks] = useState<BoksData | null>(null);
   const [updateArray, setUpdateArray] = useState([0, 10]);
   // the id need to come from userInfo when we have the login system ready
-  const { data, error } = useSWR(apiURL + '/admin/get-boks?fitness_center_id=1');
+  const { data, error } = useSWR(
+    apiURL + '/admin/get-boks?fitness_center_id=' + userInfo?.fitness_center_id
+  );
+
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
   const variants = ['Book', 'Frigiv', 'Luk'];
@@ -33,7 +38,11 @@ function AdminBokse() {
 
   const getBoksTimes = async (boks: number) => {
     const response = await fetch(
-      apiURL + '/admin/get-boks-avaliability-by-id?fitness_center_id=1&boks_id=' + boks,
+      apiURL +
+        '/admin/get-boks-avaliability-by-id?fitness_center_id=' +
+        userInfo?.fitness_center_id +
+        '&boks_id=' +
+        boks,
       {
         method: 'GET',
         credentials: 'include',
@@ -73,6 +82,7 @@ function AdminBokse() {
                 </TableCell>
                 <TableCell>
                   <Select
+                    size='sm'
                     color={
                       boks.box_availability === 'available'
                         ? 'success'

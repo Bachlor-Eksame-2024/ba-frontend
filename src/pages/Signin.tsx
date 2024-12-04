@@ -1,12 +1,15 @@
 import { Button } from '@nextui-org/react';
 import useUserStore from '../stores/UserStore';
 import { useLocation } from 'wouter';
+import { useLogout } from '../hooks/useLogout';
+import { useAuth } from '../hooks/useAuth';
 
 export default function Signin() {
   const apiUrl = import.meta.env.VITE_API_URL;
   const apiKey = import.meta.env.VITE_API_KEY;
-
+  const { logout, isLoading } = useLogout();
   const { setUser } = useUserStore();
+  const { setIsAuthenticated } = useAuth();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_location, setLocation] = useLocation();
 
@@ -40,11 +43,8 @@ export default function Signin() {
     console.log('Respose from backend', response);
     if (response.ok) {
       const data = await response.json();
-      console.log('Login successful:', data);
-      // gem brugens data i vores zustand store
       setUser(data.user);
-
-      // redirect til /home
+      setIsAuthenticated(true); // Immediate auth state update
       setLocation('/home');
     } else {
       console.error('Login failed:', response.status);
@@ -52,19 +52,6 @@ export default function Signin() {
     }
 
     // Faa status 200 tilbage
-  };
-
-  const handleLogout = async () => {
-    const response = await fetch(apiUrl + '/auth/logout', {
-      method: 'GET',
-      credentials: 'include', // INCLUDES THE JWT TOKEN/COOKIE SO IT CAN BE DELETED (Even for cross-origin requiests)
-      headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': apiKey,
-      },
-    });
-    setUser(null);
-    console.log(response);
   };
 
   return (
@@ -106,7 +93,9 @@ export default function Signin() {
               </p>
             </div>
           </form>
-          <button onClick={handleLogout}>LOGOUT NUU!!!!</button>
+          <Button onClick={logout} isLoading={isLoading}>
+            LOGOUT
+          </Button>
         </div>
       </div>
     </div>

@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import Dashboard from './Dashboard';
 import AdminUsers from './AdminUsers';
 import AdminSidebar from './AdminSidebar';
 import AdminBokse from './AdminBokse';
 import AdminWorkout from './admin-workout/AdminWorkout';
 
-function HomeAdmin() {
+const HomeAdmin = memo(() => {
   const [selectedMenu, setSelectedMenu] = useState('Dashboard');
 
   return (
@@ -20,6 +20,6 @@ function HomeAdmin() {
       {selectedMenu === 'Workout Programmer' && <AdminWorkout />}
     </div>
   );
-}
+});
 
 export default HomeAdmin;

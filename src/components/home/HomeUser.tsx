@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, memo } from 'react';
 import Card from '../Card';
 import UserInfoCard from './UserInfoCard';
 import useSWR from 'swr';
@@ -6,6 +6,7 @@ import { Workouts } from '../../types/workouts';
 import WorkoutCard from '../workouts/WorkoutCard';
 import LatestBooking from './LatestBooking';
 import useWorkoutStore from '../../stores/WorkoutStore';
+import { Link } from 'wouter';
 
 const normalCards = [
   {
@@ -52,7 +53,7 @@ const userCards = [
 // Dynamically import the AdminBarChart component
 const UserChartMobile = lazy(() => import('./UserChartMobile'));
 
-function HomeUser() {
+const HomeUser = memo(() => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const { workoutPrograms, setWorkoutPrograms } = useWorkoutStore();
   const { data, error } = useSWR(apiUrl + '/workout/get-workouts', {
@@ -67,10 +68,10 @@ function HomeUser() {
     <div className='flex flex-col gap-4'>
       {LastedBooking && <LatestBooking />}
       <div className='grid sm:grid-cols-2 gap-4'>
-        <div className='flex flex-col gap-2'>
+        <Link href='/booking' className='flex flex-col gap-2'>
           <span>{normalCards[0].title}</span>
           <Card {...normalCards[0]} />
-        </div>
+        </Link>
         <div className='sm:hidden'>
           <UserInfoCard />
         </div>
@@ -128,10 +129,10 @@ function HomeUser() {
       </div>
 
       <div className='grid sm:grid-cols-2 gap-4'>
-        <div className='flex flex-col gap-2'>
+        <Link href='/booking' className='flex flex-col gap-2'>
           <span>{normalCards[0].title}</span>
           <Card {...normalCards[0]} />
-        </div>
+        </Link>
         <div className='flex flex-col gap-2'>
           <span>{normalCards[1].title}</span>
           <Card {...normalCards[1]} />
@@ -171,7 +172,7 @@ function HomeUser() {
       </div>
     </div>
   );
-}
+});
 
 export default HomeUser;
 

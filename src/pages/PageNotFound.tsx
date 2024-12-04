@@ -2,7 +2,7 @@ import { Link } from 'wouter';
 
 function PageNotFound() {
   return (
-    <div className='flex-1 flex items-center h-full place-content-center px-4'>
+    <div className='flex-1 flex items-center h-screen pt-20 place-content-center px-4'>
       <div className='text-center'>
         <h1 className='text-3xl font-black text-gray-200'>Page Not Found</h1>
 
@@ -12,7 +12,7 @@ function PageNotFound() {
 
         <Link
           href='/'
-          className='mt-6 inline-block rounded bg-secondary px-5 py-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring'
+          className='mt-6 inline-block rounded bg-secondary px-5 py-3 text-sm font-medium text-white hover:bg-secondary-400 focus:outline-none focus:ring'
         >
           Go Back Home
         </Link>
