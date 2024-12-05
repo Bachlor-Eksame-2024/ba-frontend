@@ -2,11 +2,11 @@ import logo from '../assets/logo/logo.svg';
 
 function Footer() {
   return (
-    <footer className='flex justify-between p-10 mx-10'>
-      <div>
+    <footer className='flex justify-between p-10 bg-default-100'>
+      <div className='ml-8'>
         <img src={logo} alt='Company Logo' className='h-8 mt-4' />
       </div>
-      <div className='flex gap-20'>
+      <div className='flex gap-20 mr-8'>
         <div className='text-sm'>
           <h3 className='text-base mb-2'>Firma</h3>
           <p>Fitboks A/S</p>
