@@ -24,7 +24,12 @@ function Dashboard() {
   if (!data) return <div>Loading...</div>;
   if (error2) return <div>Failed to load fetch data</div>;
   if (!boxes) return <div>Loading...</div>;
-  const boxAvailabilityLength = Object.keys(boxes.box_availability).length;
+  let boxAvailabilityLength = 24;
+  if (boxes.message) {
+    boxAvailabilityLength = 25;
+  } else {
+    boxAvailabilityLength = Object.keys(boxes.box_availability).length;
+  }
 
   return (
     <div className='grid gap-4 w-full'>
