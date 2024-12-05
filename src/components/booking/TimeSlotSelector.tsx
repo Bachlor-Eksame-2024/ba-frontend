@@ -42,9 +42,9 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
               <button
                 key={amount}
                 onClick={() => setSelectedAmount(amount)}
-                className={`h-16 w-1/4 rounded ${
+                className={`h-16 w-1/4 rounded text-base font-medium ${
                   selectedAmount === amount
-                    ? 'bg-secondary text-secondary-900'
+                    ? 'bg-secondary text-text-default-800'
                     : 'text-default-800 hover:bg-default-800 hover:bg-opacity-15'
                 }`}
               >
@@ -54,6 +54,14 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
           </div>
           <h2 className='text-md font-medium mb-4 md:mt-8'>Vælg dato</h2>
           <DesktopCalendar />
+          {selectedSlot && selectedAmount && (
+            <button
+              onClick={handleConfirm}
+              className='md:w-96 md:place-self-left left-2 right-2 bg-secondary flex justify-around py-5 mt-8 rounded-full z-50 text-base font-medium'
+            >
+              Videre
+            </button>
+          )}
         </div>
         <div className='px-6 md:px-0 w-96'>
           <h2 className='text-md font-medium mb-4 md:hidden'>Vælg dato</h2>
@@ -66,7 +74,7 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
                 onClick={() => setSelectedAmount(amount)}
                 className={`h-16 w-1/4 rounded ${
                   selectedAmount === amount
-                    ? 'bg-secondary text-secondary-900'
+                    ? 'bg-secondary text-default-800'
                     : 'text-default-800 hover:bg-default-800 hover:bg-opacity-15'
                 }`}
               >
@@ -75,14 +83,14 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
             ))}
           </div>
           <h2 className='text-md font-medium mb-4 mt-8 md:mt-0'>Ledige periode</h2>
-          <div className='flex flex-col gap-2'>
+          <div className='flex flex-col gap-2 text-base font-medium'>
             {timeSlots.map((slot) => (
               <button
                 key={slot}
                 onClick={() => setSelectedSlot(slot)}
                 className={`h-16 rounded ${
                   selectedSlot === slot
-                    ? 'bg-secondary text-secondary-900'
+                    ? 'bg-secondary text-default-800'
                     : 'bg-default-800 bg-opacity-10 text-default-800 hover:bg-default-800 hover:bg-opacity-15'
                 }`}
               >
@@ -93,7 +101,7 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
           {selectedSlot && selectedAmount && (
             <button
               onClick={handleConfirm}
-              className='fixed bottom-20 md:bottom-4 md:w-96 md:place-self-left left-2 md:left-32 right-2 md:right-0 bg-secondary flex justify-around py-5 rounded-full z-50'
+              className='fixed md:hidden bottom-20 md:w-96 left-2 right-2 bg-secondary flex justify-around py-5 rounded-full z-50 font-medium'
             >
               Videre
             </button>
