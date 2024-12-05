@@ -6,7 +6,7 @@ function Footer() {
 
   return (
     <footer className={`${isAuthenticated ? 'bg-default-100' : 'bg-default-50'} p-10`}>
-      <div className='container mx-auto flex flex-col md:flex-row justify-between items-center md:text-left text-center'>
+      <div className='container mx-auto flex flex-col md:flex-row justify-between items-center md:text-left text-center gap-8'>
         <div className='mb-4 md:mb-0'>
           <img src={logo} alt='Company Logo' className='h-8' />
         </div>
