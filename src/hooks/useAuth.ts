@@ -7,7 +7,7 @@ export function useAuth() {
   const { isAuthenticated, setIsAuthenticated } = useAuthStore();
 
   const { data, error } = useSWR('/auth/verify-login', {
-    refreshInterval: 5000,
+    //refreshInterval: 5000,
     onSuccess: (data) => {
       if (!data.detail) {
         setUser(data.user);
