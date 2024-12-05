@@ -76,6 +76,11 @@ function App() {
             <WorkoutPrograms />
           </ProtectedRoute>
         </Route>
+        <Route path='/payments/*'>
+          <ProtectedRoute>
+            <WorkoutPrograms />
+          </ProtectedRoute>
+        </Route>
         <Route path='/workout-programs/:workout'>
           <ProtectedRoute>
             <SelectedWorkout />
