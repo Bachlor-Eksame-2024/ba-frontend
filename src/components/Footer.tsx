@@ -6,7 +6,7 @@ function Footer() {
 
   return (
     <footer
-      className={`f${isAuthenticated ? 'bg-default-300' : 'hover:bg-default-200'} flex justify-between p-10`}
+      className={`${isAuthenticated ? 'bg-default-100' : 'bg-default-50'} flex justify-between p-10`}
     >
       <div className='ml-8'>
         <img src={logo} alt='Company Logo' className='h-8 mt-4' />
