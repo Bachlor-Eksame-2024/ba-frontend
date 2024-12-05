@@ -1,6 +1,6 @@
 import { Button } from '@nextui-org/button';
 import { Card, CardBody } from '@nextui-org/card';
-import { Elements, PaymentElement } from '@stripe/react-stripe-js';
+import { Elements, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { memo, useEffect, useState } from 'react';
 
@@ -44,6 +44,52 @@ const appearance: {
   },
 };
 
+const CheckoutForm = () => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    setIsLoading(true);
+    setErrorMessage('');
+
+    try {
+      const { error } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: `${window.location.origin}/payment/success`,
+        },
+      });
+
+      if (error) {
+        setErrorMessage(error.message || 'An error occurred');
+      }
+    } catch (e) {
+      console.error(e);
+      setErrorMessage('Payment failed');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className='w-full bg-default-50 p-4 rounded flex flex-col gap-4'>
+      <PaymentElement />
+      {errorMessage && <div className='text-danger'>{errorMessage}</div>}
+      <Button type='submit' className='bg-secondary w-fit' isLoading={isLoading} disabled={!stripe}>
+        Pay Now
+      </Button>
+    </form>
+  );
+};
+
 const Payment = memo(() => {
   const test_key = import.meta.env.VITE_STRIPE_TEST_KEY;
   const api_url = import.meta.env.VITE_API_URL;
@@ -76,15 +122,6 @@ const Payment = memo(() => {
     // passing the client secret obtained from the server
     clientSecret: clientSecret,
     appearance,
-  };
-
-  const CheckoutForm = () => {
-    return (
-      <form className='w-full bg-default-50 p-4 rounded flex flex-col gap-4'>
-        <PaymentElement />
-        <Button className='bg-secondary w-fit'>Submit</Button>
-      </form>
-    );
   };
 
   return (
