@@ -1,8 +1,13 @@
 import logo from '../assets/logo/logo.svg';
+import { useAuth } from '../hooks/useAuth';
 
 function Footer() {
+  const { isAuthenticated } = useAuth();
+
   return (
-    <footer className='flex justify-between p-10 bg-default-100'>
+    <footer
+      className={`f${isAuthenticated ? 'bg-default-300' : 'hover:bg-default-200'} flex justify-between p-10`}
+    >
       <div className='ml-8'>
         <img src={logo} alt='Company Logo' className='h-8 mt-4' />
       </div>
