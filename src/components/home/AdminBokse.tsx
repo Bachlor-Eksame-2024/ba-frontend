@@ -7,6 +7,7 @@ import useSWR from 'swr';
 import { Boks, BoksData } from '../../types/AdminBoks';
 import AdminBoksPopup from './AdminBoksPopup';
 import useUserStore from '../../stores/UserStore';
+import { SharedSelection } from '@nextui-org/system';
 
 const apiURL = import.meta.env.VITE_API_URL;
 
@@ -22,7 +23,7 @@ function AdminBokse() {
 
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
-  const variants = ['Book', 'Frigiv', 'Luk'];
+  const variants = ['Booket', 'Ledigt', 'Lukket: 1t', 'Lukket: 2:t', 'Lukket 3:t', 'Lukket 4:t'];
 
   const changePage = (page: number) => {
     if (page === 1) {
@@ -56,6 +57,32 @@ function AdminBokse() {
     setSelectedBoks(data);
   };
 
+  const handleBoksStatusChange = async (
+    key: SharedSelection,
+    boks_id: number,
+    fitness_center_id: number
+  ) => {
+    console.log(key.currentKey);
+    const response = await fetch(apiURL + '/admin/update-boks-status', {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': import.meta.env.VITE_API_KEY as string,
+      },
+      body: JSON.stringify({
+        user_id: userInfo?.user_id.toString(),
+        fitness_center_id: fitness_center_id.toString(),
+        boks_id: boks_id.toString(),
+        boks_availability: key.currentKey ? key.currentKey : 'Ledigt',
+      }),
+    });
+    const data = await response.json();
+    if (data.status === 'success') {
+      alert('Boks status er opdateret');
+    }
+  };
+
   return (
     <section className='w-full'>
       <div className=' grid gap-4 justify-items-center w-full'>
@@ -67,8 +94,8 @@ function AdminBokse() {
             <TableColumn>HANDLING</TableColumn>
           </TableHeader>
           <TableBody>
-            {data.boks.slice(updateArray[0], updateArray[1]).map((boks: Boks, index: number) => (
-              <TableRow key={index}>
+            {data.boks.slice(updateArray[0], updateArray[1]).map((boks: Boks) => (
+              <TableRow key={boks.box_id}>
                 <TableCell>Nr. {boks.box_number}</TableCell>
                 <TableCell>{boks.box_availability}</TableCell>
                 <TableCell
@@ -82,19 +109,21 @@ function AdminBokse() {
                 </TableCell>
                 <TableCell>
                   <Select
+                    onSelectionChange={(key) =>
+                      handleBoksStatusChange(key, boks.box_id, boks.fitness_center_fk)
+                    }
                     size='sm'
                     color={
-                      boks.box_availability === 'available'
+                      boks.box_availability === 'Ledigt'
                         ? 'success'
                         : boks.box_availability === 'Booket'
                           ? 'warning'
                           : 'danger'
                     }
-                    label={boks.box_availability}
                     defaultSelectedKeys={[boks.box_availability]}
                   >
                     {variants.map((variant) => (
-                      <SelectItem key={variant} value={variant}>
+                      <SelectItem key={variant} value={variant} isDisabled={variant === 'Booket'}>
                         {variant}
                       </SelectItem>
                     ))}
