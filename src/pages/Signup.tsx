@@ -3,10 +3,18 @@ import { Checkbox } from '@nextui-org/react';
 import { Select, SelectItem } from '@nextui-org/react';
 import useUserStore from '../stores/UserStore';
 import { useLocation } from 'wouter';
+import { useState } from 'react';
 //import useUserStore from '../stores/UserStore';
 // Import {centers} from ./centers.tsx ?
 
 export default function Signup() {
+  const [emailError, setEmailError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [firstNameError, setFirstNameError] = useState('');
+  const [lastNameError, setLastNameError] = useState('');
+
+  // API Key and URL
   const apiUrl = import.meta.env.VITE_API_URL;
   const apiKey = import.meta.env.VITE_API_KEY;
   const { setUser } = useUserStore();
@@ -52,14 +60,42 @@ export default function Signup() {
     });
 
     console.log('Response from backend', response);
+    console.log('Response from backend', response);
     if (response.ok) {
       const data = await response.json();
       console.log('Signup successful:', data);
       setUser(data.user);
       navigate('/home');
     } else {
-      console.error('Signup failed:', response.status);
-      // Handle signup error
+      const errorData = await response.json();
+      if (errorData.detail) {
+        switch (errorData.detail) {
+          case 'Invalid email':
+            setEmailError('Invalid email');
+            break;
+          case 'Invalid phone number':
+            setPhoneError('Invalid phone number');
+            break;
+          case 'Invalid password':
+            setPasswordError('Invalid password');
+            break;
+          case 'Invalid first name':
+            setFirstNameError('Invalid first name');
+            break;
+          case 'Invalid last name':
+            setLastNameError('Invalid last name');
+            break;
+          case 'User email already exists':
+            setEmailError('User email already exists');
+            break;
+          case 'User phone number already exists':
+            setPhoneError('User phone number already exists');
+            break;
+          default:
+            // Handle other errors
+            break;
+        }
+      }
     }
   };
   const centers = [
@@ -91,6 +127,7 @@ export default function Signup() {
                   className='p-2 rounded bg-zinc-800 text-white w-full'
                   required
                 />
+                {emailError && <p className='text-red-500'>{emailError}</p>}
               </div>
               <div className='flex flex-col w-full sm:w-1/2'>
                 <label htmlFor='phone' className='text-sm'>
@@ -103,6 +140,7 @@ export default function Signup() {
                   className='p-2 rounded bg-zinc-800 text-white w-full'
                   required
                 />
+                {phoneError && <p className='text-red-500'>{phoneError}</p>}
               </div>
             </div>
             <div className='flex flex-col sm:flex-row sm:justify-between sm:space-x-4 space-y-4 sm:space-y-0 pb-8'>
@@ -117,6 +155,7 @@ export default function Signup() {
                   className='p-2 rounded bg-zinc-800 text-white w-full'
                   required
                 />
+                {firstNameError && <p className='text-red-500'>{firstNameError}</p>}
               </div>
               <div className='flex flex-col w-full sm:w-1/2'>
                 <label htmlFor='last_name' className='text-sm'>
@@ -129,6 +168,7 @@ export default function Signup() {
                   className='p-2 rounded bg-zinc-800 text-white w-full'
                   required
                 />
+                {lastNameError && <p className='text-red-500'>{lastNameError}</p>}
               </div>
             </div>
             <Select
@@ -157,6 +197,7 @@ export default function Signup() {
                   className='p-2 rounded bg-zinc-800 text-white w-full'
                   required
                 />
+                {passwordError && <p className='text-red-500'>{passwordError}</p>}
               </div>
               <div className='flex flex-col w-full sm:w-1/2'>
                 <label htmlFor='repassword' className='text-sm'>
