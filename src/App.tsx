@@ -15,6 +15,7 @@ import SelectedWorkout from './pages/SelectedWorkout';
 import PageNotFound from './pages/PageNotFound';
 import BookingProcess from './pages/BookingProcess';
 import Verify from './pages/Verify';
+import Footer from './components/Footer';
 import { useAuth } from './hooks/useAuth';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
@@ -91,6 +92,7 @@ function App() {
 
         <Route path='*' component={PageNotFound} />
       </Switch>
+      <Footer></Footer>
     </div>
   );
 }
