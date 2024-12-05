@@ -8,7 +8,7 @@ export default function DesktopCalendar() {
       defaultValue={today(getLocalTimeZone())}
       minValue={today(getLocalTimeZone())}
       color='secondary'
-      calendarWidth={300}
+      calendarWidth={500}
     />
   );
 }
