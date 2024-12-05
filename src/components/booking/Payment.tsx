@@ -2,7 +2,7 @@ import { Button } from '@nextui-org/button';
 import { Card, CardBody } from '@nextui-org/card';
 import { Elements, PaymentElement } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 const appearance: {
   theme: 'flat' | 'stripe' | 'night' | undefined;
@@ -44,7 +44,7 @@ const appearance: {
   },
 };
 
-function Payment() {
+const Payment = memo(() => {
   const test_key = import.meta.env.VITE_STRIPE_TEST_KEY;
   const api_url = import.meta.env.VITE_API_URL;
   const api_key = import.meta.env.VITE_API_KEY;
@@ -88,7 +88,7 @@ function Payment() {
   };
 
   return (
-    <div className='max-auto max-w-2xl flex flex-col gap-4 items-center justify-center p-4'>
+    <div className='max-auto max-w-2xl flex flex-col gap-4 items-center justify-center p-4 pt-20'>
       <Card className='w-full'>
         <CardBody>
           <p>Boks 16, 08:00-09:00 50,00 kr.</p>
@@ -101,6 +101,6 @@ function Payment() {
       )}
     </div>
   );
-}
+});
 
 export default Payment;
