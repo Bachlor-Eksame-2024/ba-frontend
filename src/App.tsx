@@ -76,6 +76,13 @@ function App() {
             <WorkoutPrograms />
           </ProtectedRoute>
         </Route>
+        <Route path='/payment/*'>
+          <ProtectedRoute>
+            <div className='flex items-center justify-center h-screen w-screen'>
+              Payment Succeded
+            </div>
+          </ProtectedRoute>
+        </Route>
         <Route path='/workout-programs/:workout'>
           <ProtectedRoute>
             <SelectedWorkout />
