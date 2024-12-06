@@ -55,7 +55,7 @@ export default function Signin() {
   };
 
   return (
-    <div className="relative h-screen flex items-center justify-center flex-1 w-full bg-[url('./assets/HealthFitness1.jpeg')] bg-cover bg-center">
+    <div className="relative min-h-screen flex items-center justify-center flex-1 w-full bg-[url('./assets/HealthFitness1.jpeg')] bg-cover bg-center">
       <div className='absolute inset-0 bg-gray-800 opacity-50 backdrop-blur-sm'></div>
       <div className='relative z-10 flex items-center justify-center h-full px-4'>
         <div className='bg-zinc-900 p-24 min-w-[24rem] max-w-[48rem] rounded'>

@@ -6,10 +6,10 @@ import WhoAreWe from '../components/landingPage/WhoAreWe';
 export default function LandingPage() {
   return (
     <div className="relative w-full bg-[url('./assets/HealthFitness1.jpeg')] bg-cover bg-center">
-      <div className='min-h-screen relative h-full w-full md:pt-20 flex flex-col items-center justify-center'>
+      <div className='min-h-screen relative h-full w-full md:pt-16 flex flex-col items-center justify-center'>
         <div className='absolute top-0 h-full w-full bg-gray-800 opacity-50 backdrop-blur-sm'></div>
         <div className='max-w-7xl mx-auto'>
-          <div className='relative max-md:absolute top-0 z-10 p-4'>
+          <div className='md:hidden max-md:absolute top-0 z-10 p-4'>
             <img src={logo} alt='Company Logo' className='h-8 md:hidden' />
           </div>
           <div className='relative z-10 flex items-center justify-center  sm:justify-start h-full px-4 sm:pl-28 w-full sm:w-6/12'>

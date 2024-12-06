@@ -18,13 +18,14 @@ import Verify from './pages/Verify';
 import Footer from './components/Footer';
 import { useAuth } from './hooks/useAuth';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import Confirmation from './components/booking/Confirmation';
 
 function App() {
   const { isLoading } = useAuth();
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className='min-h-screen'>
+    <div className='min-h-screen flex flex-col justify-between'>
       <MobileNavigation />
       <DesktopNavigation />
       <Switch>
@@ -79,9 +80,7 @@ function App() {
         </Route>
         <Route path='/payment/*'>
           <ProtectedRoute>
-            <div className='flex items-center justify-center h-screen w-screen'>
-              Payment Succeded
-            </div>
+            <Confirmation />
           </ProtectedRoute>
         </Route>
         <Route path='/workout-programs/:workout'>
