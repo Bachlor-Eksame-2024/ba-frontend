@@ -4,8 +4,11 @@ import { Select, SelectItem } from '@nextui-org/react';
 import useUserStore from '../stores/UserStore';
 import { useLocation } from 'wouter';
 import { useState } from 'react';
-//import useUserStore from '../stores/UserStore';
-// Import {centers} from ./centers.tsx ?
+import { validateEmail } from '../modules/validate';
+import { validateFirstName } from '../modules/validate';
+import { validateLastName } from '../modules/validate';
+import { validatePassword } from '../modules/validate';
+import { validatePhoneNumer } from '../modules/validate';
 
 export default function Signup() {
   const [emailError, setEmailError] = useState('');
@@ -13,7 +16,6 @@ export default function Signup() {
   const [passwordError, setPasswordError] = useState('');
   const [firstNameError, setFirstNameError] = useState('');
   const [lastNameError, setLastNameError] = useState('');
-
   // API Key and URL
   const apiUrl = import.meta.env.VITE_API_URL;
   const apiKey = import.meta.env.VITE_API_KEY;
@@ -21,7 +23,51 @@ export default function Signup() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_location, navigate] = useLocation();
 
-  //const { setUser } = useUserStore();
+  const handleEmailBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (!validateEmail(value)) {
+      setEmailError('Invalid email');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const handlePhoneBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (!validatePhoneNumer(value)) {
+      setPhoneError('Invalid phone number');
+    } else {
+      setPhoneError('');
+    }
+  };
+
+  const handlePasswordBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (!validatePassword(value)) {
+      setPasswordError('Invalid password');
+    } else {
+      setPasswordError('');
+    }
+  };
+
+  const handleFirstNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (!validateFirstName(value)) {
+      setFirstNameError('Invalid first name');
+    } else {
+      setFirstNameError('');
+    }
+  };
+
+  const handleLastNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (!validateLastName(value)) {
+      setLastNameError('Invalid last name');
+    } else {
+      setLastNameError('');
+    }
+  };
+
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log('Opret bruger');
@@ -33,13 +79,6 @@ export default function Signup() {
     const fitness_center = formData.get('fitness_center') as string;
     const password = formData.get('password') as string;
     const phone = formData.get('phone') as string;
-
-    console.log(email);
-    console.log(first_name);
-    console.log(last_name);
-    console.log(fitness_center);
-    console.log(password);
-    console.log(phone);
 
     const response = await fetch(apiUrl + '/auth/signup', {
       method: 'POST',
@@ -125,6 +164,7 @@ export default function Signup() {
                   id='email'
                   name='email'
                   className='p-2 rounded bg-zinc-800 text-white w-full'
+                  onBlur={handleEmailBlur}
                   required
                 />
                 {emailError && <p className='text-red-500'>{emailError}</p>}
@@ -134,10 +174,11 @@ export default function Signup() {
                   Telefon nummer
                 </label>
                 <input
-                  type='tel'
+                  type='text'
                   id='phone'
                   name='phone'
                   className='p-2 rounded bg-zinc-800 text-white w-full'
+                  onBlur={handlePhoneBlur}
                   required
                 />
                 {phoneError && <p className='text-red-500'>{phoneError}</p>}
@@ -153,6 +194,7 @@ export default function Signup() {
                   id='first_name'
                   name='first_name'
                   className='p-2 rounded bg-zinc-800 text-white w-full'
+                  onBlur={handleFirstNameBlur}
                   required
                 />
                 {firstNameError && <p className='text-red-500'>{firstNameError}</p>}
@@ -166,6 +208,7 @@ export default function Signup() {
                   id='last_name'
                   name='last_name'
                   className='p-2 rounded bg-zinc-800 text-white w-full'
+                  onBlur={handleLastNameBlur}
                   required
                 />
                 {lastNameError && <p className='text-red-500'>{lastNameError}</p>}
@@ -195,6 +238,7 @@ export default function Signup() {
                   id='password'
                   name='password'
                   className='p-2 rounded bg-zinc-800 text-white w-full'
+                  onBlur={handlePasswordBlur}
                   required
                 />
                 {passwordError && <p className='text-red-500'>{passwordError}</p>}
