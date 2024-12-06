@@ -40,7 +40,7 @@ const BookingInterface = () => {
   return (
     <div>
       <div className='h-screen bg-default-50'>
-        <div className='px-6 w-96'>
+        <div className='px-6 w-96 md:w-full md:mt-24 md:px-32 place-self-center'>
           <h2 className='text-md font-medium mb-4 mt-3'>Mine bookinger</h2>
           <div className='bg-default-800 bg-opacity-10 p-3 rounded text-center'>
             {/* Header */}
@@ -55,7 +55,7 @@ const BookingInterface = () => {
             {bookings.map((booking) => (
               <div
                 key={booking.date}
-                className={`grid grid-cols-4 items-center text-center py-2 rounded-full cursor-pointer transition-colors ${
+                className={`grid grid-cols-4 gap-2 items-center text-center py-3 my-2 rounded-full cursor-pointer transition-colors ${
                   selectedDates.includes(booking.date) ? 'bg-default-300' : 'hover:bg-default-200'
                 }`}
                 onClick={() => handleSelection(booking.date)}
@@ -73,15 +73,15 @@ const BookingInterface = () => {
           </div>
 
           {/* Action buttons */}
-          <div className='mt-6'>
-            <Link href='/booking/select-time-slot' className=''>
+          <div className='mt-6 md:flex md:gap-6'>
+            <Link href='/booking/select-time-slot' className='md:w-1/3'>
               <button className='w-full py-4 bg-secondary hover:bg-secondary-500 text-white rounded transition-colors'>
-                Book tid
+                Book ny tid
               </button>
             </Link>
             {selectedDates.length > 0 && (
               <button
-                className='w-full py-4 bg-danger-500 bg-opacity-10 border-1 border-danger-500 text-danger-500 rounded hover:bg-opacity-15 transition-colors'
+                className='w-full md:w-1/3 py-4 bg-danger-500 mt-3 md:mt-0 bg-opacity-10 border-1 border-danger-500 text-danger-500 rounded hover:bg-opacity-15 transition-colors'
                 onClick={() => setSelectedDates([])}
               >
                 Slet valgte
