@@ -1,10 +1,10 @@
 function WhoAreWe() {
   return (
-    <div className='bg-neutral-900'>
+    <div className='bg-default-50'>
       <div className='max-w-7xl px-4 xl:px-0 py-10 lg:pt-20 lg:pb-20 mx-auto'>
         <div className='max-w-3xl mb-10 lg:mb-14'>
           <h2 className='text-white text-2xl  md:leading-tight'>Vores tilgang</h2>
-          <p className='mt-1 text-neutral-400'>
+          <p className='mt-1 text-neutral-400 text-base'>
             Med Fitboks får du en personlig træningsoplevelse — fra enkel booking og fleksibel
             planlægning til enestående faciliteter i moderne bokse udstyret med alt, du behøver til
             din træning.
@@ -22,7 +22,7 @@ function WhoAreWe() {
 
           <div>
             <div className='mb-4'>
-              <h3 className='text-secondary text-xs font-medium uppercase'>Steps</h3>
+              <h3 className='text-secondary text-sm font-medium uppercase'>Steps</h3>
             </div>
             <div className='flex gap-x-5 ms-1'>
               <div className='relative last:after:hidden after:absolute after:top-8 after:bottom-0 after:start-4 after:w-px after:-translate-x-[0.5px] after:bg-neutral-600'>
