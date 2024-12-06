@@ -77,6 +77,8 @@ html {
   }
 }
 
+/* De her skaber problemer for resten af nextui Komponenterne. Da de også ændre på deres udseende */
+
 [data-slot='grid-body-row'] {
   gap: 1rem;
 }
