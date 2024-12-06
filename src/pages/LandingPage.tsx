@@ -1,7 +1,7 @@
 import { Button } from '@nextui-org/react';
 import { Link } from 'wouter';
 import logo from '../assets/logo/logo.svg';
-import WhoAreWe from '../components/landingPage/whoAreWe';
+import WhoAreWe from '../components/landingPage/WhoAreWe';
 
 export default function LandingPage() {
   return (

@@ -1,5 +1,3 @@
-import React from 'react';
-
 function WhoAreWe() {
   return (
     <div className='bg-neutral-900'>
