@@ -1,12 +1,9 @@
-import { lazy, Suspense, memo } from 'react';
-import Card from '../Card';
-import UserInfoCard from './UserInfoCard';
+import { Suspense, memo, useState, useEffect } from 'react';
 import useSWR from 'swr';
-import { Workouts } from '../../types/workouts';
-import WorkoutCard from '../workouts/WorkoutCard';
-import LatestBooking from './LatestBooking';
 import useWorkoutStore from '../../stores/WorkoutStore';
-import { Link } from 'wouter';
+
+import HomeDesktop from './HomeDesktop';
+import HomeTabletAndMobile from './HomeTabletAndMobile';
 
 const normalCards = [
   {
@@ -50,126 +47,48 @@ const userCards = [
   },
 ];
 
-// Dynamically import the AdminBarChart component
-const UserChartMobile = lazy(() => import('./UserChartMobile'));
-
 const HomeUser = memo(() => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const { workoutPrograms, setWorkoutPrograms } = useWorkoutStore();
-  const { data, error } = useSWR(apiUrl + '/workout/get-workouts', {
+  const { error } = useSWR(apiUrl + '/workout/get-workouts', {
     onSuccess: (data) => {
       setWorkoutPrograms(data.workouts);
     },
   });
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const LastedBooking = false;
 
-  const TabletAndMobile = () => (
-    <div className='flex flex-col gap-4'>
-      {LastedBooking && <LatestBooking />}
-      <div className='grid sm:grid-cols-2 gap-4'>
-        <Link href='/booking' className='flex flex-col gap-2'>
-          <span>{normalCards[0].title}</span>
-          <Card {...normalCards[0]} />
-        </Link>
-        <div className='sm:hidden'>
-          <UserInfoCard />
-        </div>
-        <div className='flex flex-col gap-2'>
-          <span>{normalCards[1].title}</span>
-          <Card {...normalCards[1]} />
-        </div>
-      </div>
-
-      <div className='flex flex-col gap-2 overflow-x-auto w-full'>
-        <span>Workouts</span>
-        <div className='flex flex-row gap-4 w-full h-full'>
-          {error && data ? (
-            <div>Faild To Load Workouts</div>
-          ) : (
-            workoutPrograms?.map((workout: Workouts) => (
-              <WorkoutCard key={workout.workout_id} {...workout} />
-            ))
-          )}
-        </div>
-      </div>
-      <div className='max-sm:hidden grid sm:grid-cols-2 gap-4'>
-        <UserInfoCard />
-        {userCards.map((card, index) => (
-          <div key={index} className='flex flex-col gap-2'>
-            <span>{card.title}</span>
-            <Card {...card} />
-          </div>
-        ))}
-      </div>
-      <div className='flex flex-col gap-2'>
-        <span>Activity</span>
-        <Suspense fallback={<div>Loading...</div>}>
-          <UserChartMobile />
-        </Suspense>
-      </div>
-    </div>
-  );
-
-  const Desktop = () => (
-    <div className='flex flex-col gap-4'>
-      {LastedBooking && (
-        <div className='grid grid-cols-2'>
-          <LatestBooking />
-        </div>
-      )}
-      <div className='grid grid-cols-2 gap-4'>
-        <UserInfoCard />
-        <div className='flex flex-col gap-2'>
-          <span>Activity</span>
-          <Suspense fallback={<div>Loading...</div>}>
-            <UserChartMobile />
-          </Suspense>
-        </div>
-      </div>
-
-      <div className='grid sm:grid-cols-2 gap-4'>
-        <Link href='/booking' className='flex flex-col gap-2'>
-          <span>{normalCards[0].title}</span>
-          <Card {...normalCards[0]} />
-        </Link>
-        <div className='flex flex-col gap-2'>
-          <span>{normalCards[1].title}</span>
-          <Card {...normalCards[1]} />
-        </div>
-      </div>
-
-      <div className='flex flex-col gap-2 overflow-x-auto w-full'>
-        <span>Workouts</span>
-        <div className='flex flex-row gap-4 w-full h-full'>
-          {error ? (
-            <div>Faild To Load Workouts</div>
-          ) : (
-            workoutPrograms?.map((workout: Workouts) => (
-              <WorkoutCard key={workout.workout_id} {...workout} />
-            ))
-          )}
-        </div>
-      </div>
-      <div className='max-sm:hidden grid sm:grid-cols-3 gap-4'>
-        {userCards.map((card, index) => (
-          <div key={index} className='flex flex-col gap-2'>
-            <span>{card.title}</span>
-            <Card {...card} />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-
   return (
     <div>
-      <div className='md:hidden'>
-        <TabletAndMobile />
-      </div>
-      <div className='max-md:hidden'>
-        <Desktop />
-      </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        {isMobile ? (
+          <HomeTabletAndMobile
+            error={error}
+            userCards={userCards}
+            workoutPrograms={workoutPrograms || []}
+            normalCards={normalCards}
+            LastedBooking={LastedBooking}
+          />
+        ) : (
+          <HomeDesktop
+            error={error}
+            userCards={userCards}
+            workoutPrograms={workoutPrograms || []}
+            normalCards={normalCards}
+            LastedBooking={LastedBooking}
+          />
+        )}
+      </Suspense>
     </div>
   );
 });

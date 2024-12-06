@@ -4,73 +4,75 @@ import { Bar, BarChart, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } 
 const mobileData = [
   {
     name: 'Uge 1',
-    pv: 4,
+    pv: 0,
   },
   {
     name: 'Uge 2',
-    pv: 3,
+    pv: 0,
   },
   {
     name: 'Uge 3',
-    pv: 4,
+    pv: 0,
   },
   {
     name: 'Uge 4',
-    pv: 2,
+    pv: 0,
   },
 ];
 const desktopData = [
   {
     name: 'Jan',
-    pv: 4,
+    pv: 0,
   },
   {
     name: 'Feb',
-    pv: 3,
+    pv: 0,
   },
   {
     name: 'Mar',
-    pv: 4,
+    pv: 0,
   },
   {
     name: 'Apr',
-    pv: 2,
+    pv: 0,
   },
   {
     name: 'Maj',
-    pv: 2,
+    pv: 0,
   },
   {
     name: 'Jun',
-    pv: 2,
+    pv: 0,
   },
   {
     name: 'Jul',
-    pv: 2,
+    pv: 0,
   },
   {
     name: 'Aug',
-    pv: 2,
+    pv: 0,
   },
   {
     name: 'Sep',
-    pv: 2,
+    pv: 0,
   },
   {
     name: 'Okt',
-    pv: 2,
+    pv: 0,
   },
   {
     name: 'Nov',
-    pv: 2,
+    pv: 0,
   },
   {
     name: 'Dec',
-    pv: 2,
+    pv: 0,
   },
 ];
 
 import { TooltipProps } from 'recharts';
+import useUserStore from '../../stores/UserStore';
+import { UserStats } from '../../types/workouts';
 
 const CustomTooltip: React.FC<TooltipProps<number, string>> = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
@@ -86,8 +88,27 @@ const CustomTooltip: React.FC<TooltipProps<number, string>> = ({ active, payload
 
 function UserChartMobile() {
   const [chatData, setChatData] = useState(mobileData);
+  const [userCharData, setUserCharData] = useState<UserStats | null>(null);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [mobile, setMobile] = useState(false);
+  const { userInfo } = useUserStore();
+  useEffect(() => {
+    const getStats = async () => {
+      const response = await fetch(import.meta.env.VITE_API_URL + '/profile/get-user-stats', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': import.meta.env.VITE_API_KEY,
+        },
+        body: JSON.stringify({ user_id: userInfo?.user_id.toString() }),
+      });
+
+      const data = await response.json();
+      setUserCharData(data);
+    };
+    getStats();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -103,13 +124,21 @@ function UserChartMobile() {
 
   useEffect(() => {
     if (screenWidth > 640) {
-      setChatData(desktopData);
+      if (userCharData?.monthly_stats) {
+        setChatData(userCharData.monthly_stats.reverse());
+      } else {
+        setChatData(desktopData);
+      }
       setMobile(false);
     } else {
-      setChatData(mobileData);
+      if (userCharData?.weekly_stats) {
+        setChatData(userCharData.weekly_stats.reverse());
+      } else {
+        setChatData(mobileData);
+      }
       setMobile(true);
     }
-  }, [screenWidth]);
+  }, [screenWidth, userCharData]);
 
   return (
     <div className='relative bg-default-100 min-w-72 min-h-40 aspect-video rounded flex justify-center items-center p-2 cursor-pointer'>
@@ -118,7 +147,7 @@ function UserChartMobile() {
           <h4 className='text-lg text-center'>Workout</h4>
         </div>
       )}
-      <ResponsiveContainer height='90%' width={'95%'}>
+      <ResponsiveContainer minHeight={100} minWidth={200} height='90%' width={'95%'}>
         <BarChart
           width={400}
           height={200}

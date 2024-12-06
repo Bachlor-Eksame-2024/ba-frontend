@@ -1,7 +1,8 @@
 import { useDisclosure } from '@nextui-org/modal';
 import EditProfile from './EditProfile';
+import { memo } from 'react';
 
-function UserInfoCard() {
+const UserInfoCard = memo(() => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
     <div className='flex flex-col gap-2 cursor-pointer' onClick={onOpen}>
@@ -26,6 +27,6 @@ function UserInfoCard() {
       <EditProfile isOpen={isOpen} onOpenChange={onOpenChange} />
     </div>
   );
-}
+});
 
 export default UserInfoCard;

@@ -41,3 +41,19 @@ export interface CreateWorkout {
 }
 
 export type CreateWorkoutPayload = CreateWorkout[];
+
+export interface UserStats {
+  total_bookings: number;
+  monthly_stats: MonthlyStats[];
+  weekly_stats: WeeklyStats[];
+}
+
+export interface MonthlyStats {
+  name: string;
+  pv: number;
+}
+
+export interface WeeklyStats {
+  name: string;
+  pv: number;
+}
