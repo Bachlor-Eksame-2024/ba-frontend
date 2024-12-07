@@ -66,7 +66,7 @@ const HomeDesktop: FC<HomeDesktopProps> = ({
       <div className='max-sm:hidden grid sm:grid-cols-3 gap-4'>
         {userCards.map((card, index) => (
           <div key={index} className='flex flex-col gap-2'>
-            <span>{card.title}</span>
+            {/*  <span>{card.title}</span> */}
             <Card {...card} />
           </div>
         ))}

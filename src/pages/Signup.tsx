@@ -2,7 +2,7 @@ import { Button } from '@nextui-org/react';
 import { Checkbox } from '@nextui-org/react';
 import { Select, SelectItem } from '@nextui-org/react';
 import useUserStore from '../stores/UserStore';
-import { useLocation } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { useState } from 'react';
 import { validateEmail } from '../modules/validate';
 import { validateFirstName } from '../modules/validate';
@@ -265,9 +265,9 @@ export default function Signup() {
               </Button>
               <p className='py-2 text-center sm:text-left text-sm'>
                 Har du allerede en konto?
-                <a href='/login' className='text-indigo-500 underline text-sm ml-1'>
+                <Link href='/login' className='text-indigo-500 underline text-sm ml-1'>
                   Login her
-                </a>
+                </Link>
               </p>
             </div>
           </form>
