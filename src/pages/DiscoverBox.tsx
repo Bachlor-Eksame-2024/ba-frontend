@@ -16,12 +16,12 @@ function DiscoverBox() {
           </div>
           <div className='grid grid-cols-2 gap-4 mt-8'>
             <img
-              className='w-full rounded-lg'
+              className='w-full rounded'
               src='https://images.pexels.com/photos/416809/pexels-photo-416809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
               alt='office content 1'
             />
             <img
-              className='mt-4 w-full lg:mt-10 rounded-lg'
+              className='mt-4 w-full lg:mt-10 rounded'
               src='https://images.pexels.com/photos/3289711/pexels-photo-3289711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
               alt='office content 2'
             />
