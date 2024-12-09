@@ -4,6 +4,7 @@ export interface User {
   last_name: string;
   fitness_center: string;
   fitness_center_id: number;
+  is_member: boolean;
   is_verified: boolean;
   user_id: number;
   user_phone: string;

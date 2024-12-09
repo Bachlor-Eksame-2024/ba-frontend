@@ -35,7 +35,9 @@ const HomeTabletAndMobile: FC<HomeTabletAndMobileProps> = ({
         </div>
         <div className='flex flex-col gap-2'>
           <span>{normalCards[1].title}</span>
-          <Card {...normalCards[1]} />
+          <Link href='/home/udforsk-boksene'>
+            <Card {...normalCards[1]} />
+          </Link>
         </div>
       </div>
 

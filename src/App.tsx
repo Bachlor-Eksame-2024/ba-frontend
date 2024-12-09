@@ -19,8 +19,11 @@ import Footer from './components/Footer';
 import { useAuth } from './hooks/useAuth';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import Confirmation from './components/booking/Confirmation';
+import DiscoverBox from './pages/DiscoverBox';
+import { useScrollRestoration } from './hooks/useScrollRestoration';
 
 function App() {
+  useScrollRestoration();
   const { isLoading } = useAuth();
   if (isLoading) return <div>Loading...</div>;
 
@@ -73,19 +76,24 @@ function App() {
             <AdminProfile />
           </ProtectedRoute>
         </Route>
+        <Route path='/home/udforsk-boksene'>
+          <ProtectedRoute>
+            <DiscoverBox />
+          </ProtectedRoute>
+        </Route>
         <Route path='/workout-programs'>
           <ProtectedRoute>
             <WorkoutPrograms />
           </ProtectedRoute>
         </Route>
-        <Route path='/payment/*'>
-          <ProtectedRoute>
-            <Confirmation />
-          </ProtectedRoute>
-        </Route>
         <Route path='/workout-programs/:workout'>
           <ProtectedRoute>
             <SelectedWorkout />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/payment/*'>
+          <ProtectedRoute>
+            <Confirmation />
           </ProtectedRoute>
         </Route>
 
