@@ -20,8 +20,10 @@ import { useAuth } from './hooks/useAuth';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import Confirmation from './components/booking/Confirmation';
 import DiscoverBox from './pages/DiscoverBox';
+import { useScrollRestoration } from './hooks/useScrollRestoration';
 
 function App() {
+  useScrollRestoration();
   const { isLoading } = useAuth();
   if (isLoading) return <div>Loading...</div>;
 
