@@ -151,6 +151,7 @@ const Payment = memo(() => {
       .then((data) => {
         setClientSecret(data.client_secret);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const options = {

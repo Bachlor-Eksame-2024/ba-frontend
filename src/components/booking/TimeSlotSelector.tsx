@@ -78,6 +78,7 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
     if (selectedDate) {
       getAvailableTimeSlots();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDate, selectedAmount]);
   console.log(availableTimeSlots);
   /*

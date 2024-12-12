@@ -108,6 +108,7 @@ function UserChartMobile() {
       setUserCharData(data);
     };
     getStats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
