@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'wouter';
 
 const CheckIcon = () => (
@@ -36,6 +37,29 @@ const BookingInterface = () => {
       }
     });
   };
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/get-booking`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user_id: 631,
+          }),
+        });
+
+        const data = await response.json();
+        console.log('Bookings:', data);
+      } catch (error) {
+        console.error('Error fetching bookings:', error);
+      }
+    };
+
+    fetchBookings();
+  }, []);
 
   return (
     <div>
