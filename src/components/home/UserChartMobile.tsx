@@ -160,7 +160,7 @@ function UserChartMobile() {
           }}
         >
           <XAxis tick={{ fill: '#FFFFFF' }} dataKey='name' className='text-foreground-100' />
-          <YAxis tick={{ fill: '#FFFFFF' }} />
+          <YAxis type='number' tick={{ fill: '#FFFFFF' }} allowDecimals={false} />
           <Tooltip cursor={false} content={<CustomTooltip />} />
           <Bar
             dataKey='pv'
