@@ -1,10 +1,20 @@
-function Confirmation() {
-  // If payment is successful, display the following:
-  // Else, redirect to the previous page or Homepage
+import { useLocation } from 'wouter';
+import useConfirmedStore from '../../stores/ConfirmedStore';
 
+function Confirmation() {
+  const { confirmedBooking } = useConfirmedStore();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_location, setLocation] = useLocation();
+
+  if (!confirmedBooking) {
+    setLocation('/payment/success');
+    return null;
+  }
   return (
     <div className='flex flex-col gap-4 items-center justify-center min-h-full flex-grow pt-16'>
-      <p className='success confp'>Du har successfuldt booket boks 4</p>
+      <p className='success confp'>
+        Du har successfuldt booket boks {confirmedBooking.booking_box_id_fk}
+      </p>
       <div className='max-h-72 max-w-72 h-40 w-40 min-h-32 min-w-32'>
         <svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 130.2 130.2'>
           <circle
@@ -28,7 +38,7 @@ function Confirmation() {
           />
         </svg>
       </div>
-      <p className='success confp'>Din kode er: 1234</p>
+      <p className='success confp'>Din kode er: {confirmedBooking.booking_code}</p>
     </div>
   );
 }

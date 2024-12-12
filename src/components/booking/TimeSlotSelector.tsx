@@ -80,18 +80,6 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDate, selectedAmount]);
-  console.log(availableTimeSlots);
-  /*
-   */
-
-  // create booking
-  /*     "user_id":1204,
-    "booking_box_id_fk":1,
-    "booking_date":"{{today}}",
-    "booking_start_hour":1,
-    "booking_duration_hours":1 (1-4),
-    "booking_end_hour":2
-*/
 
   // When done with selection, the user will be redirected to the payment page
   const handleConfirm = () => {

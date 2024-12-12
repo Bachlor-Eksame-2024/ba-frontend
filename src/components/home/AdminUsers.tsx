@@ -1,7 +1,7 @@
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/table';
 import { Input, Pagination, Select, SelectItem } from '@nextui-org/react';
 import { useState } from 'react';
-import useAdminUsersStore from '../../stores/adminUsersStore';
+import useAdminUsersStore from '../../stores/AdminUsersStore';
 import useSWR from 'swr';
 import { AdminUser } from '../../types/user';
 
