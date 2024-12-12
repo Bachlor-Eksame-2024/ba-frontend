@@ -125,14 +125,14 @@ function UserChartMobile() {
   useEffect(() => {
     if (screenWidth > 640) {
       if (userCharData?.monthly_stats) {
-        setChatData(userCharData.monthly_stats.reverse());
+        setChatData(userCharData.monthly_stats);
       } else {
         setChatData(desktopData);
       }
       setMobile(false);
     } else {
       if (userCharData?.weekly_stats) {
-        setChatData(userCharData.weekly_stats.reverse());
+        setChatData(userCharData.weekly_stats);
       } else {
         setChatData(mobileData);
       }
