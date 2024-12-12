@@ -39,6 +39,7 @@ export default function Calendar({ selectedDate, setSelectedDate }: CalendarProp
 
   useEffect(() => {
     setSelectedDate(formatDate(calendarDate));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calendarDate]);
 
   return (

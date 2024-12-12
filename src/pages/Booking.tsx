@@ -74,7 +74,7 @@ const BookingInterface = () => {
     };
 
     fetchBookings();
-    // [] MÅ IKKE SLETTES!! Skaber Infinite loop hvis den slettes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function formatDateToDanishShort(dateString: string): string {
