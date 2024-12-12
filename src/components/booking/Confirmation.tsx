@@ -11,7 +11,7 @@ function Confirmation() {
     return null;
   }
   return (
-    <div className='flex flex-col gap-4 items-center justify-center min-h-full flex-grow pt-16'>
+    <div className='flex flex-col gap-4 items-center justify-center min-h-screen flex-grow pt-16'>
       <p className='success confp'>
         Du har successfuldt booket boks {confirmedBooking.booking_box_id_fk}
       </p>
