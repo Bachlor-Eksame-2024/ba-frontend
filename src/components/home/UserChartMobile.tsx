@@ -94,15 +94,17 @@ function UserChartMobile() {
   const { userInfo } = useUserStore();
   useEffect(() => {
     const getStats = async () => {
-      const response = await fetch(import.meta.env.VITE_API_URL + '/profile/get-user-stats', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-API-Key': import.meta.env.VITE_API_KEY,
-        },
-        body: JSON.stringify({ user_id: userInfo?.user_id.toString() }),
-      });
+      const response = await fetch(
+        import.meta.env.VITE_API_URL + `/profile/user-stats/${userInfo?.user_id}`,
+        {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-API-Key': import.meta.env.VITE_API_KEY,
+          },
+        }
+      );
 
       const data = await response.json();
       setUserCharData(data);

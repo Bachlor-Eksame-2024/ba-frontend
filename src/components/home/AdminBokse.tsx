@@ -18,7 +18,8 @@ function AdminBokse() {
   const [updateArray, setUpdateArray] = useState([0, 10]);
   // the id need to come from userInfo when we have the login system ready
   const { data, error } = useSWR(
-    apiURL + '/admin/get-boks?fitness_center_id=' + userInfo?.fitness_center_id
+    // /api/admin/box/{fitness_center_id}
+    apiURL + '/admin/box/' + userInfo?.fitness_center_id
   );
 
   if (error) return <div>failed to load</div>;
@@ -40,9 +41,10 @@ function AdminBokse() {
   const getBoksTimes = async (boks: number) => {
     const response = await fetch(
       apiURL +
-        '/admin/get-boks-avaliability-by-id?fitness_center_id=' +
+        // /api/admin/available-box/{fitness_center_id}/{boks_id}
+        '/admin/available-box/' +
         userInfo?.fitness_center_id +
-        '&boks_id=' +
+        '/' +
         boks,
       {
         method: 'GET',
@@ -62,8 +64,8 @@ function AdminBokse() {
     boks_id: number,
     fitness_center_id: number
   ) => {
-    console.log(key.currentKey);
-    const response = await fetch(apiURL + '/admin/update-boks-status', {
+    // /api/admin/box-status
+    const response = await fetch(apiURL + '/admin/box-status', {
       method: 'PUT',
       credentials: 'include',
       headers: {

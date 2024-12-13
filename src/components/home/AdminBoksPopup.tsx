@@ -18,20 +18,15 @@ function AdminBoksPopup({ isOpen, onOpenChange, selectedBoks }: AdminBoksPopupPr
   const getBooking = async (key: Selection) => {
     const getBookingID = Array.from(key)[0];
     const booking_id = getBookingID.toString().split('-')[0];
-
-    const response = await fetch(
-      import.meta.env.VITE_API_URL + '/admin/get-booking-by-id?booking_id=' + booking_id,
-      {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-API-Key': import.meta.env.VITE_API_KEY as string,
-        },
-      }
-    );
+    const response = await fetch(import.meta.env.VITE_API_URL + '/admin/booking/' + booking_id, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': import.meta.env.VITE_API_KEY as string,
+      },
+    });
     const data = await response.json();
-    console.log(data, 'data');
     setBooking(data);
   };
 
@@ -60,11 +55,14 @@ function AdminBoksPopup({ isOpen, onOpenChange, selectedBoks }: AdminBoksPopupPr
                             <Accordion className='' onSelectionChange={(key) => getBooking(key)}>
                               {Object.entries(selectedBoks.dates[date]).map(([time, timeData]) => {
                                 // if (timeData.booking) {
+                                if (timeData.booking) {
+                                  console.log(timeData.booking, 'timeData.booking');
+                                }
                                 return (
                                   <AccordionItem
                                     key={
                                       timeData.booking
-                                        ? `${timeData.booking.booking_id}-${time}`
+                                        ? timeData.booking.booking_id + '-' + time
                                         : time
                                     }
                                     isCompact={true}
