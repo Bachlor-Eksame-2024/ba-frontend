@@ -12,7 +12,7 @@ interface HomeDesktopProps {
   workoutPrograms: Workouts[];
   normalCards: { title: string }[];
   userCards: { title: string }[];
-  LastedBooking: boolean;
+  lastestBooking: boolean;
 }
 
 const HomeDesktop: FC<HomeDesktopProps> = ({
@@ -20,12 +20,12 @@ const HomeDesktop: FC<HomeDesktopProps> = ({
   workoutPrograms,
   normalCards,
   userCards,
-  LastedBooking,
+  lastestBooking,
 }) => {
   const UserChartMobile = lazy(() => import('./UserChartMobile'));
   return (
     <div className='flex flex-col gap-4'>
-      {LastedBooking && (
+      {lastestBooking && (
         <div className='grid grid-cols-2'>
           <LatestBooking />
         </div>

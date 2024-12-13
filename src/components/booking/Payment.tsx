@@ -5,6 +5,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { memo, useEffect, useState } from 'react';
 import useCollectedBooking from '../../stores/CollectedBookingStore';
 import { useLocation } from 'wouter';
+import useConfirmedStore from '../../stores/ConfirmedStore';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -55,6 +56,7 @@ const CheckoutForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const { collectedBooking } = useCollectedBooking();
+  const { setConfirmedBooking } = useConfirmedStore();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_location, setLocation] = useLocation();
 
@@ -109,6 +111,7 @@ const CheckoutForm = () => {
     });
     const data = await response.json();
     if (data.status === 'success') {
+      setConfirmedBooking(data.message);
       return true;
     }
   };

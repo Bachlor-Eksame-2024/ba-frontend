@@ -11,7 +11,7 @@ interface HomeTabletAndMobileProps {
   workoutPrograms: Workouts[];
   normalCards: { title: string }[];
   userCards: { title: string }[];
-  LastedBooking: boolean;
+  lastestBooking: boolean;
 }
 
 const HomeTabletAndMobile: FC<HomeTabletAndMobileProps> = ({
@@ -19,12 +19,12 @@ const HomeTabletAndMobile: FC<HomeTabletAndMobileProps> = ({
   workoutPrograms,
   normalCards,
   userCards,
-  LastedBooking,
+  lastestBooking,
 }) => {
   const UserChartMobile = lazy(() => import('./UserChartMobile'));
   return (
     <div className='flex flex-col gap-4'>
-      {LastedBooking && <LatestBooking />}
+      {lastestBooking && <LatestBooking />}
       <div className='grid sm:grid-cols-2 gap-4'>
         <Link href='/booking' className='flex flex-col gap-2'>
           <span>{normalCards[0].title}</span>
