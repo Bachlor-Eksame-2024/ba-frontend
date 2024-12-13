@@ -51,16 +51,13 @@ const BookingInterface = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await fetch(`${apiUrl}/booking/get-bookings`, {
-          method: 'POST',
+        const userId = userInfo?.user_id;
+        const response = await fetch(`${apiUrl}/booking/${userId}`, {
+          method: 'GET',
           credentials: 'include',
           headers: {
-            'Content-Type': 'application/json',
             'X-API-Key': apiKey,
           },
-          body: JSON.stringify({
-            user_id: userInfo?.user_id,
-          }),
         });
 
         const data = await response.json();
@@ -74,8 +71,7 @@ const BookingInterface = () => {
     };
 
     fetchBookings();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [userInfo?.user_id]);
 
   function formatDateToDanishShort(dateString: string): string {
     const date = new Date(dateString);
@@ -104,29 +100,25 @@ const BookingInterface = () => {
 
   const handelDeleteBooking = async () => {
     try {
-      const response = await fetch(`${apiUrl}/booking/delete-booking`, {
-        method: 'POST',
+      const response = await fetch(`${apiUrl}/booking/${selectedBooking}`, {
+        method: 'DELETE',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           'X-API-Key': apiKey,
         },
-        body: JSON.stringify({
-          booking_id: selectedBooking,
-        }),
       });
 
       const data = await response.json();
       if (data.status === 'success') {
-        if (userBookings)
-          setUserBookings(
-            userBookings?.filter((booking) => booking.booking_id !== selectedBooking)
-          );
+        if (userBookings) {
+          setUserBookings(userBookings.filter((booking) => booking.booking_id !== selectedBooking));
+        }
         setSelectedBooking(null);
       }
       console.log('Bookings:', data);
     } catch (error) {
-      console.error('Error fetching bookings:', error);
+      console.error('Error deleting booking:', error);
     }
   };
 
