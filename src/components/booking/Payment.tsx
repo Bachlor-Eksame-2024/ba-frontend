@@ -100,7 +100,7 @@ const CheckoutForm = () => {
   };
 
   const handleBooking = async () => {
-    const response = await fetch(apiUrl + '/booking/create-booking', {
+    const response = await fetch(apiUrl + '/booking', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -137,7 +137,7 @@ const Payment = memo(() => {
 
   useEffect(() => {
     // Fetch the client secret from the server
-    fetch(api_url + '/payment/create-payment-intent', {
+    fetch(api_url + '/payment', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -38,29 +38,30 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
 
   useEffect(() => {
     const getAvailableTimeSlots = async () => {
-      const response = await fetch(apiUrl + '/booking/get-available-time-slots', {
-        method: 'POST',
+      const fitnessCenterId = userInfo?.fitness_center_id;
+      const bookingDate = selectedDate;
+      const currentTime =
+        selectedDate === today
+          ? new Date(new Date().getTime())
+              .toLocaleTimeString('da-DK', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false,
+              })
+              .replace('.', '')
+          : '0500';
+      const durationHours = selectedAmount ? parseInt(selectedAmount) : 1;
+
+      const url = `${apiUrl}/booking/${fitnessCenterId}/${bookingDate}/${currentTime}/${durationHours}`;
+
+      const response = await fetch(url, {
+        method: 'GET',
         credentials: 'include',
         headers: {
-          'Content-Type': 'application/json',
           'X-API-Key': apiKey,
         },
-        body: JSON.stringify({
-          fitness_center_id: userInfo?.fitness_center_id,
-          booking_date: selectedDate,
-          current_time:
-            selectedDate === today
-              ? new Date(new Date().getTime())
-                  .toLocaleTimeString('da-DK', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: false,
-                  })
-                  .replace('.', ':')
-              : '05:00',
-          duration_hours: selectedAmount ? parseInt(selectedAmount) : 1,
-        }),
       });
+
       const data = await response.json();
       // Process the data to get unique time slots
       const uniqueTimeSlots = new Set<string>();
@@ -75,6 +76,7 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
       setAvailableTimeSlots(Array.from(uniqueTimeSlots));
       setAvailableBoxes(data);
     };
+
     if (selectedDate) {
       getAvailableTimeSlots();
     }
