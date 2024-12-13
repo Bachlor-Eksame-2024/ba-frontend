@@ -56,7 +56,7 @@ const HomeUser = memo(() => {
   const { setUserBookings } = useBookingStore();
   const { userInfo } = useUserStore();
   const [lastestBooking, setLastestBooking] = useState(false);
-  const { error } = useSWR(apiUrl + '/workout/get-workouts', {
+  const { error } = useSWR(apiUrl + '/workout', {
     onSuccess: (data) => {
       setWorkoutPrograms(data.workouts);
     },
@@ -75,16 +75,13 @@ const HomeUser = memo(() => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await fetch(`${apiUrl}/booking/get-bookings`, {
-          method: 'POST',
+        const response = await fetch(`${apiUrl}/booking/${userInfo?.user_id}`, {
+          method: 'GET',
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'X-API-Key': apiKey,
           },
-          body: JSON.stringify({
-            user_id: userInfo?.user_id,
-          }),
         });
 
         const data = await response.json();

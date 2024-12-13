@@ -68,7 +68,7 @@ function AdminNewWorkout({ isOpen, onOpenChange }: AdminNewWorkoutProps) {
 
   const postWorkout = async (workoutData: CreateWorkoutPayload) => {
     try {
-      const response = await fetch(apiUrl + '/workout/create-workout', {
+      const response = await fetch(apiUrl + '/workout', {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -86,7 +86,7 @@ function AdminNewWorkout({ isOpen, onOpenChange }: AdminNewWorkoutProps) {
 
       if (data.message === 'Workout created successfully') {
         console.log('Workout created:', data.workout);
-        const getNewWorkout = await fetch(apiUrl + '/workout/get-workouts', {
+        const getNewWorkout = await fetch(apiUrl + '/workout', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
