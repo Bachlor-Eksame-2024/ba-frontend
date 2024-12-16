@@ -35,5 +35,7 @@ jobs:
         key: ${{ secrets.VPS_SSH_KEY_1 }}
         script: |
           cd ~/fitboks
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
-          docker-compose up -d frontend
+          docker compose pull frontend
+          docker compose down frontend
+          docker compose up -d frontend --force-recreate
+          docker compose logs frontend
