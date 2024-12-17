@@ -83,7 +83,6 @@ const CheckoutForm = () => {
         console.error(error);
         // handleError();
       } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-        console.log('Payment succeeded');
         const bookingSuccess = await handleBooking();
         if (bookingSuccess) {
           setLocation('/payment/success');
@@ -94,7 +93,6 @@ const CheckoutForm = () => {
       console.error(e);
       setErrorMessage('Payment failed');
     } finally {
-      console.log('Payment completed');
       setIsLoading(false);
     }
   };

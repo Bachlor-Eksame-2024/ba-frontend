@@ -29,8 +29,6 @@ export const useLogout = () => {
       if (!response.ok) {
         throw new Error('Logout failed');
       }
-      const data = await response.json();
-      console.log(data);
       setIsAuthenticated(false);
       setUser(null);
       navigate('/login');
