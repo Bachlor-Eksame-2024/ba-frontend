@@ -2,7 +2,7 @@ name: Deploy Frontend
 
 on:
   push:
-    branches: [ "156-setup-deploy-script" ]
+    branches: [ "master" ]
 
 jobs:
   deploy:
