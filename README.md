@@ -1,5 +1,5 @@
 # Tjek jeres node version
-
+test
 Vi køre node v20.17.0
 I kan bruge nvm (node version manager) til at ændre jeres node version. 
 For at se hvilket version i køre kan i skrive `n -v`

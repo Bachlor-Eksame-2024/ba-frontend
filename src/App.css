@@ -1,42 +1,118 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* /Users/jonathanweldon/vsCode/ba-frontend/src/App.css */
+
+.link-btn-sm {
+  @apply bg-secondary text-white text-tiny font-normal py-2 px-3 outline-none tap-highlight-transparent transition-transform-colors-opacity hover:opacity-90 rounded-small;
+}
+
+html {
+  background-color: #18181b !important;
+}
+
+.confsvg {
+  width: 100px;
+  display: block;
+  margin: 40px auto 0;
+}
+
+.path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 0;
+  &.circle {
+    -webkit-animation: dash 1.3s ease-in-out;
+    animation: dash 1.3s ease-in-out;
+  }
+  &.line {
+    stroke-dashoffset: 1000;
+    -webkit-animation: dash 1.3s 0.35s ease-in-out forwards;
+    animation: dash 1.3s 0.35s ease-in-out forwards;
+  }
+  &.check {
+    stroke-dashoffset: -100;
+    -webkit-animation: dash-check 1.3s 0.35s ease-in-out forwards;
+    animation: dash-check 1.3s 0.35s ease-in-out forwards;
+  }
+}
+
+.confp {
   text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+  margin: 20px 0 60px;
+  font-size: 1.25em;
+  &.success {
+    color: #7828c8;
   }
-  to {
-    transform: rotate(360deg);
+}
+@-webkit-keyframes dash {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
   }
 }
 
-.card {
-  padding: 2em;
+@-webkit-keyframes dash-check {
+  0% {
+    stroke-dashoffset: -100;
+  }
+  100% {
+    stroke-dashoffset: 900;
+  }
 }
 
-.read-the-docs {
-  color: #888;
+@keyframes dash-check {
+  0% {
+    stroke-dashoffset: -100;
+  }
+  100% {
+    stroke-dashoffset: 900;
+  }
+}
+
+/* De her skaber problemer for resten af nextui Komponenterne. Da de også ændre på deres udseende */
+
+[data-slot='grid-body-row'] {
+  gap: 1rem;
+}
+
+[data-slot='grid-header-row'] {
+  gap: 1rem;
+}
+
+[data-slot='grid'] {
+  max-width: 384px;
+}
+
+[data-slot='header-wrapper'] {
+  max-width: 384px;
+  background-color: #2e2e31 !important;
+  color: #f4f4f5 !important;
+  font-size: medium !important;
+}
+[data-slot='title'] {
+  font-size: medium !important;
+}
+
+[data-slot='base'] {
+  background-color: #2e2e31 !important;
+  border-radius: 4px !important;
+}
+
+[data-slot='grid-header'] {
+  background-color: #2e2e31 !important;
+  box-shadow: none !important;
+  color: #f4f4f5 !important;
+}
+
+[data-slot='grid-header-cell'] {
+  color: #f4f4f5 !important;
+  font-size: medium !important;
 }

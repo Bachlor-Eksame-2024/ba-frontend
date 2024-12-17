@@ -1,37 +1,106 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { Route, Switch } from 'wouter';
 import './App.css';
-import useSWR from 'swr';
+//import useSWR from 'swr';
+import LandingPage from './pages/LandingPage';
+import Signin from './pages/Signin';
+import Signup from './pages/Signup';
+import Home from './pages/Home';
+import Booking from './pages/Booking';
+import UserProfile from './pages/UserProfile';
+import AdminProfile from './pages/AdminProfile';
+import WorkoutPrograms from './pages/WorkoutPrograms';
+import MobileNavigation from './components/navigation/MobileNavigation';
+import DesktopNavigation from './components/navigation/DesktopNavigation';
+import SelectedWorkout from './pages/SelectedWorkout';
+import PageNotFound from './pages/PageNotFound';
+import BookingProcess from './pages/BookingProcess';
+import Verify from './pages/Verify';
+import Footer from './components/Footer';
+import { useAuth } from './hooks/useAuth';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import Confirmation from './components/booking/Confirmation';
+import DiscoverBox from './pages/DiscoverBox';
+import { useScrollRestoration } from './hooks/useScrollRestoration';
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  // how to fetch data with SWR
-  const { data, error } = useSWR('https://httpbin.org/get');
-
-  if (error) return <div>Failed to load - ci piline</div>;
-  if (!data) return <div>Loading...</div>;
+  useScrollRestoration();
+  const { isLoading } = useAuth();
+  if (isLoading) return <div>Loading...</div>;
 
   return (
-    <>
-      <div className='bg-red-500'>
-        <a href='https://vite.dev' target='_blank'>
-          <img src={viteLogo} className='logo' alt='Vite logo' />
-        </a>
-        <a href='https://react.dev' target='_blank'>
-          <img src={reactLogo} className='logo react' alt='React logo' />
-        </a>
-      </div>
-      <h1>Fitness app - Studenter projekt</h1>
-      <div className='card'>
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className='read-the-docs'>Click on the Vite and React logos to learn more</p>
-    </>
+    <div className='min-h-screen flex flex-col justify-between'>
+      <MobileNavigation />
+      <DesktopNavigation />
+      <Switch>
+        {/* Public Routes */}
+        <Route path='/'>
+          <ProtectedRoute requireAuth={false}>
+            <LandingPage />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/login'>
+          <ProtectedRoute requireAuth={false}>
+            <Signin />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/signup'>
+          <ProtectedRoute requireAuth={false}>
+            <Signup />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/verify' component={Verify} />
+
+        {/* Protected Routes */}
+        <Route path='/home'>
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/booking'>
+          <ProtectedRoute>
+            <Booking />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/booking/select-time-slot'>
+          <ProtectedRoute>
+            <BookingProcess />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/profile/user'>
+          <ProtectedRoute>
+            <UserProfile />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/admin/profile'>
+          <ProtectedRoute>
+            <AdminProfile />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/home/udforsk-boksene'>
+          <ProtectedRoute>
+            <DiscoverBox />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/workout-programs'>
+          <ProtectedRoute>
+            <WorkoutPrograms />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/workout-programs/:workout'>
+          <ProtectedRoute>
+            <SelectedWorkout />
+          </ProtectedRoute>
+        </Route>
+        <Route path='/payment/*'>
+          <ProtectedRoute>
+            <Confirmation />
+          </ProtectedRoute>
+        </Route>
+
+        <Route path='*' component={PageNotFound} />
+      </Switch>
+      <Footer></Footer>
+    </div>
   );
 }
 
