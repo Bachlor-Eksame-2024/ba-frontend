@@ -3,22 +3,17 @@ FROM node:18-alpine AS build
 
 WORKDIR /app
 
-# Add build arguments for production
-ARG VITE_API_URL
-ARG VITE_API_KEY
-ARG VITE_STRIPE_TEST_KEY
-
-# Set environment variables
-ENV VITE_API_URL=$VITE_API_URL
-ENV VITE_API_KEY=$VITE_API_KEY
-ENV VITE_STRIPE_TEST_KEY=$VITE_STRIPE_TEST_KEY
-
+# Copy package files first
 COPY package*.json ./
 RUN npm install
 
+# Copy environment files
+COPY .env.production .env
+
+# Copy rest of the application
 COPY . .
-# Use production environment for build
-RUN cp .env.production .env
+
+# Build the application
 RUN npm run build
 
 # Stage 2: Serve the app with Nginx
