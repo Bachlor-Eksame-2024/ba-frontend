@@ -21,7 +21,6 @@ function Verify() {
       const email = params.get('email');
 
       if (!token || !email) {
-        console.log('Missing token or email');
         navigate('/');
         return;
       }
@@ -37,16 +36,13 @@ function Verify() {
         });
 
         const data = await response.json();
-        console.log(data);
 
         if (data.message) {
-          console.log('Email verified');
           setMessage('Email Bekræftet. Videre stiller til login...');
           setTimeout(() => {
             navigate('/login');
           }, 4000);
         } else {
-          console.log('Email not verified');
           setMessage('Email Kunne ikke bekræftets eller er allerede bekræftet...');
           setTimeout(() => {
             navigate('/');

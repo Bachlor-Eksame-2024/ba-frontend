@@ -64,7 +64,6 @@ const BookingInterface = () => {
         if (data.status === 'success') {
           setUserBookings(data.bookings);
         }
-        console.log('Bookings:', data);
       } catch (error) {
         console.error('Error fetching bookings:', error);
       }
@@ -116,7 +115,6 @@ const BookingInterface = () => {
         }
         setSelectedBooking(null);
       }
-      console.log('Bookings:', data);
     } catch (error) {
       console.error('Error deleting booking:', error);
     }
@@ -126,7 +124,7 @@ const BookingInterface = () => {
     <div className='max-w-7xl w-full mx-auto'>
       <div className='h-screen  bg-default-50'>
         <div className='px-4 w-96 md:w-full md:mt-24 md:px-32 place-self-center'>
-          <h2 className='text-md font-medium mb-4 mt-3'>Mine bookinger</h2>
+          <h2 className='text-md font-medium mb-4 mt-16'>Mine bookinger</h2>
           <div className='bg-default-800 bg-opacity-10 p-3 rounded text-center'>
             {/* Header */}
             <div className='grid grid-cols-5 mb-2 text-gray-300'>

@@ -1,63 +1,54 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'wouter';
-import HomeIcon from '../../assets/icons/home.svg';
-import CalendarIcon from '../../assets/icons/calendar.svg';
-import GraphIcon from '../../assets/icons/graph.svg';
-import UserIcon from '../../assets/icons/user.svg';
+import { Drawer, DrawerContent, DrawerBody, Button, useDisclosure } from '@nextui-org/react';
+import { Link } from 'wouter';
 
-const MobileNavigation = () => {
-  const [location] = useLocation();
-  const [activeTab, setActiveTab] = useState(location);
-
-  const navItems = [
-    {
-      icon: HomeIcon,
-      name: 'home',
-      path: '/home',
-    },
-    {
-      icon: CalendarIcon,
-      name: 'booking',
-      path: '/booking',
-    },
-    {
-      icon: GraphIcon,
-      name: 'workout-programs',
-      path: '/workout-programs',
-    },
-    {
-      icon: UserIcon,
-      name: 'user',
-      path: '/profile/user',
-    },
-  ];
+export default function MobileNavigation() {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
-    <div className='fixed bottom-2 left-2 right-2 bg-default-100 flex justify-around py-2 rounded-full z-50 border-1 border-default-800 md:hidden'>
-      {navItems.map((item) => (
-        <Link
-          href={item.path}
-          key={item.name}
-          onClick={() => setActiveTab(item.path)}
-          className='flex items-center justify-center rounded-full'
-        >
-          <button
-            className={`flex items-center justify-center p-2 rounded-full ${
-              activeTab === item.path ? 'bg-default-300' : 'hover:bg-default-200'
-            } transition-colors duration-200`}
-          >
-            <img
-              src={item.icon}
-              alt={`${item.name} icon`}
-              className={`w-8 h-8 ${
-                activeTab === item.name ? 'opacity-70' : 'opacity-100 filter brightness-0 invert'
-              }`}
-            />
-          </button>
-        </Link>
-      ))}
-    </div>
+    <>
+      <div className='flex justify-end md:hidden absolute top-4 right-7'>
+        <Button onPress={onOpen}>Menu</Button>
+      </div>
+      <Drawer className='dark text-white' size='xs' isOpen={isOpen} onOpenChange={onOpenChange}>
+        <DrawerContent>
+          {(onClose) => (
+            <>
+              <DrawerBody>
+                <nav className='flex flex-col gap-10 pt-8'>
+                  <Link
+                    href='/'
+                    className='text-lg hover:text-primary transition-colors'
+                    onClick={onClose}
+                  >
+                    Hjem
+                  </Link>
+                  <Link
+                    href='/booking'
+                    className='text-lg hover:text-primary transition-colors'
+                    onClick={onClose}
+                  >
+                    Booking
+                  </Link>
+                  <Link
+                    href='/workout-programs'
+                    className='text-lg hover:text-primary transition-colors'
+                    onClick={onClose}
+                  >
+                    Programmer
+                  </Link>
+                  <Link
+                    href='/profile/user'
+                    className='text-lg hover:text-primary transition-colors'
+                    onClick={onClose}
+                  >
+                    Profil
+                  </Link>
+                </nav>
+              </DrawerBody>
+            </>
+          )}
+        </DrawerContent>
+      </Drawer>
+    </>
   );
-};
-
-export default MobileNavigation;
+}

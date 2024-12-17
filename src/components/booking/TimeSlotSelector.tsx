@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Calendar from './Calendar';
 import DesktopCalendar from './DesktopCalendar';
-import MobileNavigation from '../navigation/MobileNavigation';
 import DesktopNavigation from '../navigation/DesktopNavigation';
 import useUserStore from '../../stores/UserStore';
 import useCollectedBooking from '../../stores/CollectedBookingStore';
@@ -104,7 +103,6 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
 
       if (selectedBoxId) {
         // Proceed with booking logic
-        console.log(`Booking box ID: ${selectedBoxId}`);
         if (
           userInfo?.user_id &&
           selectedBoxId &&
@@ -131,12 +129,11 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
   };
 
   return (
-    <div className='fixed inset-0 bg-default-50 flex items-top md:items-center justify-center z-50 overflow-auto transition-colors'>
-      <MobileNavigation />
+    <div className='fixed inset-0 bg-default-50 flex items-top justify-center z-50 overflow-auto transition-colors mt-16 md:mt-0'>
       <DesktopNavigation />
       <div className='md:flex md:gap-40'>
         <div className='hidden md:inline-block w-96'>
-          <h2 className='text-md font-medium mb-4'>Vælg antal timer</h2>
+          <h2 className='text-md font-medium mb-4 md:mt-20'>Vælg antal timer</h2>
           <div className='gap-2 p-2 rounded bg-default-800 bg-opacity-10 md:flex hidden'>
             {timeAmount.map((amount) => (
               <button
@@ -163,7 +160,7 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
             </button>
           )}
         </div>
-        <div className='px-6 md:px-0 w-96'>
+        <div className='px-6 md:px-0 pb-24 md:pb-0 w-96'>
           <h2 className='text-md font-medium mb-4 md:hidden'>Vælg dato</h2>
           <Calendar setSelectedDate={setSelectedDate} selectedDate={selectedDate} />
           <h2 className='text-md font-medium mb-4 mt-8 md:mt-0 md:hidden'>Vælg antal timer</h2>
@@ -182,8 +179,8 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
               </button>
             ))}
           </div>
-          <h2 className='text-md font-medium mb-4 mt-8 md:mt-0'>Ledige periode</h2>
-          <div className='flex flex-col gap-2 text-base font-medium md:h-[80vh] md:overflow-auto'>
+          <h2 className='text-md font-medium mb-4 mt-8 md:mt-20'>Ledige periode</h2>
+          <div className='flex flex-col gap-2 text-base font-medium md:h-[74vh] md:overflow-auto'>
             {availableTimeSlots.length > 0 ? (
               availableTimeSlots.map((slot) => (
                 <button
@@ -206,7 +203,7 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
           {selectedSlot && selectedAmount && (
             <button
               onClick={handleConfirm}
-              className='fixed md:hidden bottom-20 md:w-96 left-2 right-2 bg-secondary flex justify-around py-5 rounded-full z-50 font-medium'
+              className='fixed md:hidden bottom-4 md:w-96 left-4 right-4 bg-secondary flex justify-around py-5 rounded-full z-50 font-medium'
             >
               Videre
             </button>

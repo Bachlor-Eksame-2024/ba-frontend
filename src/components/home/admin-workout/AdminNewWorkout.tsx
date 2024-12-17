@@ -85,7 +85,6 @@ function AdminNewWorkout({ isOpen, onOpenChange }: AdminNewWorkoutProps) {
       const data = await response.json();
 
       if (data.message === 'Workout created successfully') {
-        console.log('Workout created:', data.workout);
         const getNewWorkout = await fetch(apiUrl + '/workout', {
           method: 'GET',
           headers: {

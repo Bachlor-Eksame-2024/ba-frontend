@@ -16,15 +16,12 @@ export default function Signin() {
   // Login function
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('log bruger ind');
     // Faa email og Password
     const formData = new FormData(event.target as HTMLFormElement);
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
 
-    console.log(email);
     // email validate
-    console.log(password);
     // kald vores login API
     const response = await fetch(apiUrl + '/auth/login', {
       method: 'POST',
@@ -40,7 +37,6 @@ export default function Signin() {
       }),
     });
 
-    console.log('Respose from backend', response);
     if (response.ok) {
       const data = await response.json();
       setUser(data.user);
