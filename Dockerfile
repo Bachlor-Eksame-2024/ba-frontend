@@ -3,6 +3,16 @@ FROM node:18-alpine AS build
 
 WORKDIR /app
 
+# Define build arguments
+ARG VITE_API_URL
+ARG VITE_API_KEY
+ARG VITE_STRIPE_TEST_KEY
+
+# Set environment variables from build arguments
+ENV VITE_API_URL=${VITE_API_URL}
+ENV VITE_API_KEY=${VITE_API_KEY}
+ENV VITE_STRIPE_TEST_KEY=${VITE_STRIPE_TEST_KEY}
+
 COPY package*.json ./
 RUN npm install
 

@@ -25,7 +25,11 @@ jobs:
       with:
         context: .
         push: true
-        tags:  ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
+        build-args: |
+          VITE_API_URL=${{ secrets.VITE_API_URL }}
+          VITE_API_KEY=${{ secrets.VITE_API_KEY }}
+          VITE_STRIPE_TEST_KEY=${{ secrets.VITE_STRIPE_TEST_KEY }}
     
     - name: Deploy to VPS 1
       uses: appleboy/ssh-action@master
