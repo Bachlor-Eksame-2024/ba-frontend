@@ -10,7 +10,7 @@ jobs:
     
     strategy:
       matrix:
-        vps: [1, 2, 3]
+        vps: [1]
         
     steps:
     - uses: actions/checkout@v3
@@ -42,11 +42,19 @@ jobs:
         username: ${{ secrets[format('VPS_USERNAME_{0}', matrix.vps)] }}
         key: ${{ secrets[format('VPS_SSH_KEY_{0}', matrix.vps)] }}
         script: |
-          # Update the frontend service in docker-compose to use the specific tag
+          cd ~/fitboks
+          
+          # Update the frontend service image in docker-compose.yml
           sed -i 's|image: fitboks/frontend:latest|image: ${{ secrets.DOCKERHUB_USERNAME }}/frontend:vps${{ matrix.vps }}|g' docker-compose.yml
           
-          # Pull the new image
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/frontend:vps${{ matrix.vps }}
+          # Pull the new frontend image
+          docker compose pull frontend
           
-          # Restart the frontend service
-          docker-compose up -d frontend
+          # Stop and remove the existing frontend container
+          docker compose down frontend
+          
+          # Recreate and start the frontend service
+          docker compose up -d frontend --force-recreate
+          
+          # Show logs for debugging
+          docker compose logs frontend
