@@ -5,9 +5,13 @@ on:
     branches: [ "156-setup-deploy-script" ]
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: self-hosted
     
+    strategy:
+      matrix:
+        vps: [1, 2, 3]
+        
     steps:
     - uses: actions/checkout@v3
     
@@ -20,26 +24,29 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     
-    - name: Build and push
+    - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
         context: .
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend:vps${{ matrix.vps }}
         build-args: |
-          VITE_API_URL=${{ secrets.VITE_API_URL }}
+          VITE_API_URL=${{ secrets[format('VITE_API_URL_{0}', matrix.vps)] }}
           VITE_API_KEY=${{ secrets.VITE_API_KEY }}
           VITE_STRIPE_TEST_KEY=${{ secrets.VITE_STRIPE_TEST_KEY }}
     
-    - name: Deploy to VPS 1
+    - name: Update docker-compose and deploy
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.VPS_HOST_1 }}
-        username: ${{ secrets.VPS_USERNAME_1 }}
-        key: ${{ secrets.VPS_SSH_KEY_1 }}
+        host: ${{ secrets[format('VPS_HOST_{0}', matrix.vps)] }}
+        username: ${{ secrets[format('VPS_USERNAME_{0}', matrix.vps)] }}
+        key: ${{ secrets[format('VPS_SSH_KEY_{0}', matrix.vps)] }}
         script: |
-          cd ~/fitboks
-          docker compose pull frontend
-          docker compose down frontend
-          docker compose up -d frontend --force-recreate
-          docker compose logs frontend
+          # Update the frontend service in docker-compose to use the specific tag
+          sed -i 's|image: fitboks/frontend:latest|image: ${{ secrets.DOCKERHUB_USERNAME }}/frontend:vps${{ matrix.vps }}|g' docker-compose.yml
+          
+          # Pull the new image
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/frontend:vps${{ matrix.vps }}
+          
+          # Restart the frontend service
+          docker-compose up -d frontend
