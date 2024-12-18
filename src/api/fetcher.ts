@@ -1,10 +1,10 @@
-const apiUrl = import.meta.env.VITE_API_URL;
-const apiKey = import.meta.env.VITE_API_KEY;
+// fetcher.ts
+const api_key = import.meta.env.VITE_API_KEY;
 
 export const fetcher = (url: string) =>
-  fetch(`${apiUrl}${url}`, {
+  fetch(url, {
     credentials: 'include',
     headers: {
-      'X-API-Key': apiKey,
+      'X-API-Key': api_key,
     },
   }).then((res) => res.json());
