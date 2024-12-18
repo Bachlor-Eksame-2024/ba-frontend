@@ -16,21 +16,11 @@ ENV VITE_STRIPE_TEST_KEY=${VITE_STRIPE_TEST_KEY}
 COPY package*.json ./
 RUN npm install
 
+RUN npm i -g serve
+
 COPY . .
 RUN npm run build
 
-# Stage 2: Serve the app with Nginx
-FROM nginx:alpine
+EXPOSE 3000
 
-# Remove default nginx static assets
-RUN rm -rf /usr/share/nginx/html/*
-
-# Copy built assets from builder
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Copy nginx conf
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 4000
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD [ "serve", "-s", "dist" ]
