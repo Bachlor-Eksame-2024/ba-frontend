@@ -10,12 +10,13 @@ import useConfirmedStore from '../../stores/ConfirmedStore';
 const apiUrl = import.meta.env.VITE_API_URL;
 const apiKey = import.meta.env.VITE_API_KEY;
 
-const appearance: {
-  theme: 'flat' | 'stripe' | 'night' | undefined;
-  variables: { [key: string]: string };
-  rules: { [key: string]: { [key: string]: string } };
-} = {
-  theme: 'flat', // You can use 'stripe', 'flat', 'night'
+interface PaymentResponse {
+  payment_id: number;
+  client_secret: string;
+}
+
+const appearance = {
+  theme: 'flat' as const,
   variables: {
     colorPrimary: '#0570de',
     colorBackground: '#27272a',
@@ -26,27 +27,13 @@ const appearance: {
     borderRadius: '4px',
   },
   rules: {
-    '.Label': {
-      color: 'white',
-    },
-    '.Input': {
-      color: 'white',
-    },
-    '.Input:focus': {
-      borderColor: '#0570de',
-    },
-    '.Tab': {
-      color: '#ffffff',
-    },
-    '.Tab:hover': {
-      color: '#0570de',
-    },
-    '.Tab--selected': {
-      borderColor: '#0570de',
-    },
-    '.Tab--selected:focus': {
-      borderColor: '#0570de',
-    },
+    '.Label': { color: 'white' },
+    '.Input': { color: 'white' },
+    '.Input:focus': { borderColor: '#0570de' },
+    '.Tab': { color: '#ffffff' },
+    '.Tab:hover': { color: '#0570de' },
+    '.Tab--selected': { borderColor: '#0570de' },
+    '.Tab--selected:focus': { borderColor: '#0570de' },
   },
 };
 
@@ -59,6 +46,32 @@ const CheckoutForm = () => {
   const { setConfirmedBooking } = useConfirmedStore();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_location, setLocation] = useLocation();
+
+  const handleBooking = async (paymentIntentId: string) => {
+    try {
+      const response = await fetch(`${apiUrl}/booking`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': apiKey,
+        },
+        body: JSON.stringify({
+          ...collectedBooking,
+          payment_intent_id: paymentIntentId,
+        }),
+      });
+      const data = await response.json();
+      if (data.status === 'success') {
+        setConfirmedBooking(data.message);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error('Booking error:', error);
+      return false;
+    }
+  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -80,37 +93,21 @@ const CheckoutForm = () => {
       });
 
       if (error) {
-        console.error(error);
-        // handleError();
+        console.error('Payment error:', error);
+        setErrorMessage(error.message || 'Payment failed');
       } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-        const bookingSuccess = await handleBooking();
+        const bookingSuccess = await handleBooking(paymentIntent.id);
         if (bookingSuccess) {
           setLocation('/payment/success');
+        } else {
+          setErrorMessage('Booking failed after payment');
         }
-        // handleSuccess();
       }
-    } catch (e) {
-      console.error(e);
-      setErrorMessage('Payment failed');
+    } catch (error) {
+      console.error('Payment error:', error);
+      setErrorMessage('An unexpected error occurred');
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const handleBooking = async () => {
-    const response = await fetch(apiUrl + '/booking', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': apiKey,
-      },
-      body: JSON.stringify(collectedBooking),
-    });
-    const data = await response.json();
-    if (data.status === 'success') {
-      setConfirmedBooking(data.message);
-      return true;
     }
   };
 
@@ -127,37 +124,51 @@ const CheckoutForm = () => {
 
 const Payment = memo(() => {
   const test_key = import.meta.env.VITE_STRIPE_TEST_KEY;
-  const api_url = import.meta.env.VITE_API_URL;
-  const api_key = import.meta.env.VITE_API_KEY;
   const stripePromise = loadStripe(test_key);
   const [clientSecret, setClientSecret] = useState('');
   const { collectedBooking } = useCollectedBooking();
+  const [paymentResponse, setPaymentResponse] = useState<PaymentResponse>({
+    payment_id: 0,
+    client_secret: '',
+  });
 
   useEffect(() => {
-    // Fetch the client secret from the server
-    fetch(api_url + '/payment', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': api_key,
-      },
-      body: JSON.stringify({
-        amount: collectedBooking && collectedBooking.booking_duration_hours * 50000,
-        currency: 'dkk',
-      }),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
+    const createPayment = async () => {
+      if (!collectedBooking) return;
+
+      try {
+        const response = await fetch(`${apiUrl}/payment/create-payment`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-API-Key': apiKey,
+          },
+          body: JSON.stringify({
+            amount: collectedBooking.booking_duration_hours * 50000,
+            currency: 'dkk',
+            user_id: collectedBooking.user_id,
+            payment_method: 'card',
+          }),
+        });
+
+        const data = await response.json();
+        setPaymentResponse(data);
         setClientSecret(data.client_secret);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      } catch (error) {
+        console.error('Error creating payment:', error);
+      }
+    };
+
+    createPayment();
+  }, [collectedBooking]);
+
+  if (!collectedBooking) {
+    return null;
+  }
 
   const options = {
-    // passing the client secret obtained from the server
-    clientSecret: clientSecret,
+    clientSecret,
     appearance,
   };
 
@@ -165,16 +176,16 @@ const Payment = memo(() => {
     <div className='max-auto max-w-2xl mx-auto flex flex-col gap-4 items-center justify-center p-4 pt-20'>
       <Card className='w-full'>
         <CardBody>
-          <p>Boks: {collectedBooking?.booking_box_id_fk}</p>
-          <p>Dato: {collectedBooking?.booking_date}</p>
-          <p>Fra kl: {collectedBooking?.booking_start_hour}</p>
-          <p>Til kl: {collectedBooking?.booking_end_hour}</p>
-          <p>Pris: {collectedBooking && collectedBooking.booking_duration_hours * 50},-</p>
+          <p>Boks: {collectedBooking.booking_box_id_fk}</p>
+          <p>Dato: {collectedBooking.booking_date}</p>
+          <p>Fra kl: {collectedBooking.booking_start_hour}</p>
+          <p>Til kl: {collectedBooking.booking_end_hour}</p>
+          <p>Pris: {collectedBooking.booking_duration_hours * 50},-</p>
         </CardBody>
       </Card>
       {clientSecret && (
         <Elements stripe={stripePromise} options={options}>
-          <CheckoutForm />
+          <CheckoutForm paymentResponse={paymentResponse} />
         </Elements>
       )}
     </div>
