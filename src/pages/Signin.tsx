@@ -1,21 +1,22 @@
 import { Button } from '@nextui-org/react';
 import useUserStore from '../stores/UserStore';
 import { Link, useLocation } from 'wouter';
-import { useLogout } from '../hooks/useLogout';
 import { useAuth } from '../hooks/useAuth';
+import { useState } from 'react';
 
 export default function Signin() {
   const apiUrl = import.meta.env.VITE_API_URL;
   const apiKey = import.meta.env.VITE_API_KEY;
-  const { logout, isLoading } = useLogout();
   const { setUser } = useUserStore();
   const { setIsAuthenticated } = useAuth();
+  const [error, setError] = useState<string | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_location, setLocation] = useLocation();
 
   // Login function
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setError(null);
     console.log('log bruger ind');
     // Faa email og Password
     const formData = new FormData(event.target as HTMLFormElement);
@@ -36,22 +37,20 @@ export default function Signin() {
       body: JSON.stringify({
         email: email,
         password: password,
-        fitness_center_id: 's',
       }),
     });
 
+    const data = await response.json();
+
     console.log('Respose from backend', response);
     if (response.ok) {
-      const data = await response.json();
       setUser(data.user);
       setIsAuthenticated(true); // Immediate auth state update
       setLocation('/home');
     } else {
+      setError(data.detail || 'Login failed');
       console.error('Login failed:', response.status);
-      // Handle login error
     }
-
-    // Faa status 200 tilbage
   };
 
   return (
@@ -61,6 +60,7 @@ export default function Signin() {
         <div className='bg-zinc-900 p-24 min-w-[24rem] max-w-[48rem] rounded'>
           <h1 className='text-lg pb-8'>Login</h1>
           <form onSubmit={handleLogin} className='flex flex-col space-y-4'>
+            {error && <div className='text-red-500 text-sm'>{error}</div>}
             <label htmlFor='email' className='text-sm'>
               Email
             </label>
@@ -93,9 +93,6 @@ export default function Signin() {
               </p>
             </div>
           </form>
-          <Button onClick={logout} isLoading={isLoading}>
-            LOGOUT
-          </Button>
         </div>
       </div>
     </div>
