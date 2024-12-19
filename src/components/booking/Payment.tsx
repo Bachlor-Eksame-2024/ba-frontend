@@ -154,6 +154,7 @@ const Payment = memo(() => {
 
         const data = await response.json();
         setPaymentResponse(data);
+        console.log(paymentResponse);
         setClientSecret(data.client_secret);
       } catch (error) {
         console.error('Error creating payment:', error);
@@ -185,7 +186,7 @@ const Payment = memo(() => {
       </Card>
       {clientSecret && (
         <Elements stripe={stripePromise} options={options}>
-          <CheckoutForm paymentResponse={paymentResponse} />
+          <CheckoutForm />
         </Elements>
       )}
     </div>
