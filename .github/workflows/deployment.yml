@@ -10,7 +10,7 @@ jobs:
     
     strategy:
       matrix:
-        vps: [1]
+        vps: [1,2,3]
         
     steps:
     - uses: actions/checkout@v3
