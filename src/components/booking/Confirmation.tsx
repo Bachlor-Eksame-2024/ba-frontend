@@ -10,6 +10,7 @@ function Confirmation() {
     setLocation('/payment/success');
     return null;
   }
+
   return (
     <div className='flex flex-col gap-4 items-center justify-center min-h-screen flex-grow pt-16'>
       <p className='success confp'>
