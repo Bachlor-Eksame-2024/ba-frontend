@@ -6,7 +6,7 @@ import { Card, CardBody } from '@nextui-org/card';
 
 function SelectedWorkout() {
   const apiUrl = import.meta.env.VITE_API_URL;
-  const { data, error } = useSWR(apiUrl + '/workout/get-workouts');
+  const { data, error } = useSWR(apiUrl + '/workout');
   const [match, params] = useRoute('/workout-programs/:workout');
 
   if (!match) return;
@@ -60,8 +60,8 @@ function SelectedWorkout() {
                       <h3 className='mb-4 text-lg'>{week.week_description}</h3>
 
                       <ol className='flex flex-col gap-4 list-decimal ml-4'>
-                        {week.exercises.map((exercise) => (
-                          <li key={exercise.exercise_id}>
+                        {week.exercises.map((exercise, index) => (
+                          <li key={exercise.exercise_id + '-' + index}>
                             <h4 className='font-semibold'>{exercise.exercise_name}</h4>
                             <p className='text-zinc-200 max-w-[60ch]'>
                               {exercise.exercise_description}

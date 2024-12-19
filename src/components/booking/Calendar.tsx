@@ -4,16 +4,21 @@ import { useEffect, useRef, useState } from 'react';
 import { today, getLocalTimeZone, CalendarDate } from '@internationalized/date';
 import CalendarIcon from '../../assets/icons/calendar2.svg';
 
-export default function Calendar() {
+interface CalendarProps {
+  selectedDate: string;
+  setSelectedDate: (date: string) => void;
+}
+
+export default function Calendar({ selectedDate, setSelectedDate }: CalendarProps): JSX.Element {
   const [isOpen, setOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
+
   const [calendarDate, setCalendarDate] = useState(today(getLocalTimeZone()));
   const calendarRef = useRef<HTMLDivElement>(null);
   const handleDate = (value: { day: number; month: number; year: number }) => {
     const day = value.day;
     const month = value.month;
     const year = value.year;
-    const dateStr = `${day}/${month}/${year}`;
+    const dateStr = `${year}-${month}-${day}`;
     setSelectedDate(dateStr);
     setCalendarDate(new CalendarDate(value.year, value.month, value.day));
     setOpen(false);
@@ -29,11 +34,12 @@ export default function Calendar() {
     const day = date.day;
     const month = date.month;
     const year = date.year;
-    return `${day}/${month}/${year}`;
+    return `${year}-${month}-${day}`;
   };
 
   useEffect(() => {
     setSelectedDate(formatDate(calendarDate));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calendarDate]);
 
   return (

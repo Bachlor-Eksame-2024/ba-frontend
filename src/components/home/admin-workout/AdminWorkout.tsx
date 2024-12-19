@@ -14,7 +14,7 @@ function AdminWorkout() {
   const { workoutPrograms, setWorkoutPrograms } = useWorkoutStore();
 
   // Fetch data with SWR hook for fetching "GET" data
-  const { data, error } = useSWR(apiUrl + '/workout/get-workouts', {
+  const { data, error } = useSWR(apiUrl + '/workout', {
     onSuccess: (data) => {
       setWorkoutPrograms(data.workouts);
     },
@@ -23,7 +23,7 @@ function AdminWorkout() {
   if (!data) return <div>Loading...</div>;
 
   const handelDeleteWorkout = async (workoutId: number) => {
-    const response = await fetch(apiUrl + '/workout/delete-workout/' + workoutId, {
+    const response = await fetch(apiUrl + '/workout/' + workoutId, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

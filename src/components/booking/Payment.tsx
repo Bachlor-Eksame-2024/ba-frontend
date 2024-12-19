@@ -3,6 +3,12 @@ import { Card, CardBody } from '@nextui-org/card';
 import { Elements, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { memo, useEffect, useState } from 'react';
+import useCollectedBooking from '../../stores/CollectedBookingStore';
+import { useLocation } from 'wouter';
+import useConfirmedStore from '../../stores/ConfirmedStore';
+
+const apiUrl = import.meta.env.VITE_API_URL;
+const apiKey = import.meta.env.VITE_API_KEY;
 
 const appearance: {
   theme: 'flat' | 'stripe' | 'night' | undefined;
@@ -13,7 +19,7 @@ const appearance: {
   variables: {
     colorPrimary: '#0570de',
     colorBackground: '#27272a',
-    colorText: '#30313d',
+    colorText: '#ffffff',
     colorDanger: '#df1b41',
     fontFamily: 'Ideal Sans, system-ui, sans-serif',
     spacingUnit: '2px',
@@ -30,7 +36,7 @@ const appearance: {
       borderColor: '#0570de',
     },
     '.Tab': {
-      color: '#30313d',
+      color: '#ffffff',
     },
     '.Tab:hover': {
       color: '#0570de',
@@ -49,6 +55,10 @@ const CheckoutForm = () => {
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const { collectedBooking } = useCollectedBooking();
+  const { setConfirmedBooking } = useConfirmedStore();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_location, setLocation] = useLocation();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -61,15 +71,23 @@ const CheckoutForm = () => {
     setErrorMessage('');
 
     try {
-      const { error } = await stripe.confirmPayment({
+      const { error, paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
           return_url: `${window.location.origin}/payment/success`,
         },
+        redirect: 'if_required',
       });
 
       if (error) {
-        setErrorMessage(error.message || 'An error occurred');
+        console.error(error);
+        // handleError();
+      } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+        const bookingSuccess = await handleBooking();
+        if (bookingSuccess) {
+          setLocation('/payment/success');
+        }
+        // handleSuccess();
       }
     } catch (e) {
       console.error(e);
@@ -79,12 +97,29 @@ const CheckoutForm = () => {
     }
   };
 
+  const handleBooking = async () => {
+    const response = await fetch(apiUrl + '/booking', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': apiKey,
+      },
+      body: JSON.stringify(collectedBooking),
+    });
+    const data = await response.json();
+    if (data.status === 'success') {
+      setConfirmedBooking(data.message);
+      return true;
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className='w-full bg-default-50 p-4 rounded flex flex-col gap-4'>
       <PaymentElement />
       {errorMessage && <div className='text-danger'>{errorMessage}</div>}
       <Button type='submit' className='bg-secondary w-fit' isLoading={isLoading} disabled={!stripe}>
-        Pay Now
+        Betal nu
       </Button>
     </form>
   );
@@ -96,17 +131,18 @@ const Payment = memo(() => {
   const api_key = import.meta.env.VITE_API_KEY;
   const stripePromise = loadStripe(test_key);
   const [clientSecret, setClientSecret] = useState('');
+  const { collectedBooking } = useCollectedBooking();
 
   useEffect(() => {
     // Fetch the client secret from the server
-    fetch(api_url + '/payment/create-payment-intent', {
+    fetch(api_url + '/payment', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'X-API-Key': api_key,
       },
       body: JSON.stringify({
-        amount: 250,
+        amount: collectedBooking && collectedBooking.booking_duration_hours * 50000,
         currency: 'dkk',
       }),
     })
@@ -116,6 +152,7 @@ const Payment = memo(() => {
       .then((data) => {
         setClientSecret(data.client_secret);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const options = {
@@ -125,10 +162,14 @@ const Payment = memo(() => {
   };
 
   return (
-    <div className='max-auto max-w-2xl flex flex-col gap-4 items-center justify-center p-4 pt-20'>
+    <div className='max-auto max-w-2xl mx-auto flex flex-col gap-4 items-center justify-center p-4 pt-20'>
       <Card className='w-full'>
         <CardBody>
-          <p>Boks 16, 08:00-09:00 50,00 kr.</p>
+          <p>Boks: {collectedBooking?.booking_box_id_fk}</p>
+          <p>Dato: {collectedBooking?.booking_date}</p>
+          <p>Fra kl: {collectedBooking?.booking_start_hour}</p>
+          <p>Til kl: {collectedBooking?.booking_end_hour}</p>
+          <p>Pris: {collectedBooking && collectedBooking.booking_duration_hours * 50},-</p>
         </CardBody>
       </Card>
       {clientSecret && (

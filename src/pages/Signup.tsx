@@ -70,7 +70,6 @@ export default function Signup() {
 
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Opret bruger');
 
     const formData = new FormData(event.target as HTMLFormElement);
     const email = formData.get('email') as string;
@@ -98,11 +97,8 @@ export default function Signup() {
       }),
     });
 
-    console.log('Response from backend', response);
-    console.log('Response from backend', response);
     if (response.ok) {
       const data = await response.json();
-      console.log('Signup successful:', data);
       setUser(data.user);
       navigate('/home');
     } else {

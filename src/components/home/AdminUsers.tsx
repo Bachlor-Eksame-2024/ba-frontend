@@ -1,9 +1,10 @@
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/table';
 import { Input, Pagination, Select, SelectItem } from '@nextui-org/react';
 import { useState } from 'react';
-import useAdminUsersStore from '../../stores/adminUsersStore';
 import useSWR from 'swr';
+import useAdminUsersStore from '../../stores/adminUsersStore';
 import { AdminUser } from '../../types/user';
+import useUserStore from '../../stores/UserStore';
 
 function AdminUsers() {
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -11,14 +12,12 @@ function AdminUsers() {
   const [searchTerm, setSearchTerm] = useState('');
   const [curPage, setCurPage] = useState(1);
   const { adminUsers, setAdminUsers } = useAdminUsersStore();
-  const { data, error } = useSWR(
-    apiUrl + `/admin/get-users?fitness_center_id=${1}&page=${1}&page_size=10`,
-    {
-      onSuccess: (data) => {
-        setAdminUsers(data);
-      },
-    }
-  );
+  const { userInfo } = useUserStore();
+  const { data, error } = useSWR(apiUrl + `/admin/users/${userInfo?.fitness_center_id}/${1}/10`, {
+    onSuccess: (data) => {
+      setAdminUsers(data);
+    },
+  });
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
   // Before the return statement
@@ -26,7 +25,7 @@ function AdminUsers() {
 
   const handleChangePage = async (page: number) => {
     const response = await fetch(
-      apiUrl + `/admin/get-users?fitness_center_id=${1}&page=${page}&page_size=10`,
+      apiUrl + `/admin/users/${userInfo?.fitness_center_id}/${page}/10`,
       {
         method: 'GET',
         credentials: 'include',
@@ -52,8 +51,7 @@ function AdminUsers() {
 
     try {
       const response = await fetch(
-        apiUrl +
-          `/admin/search-users?fitness_center_id=1&page=${page}&page_size=10&search_query=${searchQuery}`,
+        apiUrl + `/admin/search-users/${userInfo?.fitness_center_id}/${page}/10/${searchQuery}`,
         {
           method: 'GET',
           credentials: 'include',
@@ -94,7 +92,8 @@ function AdminUsers() {
   // update user Status
   const handleUpdateUserStatus = async (userId: number, is_member: boolean) => {
     try {
-      const response = await fetch(apiUrl + `/admin/update-membership`, {
+      // /api/admin/membership
+      const response = await fetch(apiUrl + `/admin/membership`, {
         method: 'PUT',
         credentials: 'include',
         headers: {
@@ -107,9 +106,7 @@ function AdminUsers() {
         }),
       });
       const data = await response.json();
-      console.log(data);
       if (data.message) {
-        console.log('User status updated successfully');
         const newUsers = adminUsers;
         newUsers.users = newUsers.users.map((user: AdminUser) => {
           if (user.user_id === userId) {
@@ -126,7 +123,6 @@ function AdminUsers() {
 
   // setup delete user in the future
 
-  console.log(adminUsers);
   return (
     <>
       <div className='sm:hidden grid gap-4'>

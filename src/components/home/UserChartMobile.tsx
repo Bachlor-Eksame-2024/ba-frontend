@@ -94,20 +94,23 @@ function UserChartMobile() {
   const { userInfo } = useUserStore();
   useEffect(() => {
     const getStats = async () => {
-      const response = await fetch(import.meta.env.VITE_API_URL + '/profile/get-user-stats', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-API-Key': import.meta.env.VITE_API_KEY,
-        },
-        body: JSON.stringify({ user_id: userInfo?.user_id.toString() }),
-      });
+      const response = await fetch(
+        import.meta.env.VITE_API_URL + `/profile/user-stats/${userInfo?.user_id}`,
+        {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-API-Key': import.meta.env.VITE_API_KEY,
+          },
+        }
+      );
 
       const data = await response.json();
       setUserCharData(data);
     };
     getStats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -125,14 +128,14 @@ function UserChartMobile() {
   useEffect(() => {
     if (screenWidth > 640) {
       if (userCharData?.monthly_stats) {
-        setChatData(userCharData.monthly_stats.reverse());
+        setChatData(userCharData.monthly_stats);
       } else {
         setChatData(desktopData);
       }
       setMobile(false);
     } else {
       if (userCharData?.weekly_stats) {
-        setChatData(userCharData.weekly_stats.reverse());
+        setChatData(userCharData.weekly_stats);
       } else {
         setChatData(mobileData);
       }
@@ -160,7 +163,7 @@ function UserChartMobile() {
           }}
         >
           <XAxis tick={{ fill: '#FFFFFF' }} dataKey='name' className='text-foreground-100' />
-          <YAxis tick={{ fill: '#FFFFFF' }} />
+          <YAxis type='number' tick={{ fill: '#FFFFFF' }} allowDecimals={false} />
           <Tooltip cursor={false} content={<CustomTooltip />} />
           <Bar
             dataKey='pv'

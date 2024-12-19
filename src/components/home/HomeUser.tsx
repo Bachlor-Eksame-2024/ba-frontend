@@ -4,6 +4,8 @@ import useWorkoutStore from '../../stores/WorkoutStore';
 
 import HomeDesktop from './HomeDesktop';
 import HomeTabletAndMobile from './HomeTabletAndMobile';
+import useBookingStore from '../../stores/BookingStore';
+import useUserStore from '../../stores/UserStore';
 
 const normalCards = [
   {
@@ -49,8 +51,12 @@ const userCards = [
 
 const HomeUser = memo(() => {
   const apiUrl = import.meta.env.VITE_API_URL;
+  const apiKey = import.meta.env.VITE_API_KEY;
   const { workoutPrograms, setWorkoutPrograms } = useWorkoutStore();
-  const { error } = useSWR(apiUrl + '/workout/get-workouts', {
+  const { setUserBookings } = useBookingStore();
+  const { userInfo } = useUserStore();
+  const [lastestBooking, setLastestBooking] = useState(false);
+  const { error } = useSWR(apiUrl + '/workout', {
     onSuccess: (data) => {
       setWorkoutPrograms(data.workouts);
     },
@@ -66,7 +72,31 @@ const HomeUser = memo(() => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const LastedBooking = false;
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/booking/${userInfo?.user_id}`, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-API-Key': apiKey,
+          },
+        });
+
+        const data = await response.json();
+        if (data.status === 'success') {
+          setUserBookings(data.bookings);
+          setLastestBooking(true);
+        }
+      } catch (error) {
+        console.error('Error fetching bookings:', error);
+      }
+    };
+
+    fetchBookings();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
@@ -77,7 +107,7 @@ const HomeUser = memo(() => {
             userCards={userCards}
             workoutPrograms={workoutPrograms || []}
             normalCards={normalCards}
-            LastedBooking={LastedBooking}
+            lastestBooking={lastestBooking}
           />
         ) : (
           <HomeDesktop
@@ -85,7 +115,7 @@ const HomeUser = memo(() => {
             userCards={userCards}
             workoutPrograms={workoutPrograms || []}
             normalCards={normalCards}
-            LastedBooking={LastedBooking}
+            lastestBooking={lastestBooking}
           />
         )}
       </Suspense>

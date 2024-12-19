@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import AdminCardStats from './AdminCardStats';
 import useSWR from 'swr';
+import useUserStore from '../../stores/UserStore';
 
 // Dynamically import the AdminBarChart component
 const AdminBarChart = lazy(() => import('./AdminBarChart'));
@@ -11,14 +12,18 @@ const ApiUrl = import.meta.env.VITE_API_URL;
 function Dashboard() {
   const currentHour = new Date().getHours();
   const currentMinutes = new Date().getMinutes();
-  const currentTime = currentHour + ':' + currentMinutes;
+  const currentTime = currentHour + '' + currentMinutes;
   const currentDate = new Date().toISOString().split('T')[0];
+  const { userInfo } = useUserStore();
 
   // replace fitness_center_id with the id from the logged in user
-  const { data, error } = useSWR(ApiUrl + '/admin/get-stats?fitness_center_id=' + '1');
+  const { data, error } = useSWR(ApiUrl + '/admin/stats/' + userInfo?.fitness_center_id);
+  // /api/admin/stats/{fitness_center_id}
+
+  // /api/admin/box-availability/{fitness_center_id}/{date}/{current_time}/{duration}
   const { data: boxes, error: error2 } = useSWR(
     ApiUrl +
-      `/admin/get-box-availability?fitness_center_id=1&date=${currentDate}&current_time=${currentTime}&duration=1`
+      `/admin/box-availability/${userInfo?.fitness_center_id}/${currentDate}/${currentTime}/1`
   );
   if (error) return <div>Failed to load fetch data</div>;
   if (!data) return <div>Loading...</div>;

@@ -10,7 +10,7 @@ export default function WorkoutPrograms() {
   const { workoutPrograms, setWorkoutPrograms } = useWorkoutStore();
 
   // Fetch data with SWR hook for fetching "GET" data
-  const { data, error } = useSWR(apiUrl + '/workout/get-workouts', {
+  const { data, error } = useSWR(apiUrl + '/workout', {
     onSuccess: (data) => {
       setWorkoutPrograms(data.workouts);
     },
