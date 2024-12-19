@@ -1,5 +1,4 @@
-// components/ProtectedRoute.tsx
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useLocation } from 'wouter';
 
@@ -13,17 +12,21 @@ export function ProtectedRoute({ children, requireAuth = true }: ProtectedRouteP
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setLocation] = useLocation();
 
+  useEffect(() => {
+    if (!isLoading) {
+      if (requireAuth && !isAuthenticated) {
+        setLocation('/login');
+      } else if (!requireAuth && isAuthenticated) {
+        setLocation('/home');
+      }
+    }
+  }, [isLoading, isAuthenticated, requireAuth, setLocation]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  if (requireAuth && !isAuthenticated) {
-    setLocation('/login');
-    return null;
-  }
-
-  if (!requireAuth && isAuthenticated) {
-    setLocation('/home');
+  if ((requireAuth && !isAuthenticated) || (!requireAuth && isAuthenticated)) {
     return null;
   }
 

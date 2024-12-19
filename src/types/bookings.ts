@@ -27,4 +27,6 @@ export interface ConfirmedStoreResponse {
   booking_date: string;
   booking_start_hour: number;
   booking_end_hour: number;
+  payment_id?: number;
+  client_secret?: number;
 }

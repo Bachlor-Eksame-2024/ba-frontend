@@ -21,10 +21,29 @@ function SelectedWorkout() {
 
   return (
     <div className='grid gap-4 w-full max-w-7xl mx-auto p-4 pt-20'>
+      <Link
+        href='/workout-programs'
+        className='md:hidden absolute top-4 left-7 bg-default hover:bg-default-200 p-2 rounded-medium'
+      >
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          fill='none'
+          viewBox='0 0 24 24'
+          strokeWidth={1.5}
+          stroke='currentColor'
+          className='size-6'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            d='M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18'
+          />
+        </svg>
+      </Link>
       <div className='relative min-h-96 max-h-[30vh] overflow-hidden flex items-center justify-center rounded'>
         <Link
           href='/workout-programs'
-          className='absolute top-5 left-5 bg-default-100 hover:bg-default-200 p-2 rounded-full'
+          className='max-md:hidden absolute top-5 left-5 bg-default hover:bg-default-200 p-2 rounded-xl'
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -41,7 +60,6 @@ function SelectedWorkout() {
             />
           </svg>
         </Link>
-
         <h1 className='absolute bottom-5 left-5 text-xl font-bold'>{filterWorkout.workout_name}</h1>
         <img
           className='object-center object-cover h-full w-full'
@@ -52,11 +70,11 @@ function SelectedWorkout() {
       <div className='basis-3/4'>
         <div className='grid gap-4'>
           <div className='flex w-full flex-col'>
-            <Tabs aria-label='Options'>
+            <Tabs aria-label='Options' fullWidth className='p-1'>
               {filterWorkout.workout_weeks.map((week: WorkoutWeeks) => (
                 <Tab key={week.week_id} title={week.week_name}>
                   <Card>
-                    <CardBody className='p-4'>
+                    <CardBody className='p-4 w-full'>
                       <h3 className='mb-4 text-lg'>{week.week_description}</h3>
 
                       <ol className='flex flex-col gap-4 list-decimal ml-4'>

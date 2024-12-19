@@ -7,7 +7,22 @@ export default function MobileNavigation() {
   return (
     <>
       <div className='flex justify-end md:hidden absolute top-4 right-7'>
-        <Button onPress={onOpen}>Menu</Button>
+        <Button isIconOnly className='' onPress={onOpen}>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            strokeWidth={1.5}
+            stroke='currentColor'
+            className='size-6'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
+            />
+          </svg>
+        </Button>
       </div>
       <Drawer className='dark text-white' size='xs' isOpen={isOpen} onOpenChange={onOpenChange}>
         <DrawerContent>
