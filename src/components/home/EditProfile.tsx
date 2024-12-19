@@ -72,7 +72,6 @@ function EditProfile({ isOpen, onOpenChange }: EditProfileProps) {
     const email = formData.get('email');
     const phone = formData.get('phone')?.toString();
     const center = formData.get('fitness_center')?.toString();
-    console.log(first_name, last_name, email, phone, center);
     const response = await fetch(ApiUrl + '/profile/update-profile', {
       method: 'put',
       credentials: 'include',
@@ -98,7 +97,6 @@ function EditProfile({ isOpen, onOpenChange }: EditProfileProps) {
       setProfileError(data.detail);
     }
   };
-  console.log(userInfo);
 
   return (
     <Modal className='dark' size='5xl' isOpen={isOpen} onOpenChange={onOpenChange}>

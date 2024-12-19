@@ -106,9 +106,7 @@ function AdminUsers() {
         }),
       });
       const data = await response.json();
-      console.log(data);
       if (data.message) {
-        console.log('User status updated successfully');
         const newUsers = adminUsers;
         newUsers.users = newUsers.users.map((user: AdminUser) => {
           if (user.user_id === userId) {
@@ -125,7 +123,6 @@ function AdminUsers() {
 
   // setup delete user in the future
 
-  console.log(adminUsers);
   return (
     <>
       <div className='sm:hidden grid gap-4'>

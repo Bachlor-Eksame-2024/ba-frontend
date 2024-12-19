@@ -54,10 +54,6 @@ function AdminBoksPopup({ isOpen, onOpenChange, selectedBoks }: AdminBoksPopupPr
                           <CardBody>
                             <Accordion className='' onSelectionChange={(key) => getBooking(key)}>
                               {Object.entries(selectedBoks.dates[date]).map(([time, timeData]) => {
-                                // if (timeData.booking) {
-                                if (timeData.booking) {
-                                  console.log(timeData.booking, 'timeData.booking');
-                                }
                                 return (
                                   <AccordionItem
                                     key={

@@ -12,32 +12,20 @@ const DesktopNavigation = () => {
   const { logout, isLoading } = useLogout();
   const navItems = [
     {
-      name: 'Login',
-      path: '/login',
-    },
-    {
-      name: 'Signup',
-      path: '/signup',
-    },
-    {
       name: 'Booking',
       path: '/booking',
     },
     {
-      name: 'Workouts',
+      name: 'Programmer',
       path: '/workout-programs',
     },
     {
-      name: 'User',
+      name: 'Profil',
       path: '/user/profile',
-    },
-    {
-      name: 'Admin',
-      path: '/admin/profile',
     },
   ];
   return (
-    <div className='fixed top-0 left-0 right-0 bg-default-50 bg-opacity-95 backdrop-blur-md justify-between items-center px-14 h-14 z-50 hidden md:flex'>
+    <div className='fixed top-0 left-0 right-0 bg-default-50 bg-opacity-85 backdrop-blur-md justify-between items-center px-14 h-14 z-50 hidden md:flex'>
       <div className='flex items-center'>
         <Link href={isAuthenticated ? '/home' : '/'} onClick={() => setActiveTab('')}>
           <img src={Logo} alt='fitboks logo' className='h-8 cursor-pointer' />
@@ -49,7 +37,7 @@ const DesktopNavigation = () => {
             href={item.path}
             key={item.name}
             onClick={() => setActiveTab(item.path)}
-            className={`flex items-center justify-center p-2 rounded-full ${
+            className={`flex items-center justify-center px-4 rounded-full ${
               activeTab === item.path ? 'bg-default-300' : 'hover:bg-default-200'
             } transition-colors duration-200`}
           >

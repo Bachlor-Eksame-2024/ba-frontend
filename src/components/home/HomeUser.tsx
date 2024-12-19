@@ -89,7 +89,6 @@ const HomeUser = memo(() => {
           setUserBookings(data.bookings);
           setLastestBooking(true);
         }
-        console.log('Bookings:', data);
       } catch (error) {
         console.error('Error fetching bookings:', error);
       }

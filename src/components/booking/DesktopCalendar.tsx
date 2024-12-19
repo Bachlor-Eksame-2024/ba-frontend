@@ -22,6 +22,16 @@ export default function DesktopCalendar({ setSelectedDate }: DesktopCalendarProp
       color='secondary'
       onChange={(date) => handleDate(date)}
       calendarWidth={500}
+      classNames={{
+        gridBodyRow: '!gap-4',
+        gridHeaderRow: '!gap-4',
+        grid: '!max-w-sm',
+        headerWrapper: '!max-w-sm !bg-[#2e2e31] !text-zinc-100 !text-base',
+        title: '!text-base',
+        base: '!bg-[#2e2e31] !rounded-md',
+        gridHeader: '!bg-[#2e2e31] !shadow-none !text-zinc-100',
+        gridHeaderCell: '!text-zinc-100 !text-base',
+      }}
     />
   );
 }

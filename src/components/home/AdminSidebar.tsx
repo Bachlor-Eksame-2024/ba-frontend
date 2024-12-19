@@ -14,7 +14,6 @@ interface AdminSidebarProps {
 function AdminSidebar({ setSelectedMenu, selectedMenu }: AdminSidebarProps) {
   const { userInfo } = useUserStore();
   const { logout, isLoading } = useLogout();
-  console.log(userInfo, 'userInfo');
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const sidebarMenu = [
     { name: 'Dashboard', link: '/admin/dashboard' },
