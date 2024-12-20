@@ -99,14 +99,20 @@ function EditProfile({ isOpen, onOpenChange }: EditProfileProps) {
   };
 
   return (
-    <Modal className='dark' size='5xl' isOpen={isOpen} onOpenChange={onOpenChange}>
+    <Modal
+      scrollBehavior={'inside'}
+      className='dark'
+      size='5xl'
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+    >
       <ModalContent className=' bg-default-50 text-white'>
         {(onClose) => (
           <>
             <ModalHeader className='flex flex-col gap-1'>Bruger Infomation</ModalHeader>
             <ModalBody className='grid sm:grid-cols-2'>
               <form onSubmit={handleUpdateProfile} className='grid gap-4'>
-                <h3 className='text-md'>Opdater Personinfomation</h3>
+                <h3 className='text-md'>Opdater Personinformation</h3>
                 <span
                   className={`${profileError === 'Bruger opdateret' ? 'text-success' : 'text-danger'} text-sm`}
                 >
