@@ -66,7 +66,7 @@ function App() {
             <BookingProcess />
           </ProtectedRoute>
         </Route>
-        <Route path='/profile/user'>
+        <Route path='/user/profile'>
           <ProtectedRoute>
             <UserProfile />
           </ProtectedRoute>
