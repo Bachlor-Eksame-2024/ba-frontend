@@ -150,7 +150,7 @@ export default function Signup() {
         <div className='bg-zinc-900 p-6 sm:p-10 md:p-20 w-full min-w-40 rounded'>
           <h1 className='text-lg pb-8'>Opret en bruger</h1>
           <form onSubmit={handleSignUp} className='flex flex-col space-y-4'>
-            <div className='flex flex-col sm:flex-row sm:justify-between sm:space-x-4 space-y-4 sm:space-y-0 pb-4'>
+            <div className='flex sm:flex-row sm:justify-between sm:space-x-4 sm:space-y-0 pb-4 gap-2'>
               <div className='flex flex-col w-full sm:w-1/2'>
                 <label htmlFor='email' className='text-sm'>
                   Email
@@ -163,7 +163,7 @@ export default function Signup() {
                   onBlur={handleEmailBlur}
                   required
                 />
-                {emailError && <p className='text-red-500'>{emailError}</p>}
+                {emailError && <p className='text-red-500 text-sm'>{emailError}</p>}
               </div>
               <div className='flex flex-col w-full sm:w-1/2'>
                 <label htmlFor='phone' className='text-sm'>
@@ -177,10 +177,10 @@ export default function Signup() {
                   onBlur={handlePhoneBlur}
                   required
                 />
-                {phoneError && <p className='text-red-500'>{phoneError}</p>}
+                {phoneError && <p className='text-red-500 text-sm'>{phoneError}</p>}
               </div>
             </div>
-            <div className='flex flex-col sm:flex-row sm:justify-between sm:space-x-4 space-y-4 sm:space-y-0 pb-8'>
+            <div className='flex sm:flex-row sm:justify-between sm:space-x-4 gap-2 sm:space-y-0 pb-8'>
               <div className='flex flex-col w-full sm:w-1/2'>
                 <label htmlFor='first_name' className='text-sm'>
                   Fornavn
@@ -193,7 +193,7 @@ export default function Signup() {
                   onBlur={handleFirstNameBlur}
                   required
                 />
-                {firstNameError && <p className='text-red-500'>{firstNameError}</p>}
+                {firstNameError && <p className='text-red-500 text-sm'>{firstNameError}</p>}
               </div>
               <div className='flex flex-col w-full sm:w-1/2'>
                 <label htmlFor='last_name' className='text-sm'>
@@ -207,7 +207,7 @@ export default function Signup() {
                   onBlur={handleLastNameBlur}
                   required
                 />
-                {lastNameError && <p className='text-red-500'>{lastNameError}</p>}
+                {lastNameError && <p className='text-red-500 text-sm'>{lastNameError}</p>}
               </div>
             </div>
             <Select
@@ -224,7 +224,7 @@ export default function Signup() {
                 <SelectItem key={center.key}>{center.label}</SelectItem>
               ))}
             </Select>
-            <div className='flex flex-col sm:flex-row sm:justify-between sm:space-x-4 space-y-4 sm:space-y-0 pb-4'>
+            <div className='flex  sm:flex-row sm:justify-between sm:space-x-4 sm:space-y-0 pb-4 gap-2'>
               <div className='flex flex-col w-full sm:w-1/2'>
                 <label htmlFor='password' className='text-sm'>
                   Kodeord
@@ -237,7 +237,7 @@ export default function Signup() {
                   onBlur={handlePasswordBlur}
                   required
                 />
-                {passwordError && <p className='text-red-500'>{passwordError}</p>}
+                {passwordError && <p className='text-red-500 text-sm'>{passwordError}</p>}
               </div>
               <div className='flex flex-col w-full sm:w-1/2'>
                 <label htmlFor='repassword' className='text-sm'>
@@ -252,7 +252,7 @@ export default function Signup() {
                 />
               </div>
             </div>
-            <Checkbox defaultSelected color='secondary' className='my-2'>
+            <Checkbox defaultSelected color='secondary' className='my-2' size='sm'>
               Jeg godkender x y og x betingelser.
             </Checkbox>
             <div className='flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4'>
