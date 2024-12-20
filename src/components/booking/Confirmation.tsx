@@ -1,5 +1,7 @@
 import { useLocation } from 'wouter';
 import useConfirmedStore from '../../stores/ConfirmedStore';
+import { Button } from '@nextui-org/react';
+import { Link } from 'wouter';
 
 function Confirmation() {
   const { confirmedBooking } = useConfirmedStore();
@@ -40,6 +42,16 @@ function Confirmation() {
         </svg>
       </div>
       <p className='success confp'>Din kode er: {confirmedBooking.booking_code}</p>
+      <Link href='/booking' className='w-full sm:w-auto'>
+        <Button
+          color='default'
+          variant='bordered'
+          className=' border-white bg-white bg-opacity-5'
+          size='lg'
+        >
+          ← Tilbage til mine tider
+        </Button>
+      </Link>
     </div>
   );
 }
