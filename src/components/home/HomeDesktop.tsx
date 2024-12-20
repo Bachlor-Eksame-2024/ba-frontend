@@ -1,5 +1,4 @@
 import { lazy, Suspense } from 'react';
-import LatestBooking from './LatestBooking';
 import { Link } from 'wouter';
 import UserInfoCard from './UserInfoCard';
 import Card from '../Card';
@@ -25,15 +24,9 @@ const HomeDesktop: FC<HomeDesktopProps> = ({
   const UserChartMobile = lazy(() => import('./UserChartMobile'));
   return (
     <div className='flex flex-col gap-4'>
-      {lastestBooking && (
-        <div className='grid grid-cols-2'>
-          <LatestBooking />
-        </div>
-      )}
       <div className='grid grid-cols-2 gap-4'>
-        <UserInfoCard />
+        <UserInfoCard lastestBooking={lastestBooking} />
         <div className='flex flex-col gap-2'>
-          <span>Activity</span>
           <Suspense fallback={<div>Loading...</div>}>
             <UserChartMobile />
           </Suspense>
@@ -42,11 +35,9 @@ const HomeDesktop: FC<HomeDesktopProps> = ({
 
       <div className='grid sm:grid-cols-2 gap-4'>
         <Link href='/booking' className='flex flex-col gap-2'>
-          <span>{normalCards[0].title}</span>
           <Card {...normalCards[0]} />
         </Link>
         <div className='flex flex-col gap-2'>
-          <span>{normalCards[1].title}</span>
           <Link href='/home/udforsk-boksene'>
             <Card {...normalCards[1]} />
           </Link>
@@ -54,7 +45,6 @@ const HomeDesktop: FC<HomeDesktopProps> = ({
       </div>
 
       <div className='flex flex-col gap-2 overflow-x-auto w-full'>
-        <span>Workouts</span>
         <div className='flex flex-row gap-4 w-full h-full'>
           {error ? (
             <div>Faild To Load Workouts</div>
