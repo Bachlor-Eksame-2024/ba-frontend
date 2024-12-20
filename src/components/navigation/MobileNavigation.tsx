@@ -21,7 +21,7 @@ export default function MobileNavigation() {
   return (
     <>
       <div className='flex justify-end md:hidden absolute top-4 right-7'>
-        <Button isIconOnly className='' onPress={onOpen}>
+        <Button isIconOnly onPress={onOpen} className='rounded-full p-2 bg-default-100'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -46,7 +46,7 @@ export default function MobileNavigation() {
                 <nav className='flex flex-col gap-10 pt-8'>
                   <Link
                     href='/'
-                    className='text-lg hover:text-primary transition-colors'
+                    className='text-lg hover:text-secondary transition-colors'
                     onClick={() => {
                       setAdminMenu('Dashboard');
                       onClose();
@@ -56,32 +56,32 @@ export default function MobileNavigation() {
                   </Link>
                   <Link
                     href='/booking'
-                    className='text-lg hover:text-primary transition-colors'
+                    className='text-lg hover:text-secondary transition-colors'
                     onClick={onClose}
                   >
                     Booking
                   </Link>
                   <Link
                     href='/workout-programs'
-                    className='text-lg hover:text-primary transition-colors'
+                    className='text-lg hover:text-secondary transition-colors'
                     onClick={onClose}
                   >
                     Programmer
                   </Link>
                   <Link
                     href='/profile/user'
-                    className='text-lg hover:text-primary transition-colors'
+                    className='text-lg hover:text-secondary transition-colors'
                     onClick={onClose}
                   >
                     Profil
                   </Link>
 
-                  {userInfo?.user_role === 2 && (
+                  {userInfo?.user_role_name === 'admin' && (
                     <div className='flex flex-col gap-4'>
                       <Divider className='border-default-800' />
                       <Link
                         href='/home'
-                        className='text-md text-default-700 hover:text-primary transition-colors w-fit'
+                        className='text-md text-default-700 hover:text-secondary transition-colors w-fit'
                         onClick={() => {
                           setAdminMenu('Brugere');
                           onClose();
@@ -91,7 +91,7 @@ export default function MobileNavigation() {
                       </Link>
                       <Link
                         href='/home'
-                        className='text-md hover:text-primary transition-colors w-fit'
+                        className='text-md hover:text-secondary transition-colors w-fit'
                         onClick={() => {
                           setAdminMenu('Bokse');
                           onClose();
@@ -101,7 +101,7 @@ export default function MobileNavigation() {
                       </Link>
                       <Link
                         href='/home'
-                        className='text-md hover:text-primary transition-colors w-fit'
+                        className='text-md hover:text-secondary transition-colors w-fit'
                         onClick={() => {
                           setAdminMenu('Workout Programmer');
                           onClose();
