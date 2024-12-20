@@ -2,7 +2,7 @@ import { useDisclosure } from '@nextui-org/modal';
 import EditProfile from './EditProfile';
 import { memo } from 'react';
 import useUserStore from '../../stores/UserStore';
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
+import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Divider } from '@nextui-org/react';
 import LatestBooking from './LatestBooking';
 
@@ -37,7 +37,7 @@ const UserInfoCard = memo(({ lastestBooking }: Props) => {
           </svg>
         </CardHeader>
         <Divider />
-        <CardBody className='flex flex-col gap-4'>
+        <CardBody className='flex flex-col gap-4 h-fit'>
           <div className='flex gap-2 justify-between px-2 w-full'>
             <div className='grid gap-1 text-sm text-gray-300'>
               <span>Dit center</span>
@@ -50,10 +50,12 @@ const UserInfoCard = memo(({ lastestBooking }: Props) => {
               <span>{userInfo?.is_member ? '299,- md.' : '50,- pr.'}</span>
             </div>
           </div>
-          <Divider />
+        </CardBody>
+        <Divider />
+        <CardFooter className='flex flex-col gap-2'>
           <span className='px-2 text-small text-default-500'>Seneste Booking</span>
           {lastestBooking && <LatestBooking />}
-        </CardBody>
+        </CardFooter>
       </Card>
       <EditProfile isOpen={isOpen} onOpenChange={onOpenChange} />
     </div>
