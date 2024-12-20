@@ -7,7 +7,7 @@ export default function Home() {
   const { userInfo } = useUserStore();
 
   const Component = useMemo(() => {
-    return userInfo?.user_role_name !== 'user' ? HomeUser : HomeAdmin;
+    return userInfo?.user_role_name === 'user' ? HomeUser : HomeAdmin;
   }, [userInfo?.user_role_name]);
 
   return (
