@@ -8,7 +8,7 @@ export interface User {
   is_verified: boolean;
   user_id: number;
   user_phone: string;
-  user_role: string;
+  user_role: number;
   user_role_name: string;
 }
 

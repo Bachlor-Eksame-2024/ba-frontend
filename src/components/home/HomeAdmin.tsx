@@ -1,23 +1,24 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import Dashboard from './Dashboard';
 import AdminUsers from './AdminUsers';
 import AdminSidebar from './AdminSidebar';
 import AdminBokse from './AdminBokse';
 import AdminWorkout from './admin-workout/AdminWorkout';
+import useAdminMenuStore from '../../stores/adminMenuStore';
 
 const HomeAdmin = memo(() => {
-  const [selectedMenu, setSelectedMenu] = useState('Dashboard');
+  const { adminMenu } = useAdminMenuStore();
 
   return (
     <div className='md:flex gap-4'>
       <div className=' basis-1/4'>
-        <AdminSidebar setSelectedMenu={setSelectedMenu} selectedMenu={selectedMenu} />
+        <AdminSidebar />
       </div>
 
-      {selectedMenu === 'Dashboard' && <Dashboard />}
-      {selectedMenu === 'Brugere' && <AdminUsers />}
-      {selectedMenu === 'Bokse' && <AdminBokse />}
-      {selectedMenu === 'Workout Programmer' && <AdminWorkout />}
+      {adminMenu === 'Dashboard' && <Dashboard />}
+      {adminMenu === 'Brugere' && <AdminUsers />}
+      {adminMenu === 'Bokse' && <AdminBokse />}
+      {adminMenu === 'Workout Programmer' && <AdminWorkout />}
     </div>
   );
 });
