@@ -144,7 +144,8 @@ function UserChartMobile() {
   }, [screenWidth, userCharData]);
 
   return (
-    <div className='relative bg-default-100 min-w-72 min-h-40 aspect-video rounded flex justify-center items-center p-2 cursor-pointer'>
+    <div className='relative bg-default-100 min-w-72 min-h-40 h-full aspect-video rounded flex flex-col justify-center items-center p-2 cursor-pointer'>
+      <span>Activity</span>
       {mobile && (
         <div className='absolute bg-black/40 top-0 left-0 flex flex-col justify-center h-full w-full items-center z-[2]'>
           <h4 className='text-lg text-center'>Workout</h4>
