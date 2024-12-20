@@ -199,10 +199,10 @@ function AdminNewWorkout({ isOpen, onOpenChange }: AdminNewWorkoutProps) {
                 </div>
                 <ModalFooter>
                   <Button color='danger' variant='light' onPress={onClose}>
-                    Close
+                    Luk
                   </Button>
-                  <Button type='submit' color='primary'>
-                    Action
+                  <Button type='submit' color='secondary' className='rounded-md'>
+                    Gem
                   </Button>
                 </ModalFooter>
               </form>

@@ -1,9 +1,23 @@
-import { Drawer, DrawerContent, DrawerBody, Button, useDisclosure } from '@nextui-org/react';
+import {
+  Drawer,
+  DrawerContent,
+  DrawerBody,
+  Button,
+  useDisclosure,
+  Divider,
+} from '@nextui-org/react';
 import { Link } from 'wouter';
+import useAdminMenuStore from '../../stores/adminMenuStore';
+import { useLogout } from '../../hooks/useLogout';
+import useUserStore from '../../stores/UserStore';
 
 export default function MobileNavigation() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { logout, isLoading } = useLogout();
+  const { userInfo } = useUserStore();
+  const { setAdminMenu } = useAdminMenuStore();
 
+  console.log(userInfo);
   return (
     <>
       <div className='flex justify-end md:hidden absolute top-4 right-7'>
@@ -33,7 +47,10 @@ export default function MobileNavigation() {
                   <Link
                     href='/'
                     className='text-lg hover:text-primary transition-colors'
-                    onClick={onClose}
+                    onClick={() => {
+                      setAdminMenu('Dashboard');
+                      onClose();
+                    }}
                   >
                     Hjem
                   </Link>
@@ -58,6 +75,55 @@ export default function MobileNavigation() {
                   >
                     Profil
                   </Link>
+
+                  {userInfo?.user_role === 2 && (
+                    <div className='flex flex-col gap-4'>
+                      <Divider className='border-default-800' />
+                      <Link
+                        href='/home'
+                        className='text-md text-default-700 hover:text-primary transition-colors w-fit'
+                        onClick={() => {
+                          setAdminMenu('Brugere');
+                          onClose();
+                        }}
+                      >
+                        Brugere
+                      </Link>
+                      <Link
+                        href='/home'
+                        className='text-md hover:text-primary transition-colors w-fit'
+                        onClick={() => {
+                          setAdminMenu('Bokse');
+                          onClose();
+                        }}
+                      >
+                        Bokse
+                      </Link>
+                      <Link
+                        href='/home'
+                        className='text-md hover:text-primary transition-colors w-fit'
+                        onClick={() => {
+                          setAdminMenu('Workout Programmer');
+                          onClose();
+                        }}
+                      >
+                        Workout Programmer
+                      </Link>
+                      <Button
+                        spinner={isLoading}
+                        isLoading={isLoading}
+                        color='danger'
+                        className='text-md hover:text-danger transition-colors text-danger w-fit bg-transparent p-0 text-left min-w-0'
+                        onPress={() => {
+                          setAdminMenu('Dashboard');
+                          onClose();
+                          logout();
+                        }}
+                      >
+                        Log ud
+                      </Button>
+                    </div>
+                  )}
                 </nav>
               </DrawerBody>
             </>
