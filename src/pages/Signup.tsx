@@ -147,7 +147,7 @@ export default function Signup() {
     <div className="relative min-h-screen w-full bg-[url('./assets/HealthFitness1.jpeg')] bg-cover bg-center flex items-center justify-center">
       <div className='absolute inset-0 bg-gray-800 opacity-50 backdrop-blur-sm'></div>
       <div className='relative z-10 flex items-center justify-center h-full px-4'>
-        <div className='bg-zinc-900 p-6 sm:p-10 md:p-20 w-full min-w-40 rounded'>
+        <div className='bg-zinc-900 p-6 sm:p-10  w-full min-w-40 rounded'>
           <h1 className='text-lg pb-8'>Opret en bruger</h1>
           <form onSubmit={handleSignUp} className='flex flex-col space-y-4'>
             <div className='flex sm:flex-row sm:justify-between sm:space-x-4 sm:space-y-0 pb-4 gap-2'>
