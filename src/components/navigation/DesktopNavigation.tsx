@@ -60,7 +60,7 @@ const DesktopNavigation = () => {
             key={item.name}
             onClick={() => setActiveTab(item.path)}
             className={`flex items-center justify-center px-4 h-10 border-b-2 w-fit border-b-transparent ${
-              activeTab === item.path ? 'border-b-secondary-500' : 'hover:border-b-default-300'
+              activeTab === item.path ? 'border-b-[#7828c8] ' : 'hover:border-b-secondary'
             } transition-colors duration-200`}
           >
             {item.name}

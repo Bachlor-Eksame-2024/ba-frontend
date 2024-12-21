@@ -45,6 +45,7 @@ export default function Calendar({ selectedDate, setSelectedDate }: CalendarProp
   return (
     <div className='relative md:hidden'>
       <Input
+        radius='sm'
         value={selectedDate}
         placeholder={'dd/mm/yyyy'}
         onFocus={() => setOpen(true)}

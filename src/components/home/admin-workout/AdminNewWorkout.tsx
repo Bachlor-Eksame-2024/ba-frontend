@@ -107,7 +107,7 @@ function AdminNewWorkout({ isOpen, onOpenChange }: AdminNewWorkoutProps) {
 
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-      <ModalContent className='bg-default-800 text-background'>
+      <ModalContent className='bg-default-800 text-background rounded-md'>
         {(onClose) => (
           <>
             <ModalHeader className='flex flex-col gap-1'>Opret Ny Workout</ModalHeader>

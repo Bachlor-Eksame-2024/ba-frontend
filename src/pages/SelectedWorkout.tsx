@@ -23,7 +23,7 @@ function SelectedWorkout() {
     <div className='grid gap-4 w-full max-w-7xl mx-auto p-4 pt-20'>
       <Link
         href='/workout-programs'
-        className='md:hidden absolute top-4 left-7 bg-default hover:bg-default-200 p-2 rounded-medium'
+        className='md:hidden absolute top-4 left-7 bg-default-100 hover:bg-default-200 p-2 rounded-full'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -43,7 +43,7 @@ function SelectedWorkout() {
       <div className='relative min-h-96 max-h-[30vh] overflow-hidden flex items-center justify-center rounded'>
         <Link
           href='/workout-programs'
-          className='max-md:hidden absolute top-5 left-5 bg-default hover:bg-default-200 p-2 rounded-xl'
+          className='max-md:hidden absolute top-5 left-5 bg-default-100 hover:bg-default-200 p-2 rounded-full'
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
