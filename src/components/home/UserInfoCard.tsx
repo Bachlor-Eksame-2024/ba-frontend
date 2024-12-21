@@ -39,12 +39,12 @@ const UserInfoCard = memo(({ lastestBooking }: Props) => {
         <Divider />
         <CardBody className='flex flex-col gap-4 h-fit'>
           <div className='flex gap-2 justify-between px-2 w-full'>
-            <div className='grid gap-1 text-sm text-gray-300'>
+            <div className='grid gap-3 text-sm text-gray-300'>
               <span>Dit center</span>
               <span>Medlemstype</span>
               <span>Medlemskab</span>
             </div>
-            <div className='grid gap-1 text-right'>
+            <div className='grid gap-3 text-right'>
               <span>{userInfo?.fitness_center}</span>
               <span>{userInfo?.is_member ? 'Fri trænning' : 'Løbende'}</span>
               <span>{userInfo?.is_member ? '299,- md.' : '50,- pr.'}</span>

@@ -3,8 +3,9 @@ import { Select, SelectItem } from '@nextui-org/select';
 import { Button } from '@nextui-org/button';
 import { useState } from 'react';
 import useUserStore from '../stores/UserStore';
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
+import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { Divider } from '@nextui-org/react';
+import UserChartMobile from '../components/home/UserChartMobile';
 
 const centers = [
   { key: '1', label: 'Fitness X' },
@@ -94,10 +95,11 @@ export default function UserProfile() {
       setProfileError(data.detail);
     }
   };
+
   return (
-    <div className='max-w-7xl min-h-screen mx-auto pt-20 pb-8 w-full px-4 flex flex-wrap gap-8 justify-center items-center h-full'>
-      <div className='flex max-lg:flex-col gap-8'>
-        <Card className='max-w-[400px] min-w-60 w-80 h-fit bg-default-100 rounded-md'>
+    <div className='max-w-7xl min-h-screen mx-auto mt-14 md:p-8 max-md:p-4 pb-8 w-full px-4 flex flex-wrap gap-8 justify-center items-start h-full'>
+      <div className='flex max-lg:flex-col gap-8 max-lg:items-center '>
+        <Card className='max-w-[400px] min-w-60 w-80 max-sm:w-full bg-default-100 rounded-md'>
           <CardHeader className='flex gap-3'>
             <div className='flex flex-col'>
               <p className='text-md'>{userInfo?.first_name + ' ' + userInfo?.last_name}</p>
@@ -106,89 +108,136 @@ export default function UserProfile() {
           </CardHeader>
           <Divider />
           <CardBody>
-            <div className='flex gap-2 justify-between'>
-              <div className='grid gap-1 text-sm text-gray-300'>
+            <div className='flex gap-4 justify-between'>
+              <div className='grid gap-4 text-sm text-gray-300'>
                 <span>Dit center</span>
                 <span>Medlemstype</span>
                 <span>Medlemskab</span>
               </div>
-              <div className='grid gap-1 text-right'>
+              <div className='grid gap-4 text-right text-base mb-2'>
                 <span>{userInfo?.fitness_center}</span>
                 <span>{userInfo?.is_member ? 'Fri trænning' : 'Løbende'}</span>
                 <span>{userInfo?.is_member ? '299,- md.' : '50,- pr.'}</span>
               </div>
             </div>
+            <Divider className='mb-2' />
+            <UserChartMobile />
           </CardBody>
-          <Divider />
-          <CardFooter></CardFooter>
         </Card>
-        <div className='flex max-md:flex-col gap-4 '>
-          <form onSubmit={handleUpdateProfile} className='grid gap-4 min-w-60 w-80'>
-            <Input
-              name='first_name'
-              type='text'
-              size='md'
-              label='Fornavn'
-              defaultValue={userInfo?.first_name}
-            />
-            <Input
-              name='last_name'
-              type='text'
-              size='md'
-              label='Efternavn'
-              defaultValue={userInfo?.last_name}
-            />
-            <Input name='email' type='email' label='Email' defaultValue={userInfo?.email} />
-            <Input name='phone' type='tel' label='Telefon' defaultValue={userInfo?.user_phone} />
-            <Select
-              radius='sm'
-              size='md'
-              name='fitness_center'
-              labelPlacement='outside'
-              label='Nuværende center'
-              placeholder='Vælg et fitness center'
-              defaultSelectedKeys={userInfo?.fitness_center_id.toString()}
-              className='max-w-full pb-4'
-            >
-              {centers.map((center) => (
-                <SelectItem key={center.key}>{center.label}</SelectItem>
-              ))}
-            </Select>
-            <span
-              className={`${profileError === 'Bruger opdateret' ? 'text-success' : 'text-danger'} text-sm`}
-            >
-              {profileError}
-            </span>
-            <Button type='submit' className='bg-secondary text-white py-6'>
-              Opdater Profile
-            </Button>
-          </form>
-          <form onSubmit={handleChangePassword} className='flex flex-col gap-4 min-w-60 w-80'>
-            <Input
-              name='old_password'
-              type='password'
-              size='md'
-              required
-              label='Nuværende Adgangskode'
-            />
-            <Input name='new_password' type='password' size='md' required label='Nyt Adgangskode' />
-            <Input
-              name='confirm_password'
-              type='password'
-              size='md'
-              required
-              label='Gentage Adgangskode'
-            />
-            <span
-              className={`${passwordError === 'Adgangskode er skiftet' ? 'text-success' : 'text-danger'} text-sm`}
-            >
-              {passwordError}
-            </span>
-            <Button isLoading={loading} type='submit' className='bg-secondary text-white py-6'>
-              Skift Adgangskode
-            </Button>
-          </form>
-        </div>
+        <Card className='flex gap-4 w-fit bg-default-100 rounded-md'>
+          <CardBody className='grid md:grid-cols-2 w-fit gap-4'>
+            <form onSubmit={handleUpdateProfile} className='grid gap-4 min-w-60 w-80'>
+              <Input
+                className='bg-zinc-900 rounded-small'
+                radius='sm'
+                name='first_name'
+                type='text'
+                size='md'
+                label='Fornavn'
+                variant='bordered'
+                defaultValue={userInfo?.first_name}
+              />
+
+              <Input
+                className='bg-zinc-900 rounded-small'
+                radius='sm'
+                name='last_name'
+                type='text'
+                size='md'
+                label='Efternavn'
+                variant='bordered'
+                defaultValue={userInfo?.last_name}
+              />
+
+              <Input
+                className='bg-zinc-900 rounded-small'
+                radius='sm'
+                name='email'
+                type='email'
+                label='Email'
+                defaultValue={userInfo?.email}
+                variant='bordered'
+              />
+
+              <Input
+                className='bg-zinc-900 rounded-small'
+                radius='sm'
+                variant='bordered'
+                name='phone'
+                type='tel'
+                label='Telefon'
+                defaultValue={userInfo?.user_phone}
+              />
+              <Select
+                radius='sm'
+                size='md'
+                name='fitness_center'
+                labelPlacement='outside'
+                label='Nuværende center'
+                variant='bordered'
+                placeholder='Vælg et fitness center'
+                defaultSelectedKeys={userInfo?.fitness_center_id.toString()}
+                className='max-w-full bg-zinc-900 rounded-small h-fit'
+              >
+                {centers.map((center) => (
+                  <SelectItem key={center.key}>{center.label}</SelectItem>
+                ))}
+              </Select>
+              <span
+                className={`${profileError === 'Bruger opdateret' ? 'text-success' : 'text-danger'} text-sm`}
+              >
+                {profileError}
+              </span>
+              <Button type='submit' className='bg-secondary text-white py-6 rounded-md'>
+                Opdater Profile
+              </Button>
+            </form>
+            <form onSubmit={handleChangePassword} className='flex flex-col gap-4 min-w-60 w-80'>
+              <Input
+                className='bg-zinc-900 rounded-small'
+                radius='sm'
+                variant='bordered'
+                name='old_password'
+                type='password'
+                size='md'
+                required
+                label='Nuværende Adgangskode'
+              />
+              <Input
+                className='bg-zinc-900 rounded-small'
+                radius='sm'
+                variant='bordered'
+                name='new_password'
+                type='password'
+                size='md'
+                required
+                label='Nyt Adgangskode'
+              />
+              <Input
+                className='bg-zinc-900 rounded-small'
+                variant='bordered'
+                radius='sm'
+                name='confirm_password'
+                type='password'
+                size='md'
+                required
+                label='Gentage Adgangskode'
+              />
+              <span
+                className={`${passwordError === 'Adgangskode er skiftet' ? 'text-success' : 'text-danger'} text-sm`}
+              >
+                {passwordError}
+              </span>
+              <Button
+                isLoading={loading}
+                type='submit'
+                className='bg-secondary text-white py-6 rounded-md'
+              >
+                Skift Adgangskode
+              </Button>
+            </form>
+          </CardBody>
+        </Card>
       </div>
     </div>
   );
