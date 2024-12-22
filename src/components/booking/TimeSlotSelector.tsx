@@ -154,7 +154,7 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
           {selectedSlot && selectedAmount && (
             <button
               onClick={handleConfirm}
-              className='md:w-96 md:place-self-left left-2 right-2 bg-secondary flex justify-around py-5 mt-8 rounded-full z-50 text-base font-medium'
+              className='md:w-96 md:place-self-left left-2 right-2 bg-secondary flex justify-around py-5 mt-8 rounded-md z-50 text-base font-medium'
             >
               Videre
             </button>
@@ -203,7 +203,7 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
           {selectedSlot && selectedAmount && (
             <button
               onClick={handleConfirm}
-              className='fixed md:hidden bottom-4 md:w-96 left-4 right-4 bg-secondary flex justify-around py-5 rounded-full z-50 font-medium'
+              className='fixed md:hidden bottom-4 md:w-96 left-4 right-4 bg-secondary flex justify-around py-5 rounded-md z-50 font-medium'
             >
               Videre
             </button>
