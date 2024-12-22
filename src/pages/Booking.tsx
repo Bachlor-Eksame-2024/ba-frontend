@@ -199,7 +199,7 @@ const BookingInterface = () => {
           {/* Action buttons */}
           <div className='mt-6 md:flex md:gap-6'>
             <Link href='/booking/select-time-slot' className='md:w-1/3'>
-              <button className='w-full py-4 bg-secondary hover:bg-secondary-500 text-white rounded transition-colors'>
+              <button className='w-full py-4 bg-secondary hover:bg-secondary-500 text-white rounded-md transition-colors'>
                 Book ny tid
               </button>
             </Link>
