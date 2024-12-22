@@ -90,7 +90,7 @@ function UserChartMobile() {
   const [chatData, setChatData] = useState(mobileData);
   const [userCharData, setUserCharData] = useState<UserStats | null>(null);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  // eslint-disable-next-line
+
   const [mobile, setMobile] = useState(false);
   const { userInfo } = useUserStore();
   useEffect(() => {
@@ -146,7 +146,8 @@ function UserChartMobile() {
 
   return (
     <div className='relative bg-default-100 min-w-72 min-h-40 h-full aspect-video rounded flex flex-col justify-center items-center p-2 cursor-pointer'>
-      <span>Activity</span>
+      <span>Activity - {mobile ? 'Ugentlig' : 'Månedlig'}</span>
+
       <ResponsiveContainer minHeight={100} minWidth={200} height='90%' width={'95%'}>
         <BarChart
           width={400}
