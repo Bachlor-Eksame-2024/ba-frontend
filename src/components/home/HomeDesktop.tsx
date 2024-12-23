@@ -64,10 +64,10 @@ const HomeDesktop: FC<HomeDesktopProps> = ({
   return (
     <div className='flex flex-col gap-4'>
       <div className='grid md:grid-cols-2 gap-4'>
-        <UserInfoCard lastestBooking={lastestBooking} />
+        <UserInfoCard data-testid='user-info-card' lastestBooking={lastestBooking} />
         <div className='flex flex-col gap-2'>
           <Suspense fallback={<div>Loading...</div>}>
-            <UserChartMobile />
+            <UserChartMobile data-testid='user-chart' />
           </Suspense>
         </div>
       </div>
