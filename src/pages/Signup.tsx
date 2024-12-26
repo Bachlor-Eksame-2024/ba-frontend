@@ -2,7 +2,7 @@ import { Button } from '@nextui-org/react';
 import { Checkbox } from '@nextui-org/react';
 import { Select, SelectItem } from '@nextui-org/react';
 import useUserStore from '../stores/UserStore';
-import { Link, useLocation } from 'wouter';
+import { Link } from 'wouter';
 import { useState } from 'react';
 import { validateEmail } from '../modules/validate';
 import { validateFirstName } from '../modules/validate';
@@ -20,8 +20,6 @@ export default function Signup() {
   const apiUrl = import.meta.env.VITE_API_URL;
   const apiKey = import.meta.env.VITE_API_KEY;
   const { setUser } = useUserStore();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_location, navigate] = useLocation();
 
   const handleEmailBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -100,7 +98,7 @@ export default function Signup() {
     if (response.ok) {
       const data = await response.json();
       setUser(data.user);
-      navigate('/home');
+      window.location.href = '/home';
     } else {
       const errorData = await response.json();
       if (errorData.detail) {

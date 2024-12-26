@@ -1,6 +1,6 @@
 import { Button } from '@nextui-org/react';
 import useUserStore from '../stores/UserStore';
-import { Link, useLocation } from 'wouter';
+import { Link } from 'wouter';
 import { useAuth } from '../hooks/useAuth';
 import { useState } from 'react';
 
@@ -10,8 +10,6 @@ export default function Signin() {
   const { setUser } = useUserStore();
   const { setIsAuthenticated } = useAuth();
   const [error, setError] = useState<string | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_location, setLocation] = useLocation();
 
   // Login function
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -41,7 +39,7 @@ export default function Signin() {
     if (response.ok) {
       setUser(data.user);
       setIsAuthenticated(true); // Immediate auth state update
-      setLocation('/home');
+      window.location.href = '/home';
     } else {
       setError(data.detail || 'Login failed');
       console.error('Login failed:', response.status);
