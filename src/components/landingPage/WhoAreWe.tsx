@@ -3,7 +3,7 @@ function WhoAreWe() {
     <div className='bg-default-50'>
       <div className='max-w-7xl px-4 xl:px-0 py-10 lg:pt-20 lg:pb-20 mx-auto'>
         <div className='max-w-3xl mb-10 lg:mb-14'>
-          <h2 className='text-white text-2xl  md:leading-tight'>Vores tilgang</h2>
+          <h2 className='text-white text-xl  md:leading-tight'>Vores tilgang</h2>
           <p className='mt-1 text-neutral-400 text-base'>
             Med Fitboks får du en personlig træningsoplevelse — fra enkel booking og fleksibel
             planlægning til enestående faciliteter i moderne bokse udstyret med alt, du behøver til

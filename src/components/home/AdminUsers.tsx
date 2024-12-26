@@ -126,7 +126,14 @@ function AdminUsers() {
   return (
     <>
       <div className='sm:hidden grid gap-4'>
-        <Input onChange={handleInputChange} type='text' label='Søg' size='sm' value={searchTerm} />
+        <Input
+          radius='sm'
+          onChange={handleInputChange}
+          type='text'
+          label='Søg'
+          size='sm'
+          value={searchTerm}
+        />
         {adminUsers?.users?.map((user, index) => (
           <div
             key={index}
@@ -171,7 +178,14 @@ function AdminUsers() {
         />
       </div>
       <div className='max-sm:hidden grid gap-4 justify-items-center w-full'>
-        <Input onChange={handleInputChange} type='text' label='Søg' size='sm' value={searchTerm} />
+        <Input
+          radius='sm'
+          onChange={handleInputChange}
+          type='text'
+          label='Søg'
+          size='sm'
+          value={searchTerm}
+        />
         <Table aria-label='Example static collection table'>
           <TableHeader>
             <TableColumn>NAVN</TableColumn>

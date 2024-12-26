@@ -15,23 +15,25 @@ export default function DesktopCalendar({ setSelectedDate }: DesktopCalendarProp
   };
 
   return (
-    <Calendar
-      aria-label='Date (Min Date Value)'
-      defaultValue={today(getLocalTimeZone())}
-      minValue={today(getLocalTimeZone())}
-      color='secondary'
-      onChange={(date) => handleDate(date)}
-      calendarWidth={500}
-      classNames={{
-        gridBodyRow: '!gap-4',
-        gridHeaderRow: '!gap-4',
-        grid: '!max-w-sm',
-        headerWrapper: '!max-w-sm !bg-[#2e2e31] !text-zinc-100 !text-base',
-        title: '!text-base',
-        base: '!bg-[#2e2e31] !rounded-md',
-        gridHeader: '!bg-[#2e2e31] !shadow-none !text-zinc-100',
-        gridHeaderCell: '!text-zinc-100 !text-base',
-      }}
-    />
+    <div className='w-full max-w-sm overflow-hidden'>
+      <Calendar
+        aria-label='Date (Min Date Value)'
+        defaultValue={today(getLocalTimeZone())}
+        minValue={today(getLocalTimeZone())}
+        color='secondary'
+        onChange={(date) => handleDate(date)}
+        calendarWidth='100%'
+        classNames={{
+          gridBodyRow: '!gap-2',
+          gridHeaderRow: '!gap-2',
+          grid: '!w-full',
+          headerWrapper: '!w-full !bg-[#2e2e31] !text-zinc-100 !text-base',
+          title: '!text-base',
+          base: '!bg-[#2e2e31] !rounded-md !w-full',
+          gridHeader: '!bg-[#2e2e31] !shadow-none !text-zinc-100',
+          gridHeaderCell: '!text-zinc-100 !text-base',
+        }}
+      />
+    </div>
   );
 }

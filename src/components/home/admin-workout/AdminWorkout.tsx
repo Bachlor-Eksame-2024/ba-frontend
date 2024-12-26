@@ -71,7 +71,7 @@ function AdminWorkout() {
             <div className='flex flex-grow gap-2 items-center'>
               <p className='text-base text-white/60'>{workout.workout_description}</p>
             </div>
-            <div className='flex gap-4'>
+            <div className='flex md:gap-4 max-md:gap-2'>
               {deleteWorkout === workout.workout_id ? (
                 <div className='flex gap-2'>
                   <Button
@@ -96,7 +96,7 @@ function AdminWorkout() {
                 </Button>
               )}
               <Link
-                className={`link-btn-sm`}
+                className={`link-btn-sm whitespace-nowrap`}
                 href={`/workout-programs/${workout.workout_name.replace(/\s+/g, '-').toLowerCase()}`}
               >
                 Træn Nu

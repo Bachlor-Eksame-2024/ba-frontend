@@ -99,33 +99,48 @@ function EditProfile({ isOpen, onOpenChange }: EditProfileProps) {
   };
 
   return (
-    <Modal className='dark' size='5xl' isOpen={isOpen} onOpenChange={onOpenChange}>
-      <ModalContent className=' bg-default-50 text-white'>
+    <Modal
+      scrollBehavior={'inside'}
+      className='dark'
+      size='5xl'
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+    >
+      <ModalContent className=' bg-default-50 text-white rounded-md'>
         {(onClose) => (
           <>
             <ModalHeader className='flex flex-col gap-1'>Bruger Infomation</ModalHeader>
             <ModalBody className='grid sm:grid-cols-2'>
               <form onSubmit={handleUpdateProfile} className='grid gap-4'>
-                <h3 className='text-md'>Opdater Personinfomation</h3>
+                <h3 className='text-md'>Opdater Personinformation</h3>
                 <span
                   className={`${profileError === 'Bruger opdateret' ? 'text-success' : 'text-danger'} text-sm`}
                 >
                   {profileError}
                 </span>
                 <Input
+                  radius='sm'
                   name='first_name'
                   type='text'
                   label='Fornavn'
                   defaultValue={userInfo?.first_name}
                 />
                 <Input
+                  radius='sm'
                   name='last_name'
                   type='text'
                   label='Efternavn'
                   defaultValue={userInfo?.last_name}
                 />
-                <Input name='email' type='email' label='Email' defaultValue={userInfo?.email} />
                 <Input
+                  radius='sm'
+                  name='email'
+                  type='email'
+                  label='Email'
+                  defaultValue={userInfo?.email}
+                />
+                <Input
+                  radius='sm'
                   name='phone'
                   type='tel'
                   label='Telefon'
@@ -144,7 +159,7 @@ function EditProfile({ isOpen, onOpenChange }: EditProfileProps) {
                     <SelectItem key={center.key}>{center.label}</SelectItem>
                   ))}
                 </Select>
-                <Button type='submit' className='bg-secondary text-white py-6'>
+                <Button type='submit' className='bg-secondary text-white py-6 rounded-md'>
                   Opdater Profile
                 </Button>
               </form>
@@ -155,15 +170,32 @@ function EditProfile({ isOpen, onOpenChange }: EditProfileProps) {
                 >
                   {passwordError}
                 </span>
-                <Input name='old_password' type='password' required label='Nuværende Adgangskode' />
-                <Input name='new_password' type='password' required label='Nyt Adgangskode' />
                 <Input
+                  radius='sm'
+                  name='old_password'
+                  type='password'
+                  required
+                  label='Nuværende Adgangskode'
+                />
+                <Input
+                  radius='sm'
+                  name='new_password'
+                  type='password'
+                  required
+                  label='Nyt Adgangskode'
+                />
+                <Input
+                  radius='sm'
                   name='confirm_password'
                   type='password'
                   required
                   label='Gentage Adgangskode'
                 />
-                <Button isLoading={loading} type='submit' className='bg-secondary text-white py-6'>
+                <Button
+                  isLoading={loading}
+                  type='submit'
+                  className='bg-secondary text-white py-6 rounded-md'
+                >
                   Skift Adgangskode
                 </Button>
               </form>

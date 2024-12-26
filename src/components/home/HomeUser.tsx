@@ -1,12 +1,15 @@
 import { Suspense, memo, useState, useEffect } from 'react';
 import useSWR from 'swr';
 import useWorkoutStore from '../../stores/WorkoutStore';
-
 import HomeDesktop from './HomeDesktop';
-import HomeTabletAndMobile from './HomeTabletAndMobile';
 import useBookingStore from '../../stores/BookingStore';
 import useUserStore from '../../stores/UserStore';
+import { Modal, ModalContent, ModalHeader, useDisclosure } from '@nextui-org/modal';
+import PaymentHistory from './PaymentHistory';
+import PaymentMethod from './PaymentMethod';
+import Support from './Support';
 
+type ActiveComponent = 'Betalingshistorik' | 'Betalingmetode' | 'Kontakt Support' | null;
 const normalCards = [
   {
     type: 'regular' as const,
@@ -61,16 +64,6 @@ const HomeUser = memo(() => {
       setWorkoutPrograms(data.workouts);
     },
   });
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -98,33 +91,47 @@ const HomeUser = memo(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [activeComponent, setActiveComponent] = useState<ActiveComponent>(null);
+
+  const handleCardClick = (component: ActiveComponent) => {
+    setActiveComponent(component);
+    onOpen();
+  };
+
+  const renderComponent = () => {
+    switch (activeComponent) {
+      case 'Betalingshistorik':
+        return <PaymentHistory />;
+      case 'Betalingmetode':
+        return <PaymentMethod />;
+      case 'Kontakt Support':
+        return <Support />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div>
       <Suspense fallback={<div>Loading...</div>}>
-        {isMobile ? (
-          <HomeTabletAndMobile
-            error={error}
-            userCards={userCards}
-            workoutPrograms={workoutPrograms || []}
-            normalCards={normalCards}
-            lastestBooking={lastestBooking}
-          />
-        ) : (
-          <HomeDesktop
-            error={error}
-            userCards={userCards}
-            workoutPrograms={workoutPrograms || []}
-            normalCards={normalCards}
-            lastestBooking={lastestBooking}
-          />
-        )}
+        <HomeDesktop
+          error={error}
+          userCards={userCards}
+          workoutPrograms={workoutPrograms || []}
+          normalCards={normalCards}
+          lastestBooking={lastestBooking}
+          handleCardClick={handleCardClick}
+        />
       </Suspense>
+      <Modal size='5xl' className='dark' isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          <ModalHeader className='flex flex-col gap-1 text-white'>{activeComponent}</ModalHeader>
+          {renderComponent()}
+        </ModalContent>
+      </Modal>
     </div>
   );
 });
 
 export default HomeUser;
-
-/*  miniCards.map((card, index) => (
-            <Card key={index} {...card} />
-          ))}  */

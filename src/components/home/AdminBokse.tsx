@@ -3,7 +3,8 @@ import { Pagination } from '@nextui-org/pagination';
 import { Select, SelectItem } from '@nextui-org/select';
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/table';
 import { useState } from 'react';
-import useSWR from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
+
 import { Boks, BoksData } from '../../types/AdminBoks';
 import AdminBoksPopup from './AdminBoksPopup';
 import useUserStore from '../../stores/UserStore';
@@ -16,6 +17,7 @@ function AdminBokse() {
   const { userInfo } = useUserStore();
   const [selectedBoks, setSelectedBoks] = useState<BoksData | null>(null);
   const [updateArray, setUpdateArray] = useState([0, 10]);
+  const { mutate } = useSWRConfig();
   // the id need to come from userInfo when we have the login system ready
   const { data, error } = useSWR(
     // /api/admin/box/{fitness_center_id}
@@ -24,7 +26,7 @@ function AdminBokse() {
 
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
-  const variants = ['Booket', 'Ledigt', 'Lukket: 1t', 'Lukket: 2:t', 'Lukket 3:t', 'Lukket 4:t'];
+  const variants = ['booket', 'Ledigt', 'Lukket: 1t', 'Lukket: 2t', 'Lukket: 3t', 'Lukket: 4t'];
 
   const changePage = (page: number) => {
     if (page === 1) {
@@ -65,7 +67,7 @@ function AdminBokse() {
     fitness_center_id: number
   ) => {
     // /api/admin/box-status
-    const response = await fetch(apiURL + '/admin/box-status', {
+    await fetch(apiURL + '/admin/box-status', {
       method: 'PUT',
       credentials: 'include',
       headers: {
@@ -79,10 +81,7 @@ function AdminBokse() {
         boks_availability: key.currentKey ? key.currentKey : 'Ledigt',
       }),
     });
-    const data = await response.json();
-    if (data.status === 'success') {
-      alert('Boks status er opdateret');
-    }
+    mutate(apiURL + '/admin/box/' + userInfo?.fitness_center_id);
   };
 
   return (
@@ -96,43 +95,46 @@ function AdminBokse() {
             <TableColumn>HANDLING</TableColumn>
           </TableHeader>
           <TableBody>
-            {data.boks.slice(updateArray[0], updateArray[1]).map((boks: Boks) => (
-              <TableRow key={boks.box_id}>
-                <TableCell>Nr. {boks.box_number}</TableCell>
-                <TableCell>{boks.box_availability}</TableCell>
-                <TableCell
-                  onClick={() => {
-                    getBoksTimes(boks.box_number);
-                    onOpen();
-                  }}
-                  className='cursor-pointer'
-                >
-                  Se Tider
-                </TableCell>
-                <TableCell>
-                  <Select
-                    onSelectionChange={(key) =>
-                      handleBoksStatusChange(key, boks.box_id, boks.fitness_center_fk)
-                    }
-                    size='sm'
-                    color={
-                      boks.box_availability === 'Ledigt'
-                        ? 'success'
-                        : boks.box_availability === 'Booket'
-                          ? 'warning'
-                          : 'danger'
-                    }
-                    defaultSelectedKeys={[boks.box_availability]}
+            {data.boks
+              .sort((a: Boks, b: Boks) => a.box_id - b.box_id)
+              .slice(updateArray[0], updateArray[1])
+              .map((boks: Boks) => (
+                <TableRow key={boks.box_id}>
+                  <TableCell>Nr. {boks.box_number}</TableCell>
+                  <TableCell>{boks.box_availability}</TableCell>
+                  <TableCell
+                    onClick={() => {
+                      getBoksTimes(boks.box_number);
+                      onOpen();
+                    }}
+                    className='cursor-pointer'
                   >
-                    {variants.map((variant) => (
-                      <SelectItem key={variant} value={variant} isDisabled={variant === 'Booket'}>
-                        {variant}
-                      </SelectItem>
-                    ))}
-                  </Select>
-                </TableCell>
-              </TableRow>
-            ))}
+                    Se Tider
+                  </TableCell>
+                  <TableCell>
+                    <Select
+                      onSelectionChange={(key) =>
+                        handleBoksStatusChange(key, boks.box_id, boks.fitness_center_fk)
+                      }
+                      size='sm'
+                      color={
+                        boks.box_availability === 'Ledigt'
+                          ? 'success'
+                          : boks.box_availability === 'booket'
+                            ? 'warning'
+                            : 'danger'
+                      }
+                      defaultSelectedKeys={[boks.box_availability]}
+                    >
+                      {variants.map((variant) => (
+                        <SelectItem key={variant} value={variant} isDisabled={variant === 'booket'}>
+                          {variant}
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
         <AdminBoksPopup selectedBoks={selectedBoks} isOpen={isOpen} onOpenChange={onOpenChange} />
