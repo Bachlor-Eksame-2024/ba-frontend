@@ -1,6 +1,5 @@
 import { useDisclosure } from '@nextui-org/modal';
 import { Pagination } from '@nextui-org/pagination';
-import { Select, SelectItem } from '@nextui-org/select';
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/table';
 import { useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
@@ -8,7 +7,8 @@ import useSWR, { useSWRConfig } from 'swr';
 import { Boks, BoksData } from '../../types/AdminBoks';
 import AdminBoksPopup from './AdminBoksPopup';
 import useUserStore from '../../stores/UserStore';
-import { SharedSelection } from '@nextui-org/system';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/dropdown';
+import { Button } from '@nextui-org/button';
 
 const apiURL = import.meta.env.VITE_API_URL;
 
@@ -62,7 +62,7 @@ function AdminBokse() {
   };
 
   const handleBoksStatusChange = async (
-    key: SharedSelection,
+    key: { currentKey: string },
     boks_id: number,
     fitness_center_id: number
   ) => {
@@ -90,8 +90,8 @@ function AdminBokse() {
         <Table aria-label='Example static collection table'>
           <TableHeader>
             <TableColumn>BOKS</TableColumn>
-            <TableColumn>TIDER</TableColumn>
-            <TableColumn align='center'>STATUS</TableColumn>
+            <TableColumn>STATUS</TableColumn>
+            <TableColumn align='center'>TIDER</TableColumn>
             <TableColumn>HANDLING</TableColumn>
           </TableHeader>
           <TableBody>
@@ -112,26 +112,41 @@ function AdminBokse() {
                     Se Tider
                   </TableCell>
                   <TableCell>
-                    <Select
-                      onSelectionChange={(key) =>
-                        handleBoksStatusChange(key, boks.box_id, boks.fitness_center_fk)
-                      }
-                      size='sm'
-                      color={
-                        boks.box_availability === 'Ledigt'
-                          ? 'success'
-                          : boks.box_availability === 'booket'
-                            ? 'warning'
-                            : 'danger'
-                      }
-                      defaultSelectedKeys={[boks.box_availability]}
-                    >
-                      {variants.map((variant) => (
-                        <SelectItem key={variant} value={variant} isDisabled={variant === 'booket'}>
-                          {variant}
-                        </SelectItem>
-                      ))}
-                    </Select>
+                    <Dropdown>
+                      <DropdownTrigger>
+                        <Button
+                          color={
+                            boks.box_availability === 'Ledigt'
+                              ? 'success'
+                              : boks.box_availability === 'booket'
+                                ? 'warning'
+                                : 'danger'
+                          }
+                          size='sm'
+                          variant='bordered'
+                        >
+                          {boks.box_availability}
+                        </Button>
+                      </DropdownTrigger>
+                      <DropdownMenu aria-label='Static Actions'>
+                        {variants.map((variant) => (
+                          <DropdownItem
+                            key={variant}
+                            value={variant}
+                            isDisabled={variant === 'booket'}
+                            onClick={() =>
+                              handleBoksStatusChange(
+                                { currentKey: variant },
+                                boks.box_id,
+                                boks.fitness_center_fk
+                              )
+                            }
+                          >
+                            {variant}
+                          </DropdownItem>
+                        ))}
+                      </DropdownMenu>
+                    </Dropdown>
                   </TableCell>
                 </TableRow>
               ))}

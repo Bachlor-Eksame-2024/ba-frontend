@@ -12,7 +12,7 @@ export default function LandingPage() {
           <div className='md:hidden max-md:absolute top-0 z-10 p-4'>
             <img src={logo} alt='Company Logo' className='h-8 md:hidden' />
           </div>
-          <div className='relative z-10 flex items-center justify-center  sm:justify-start h-full px-4 sm:pl-0 w-full sm:w-3/4'>
+          <div className='relative z-10 flex items-center justify-center  sm:justify-start h-full p-4 w-full sm:w-3/4'>
             <div className='text-center sm:text-left flex flex-col gap-4'>
               <h1 className='text-2xl pb-4 sm:pb-2'>FÅ 50% DE FØRSTE 2 MDR. + FRI OPRETTELSE</h1>
               <p className='text-xl sm:text-md pb-4 sm:pb-8'>
