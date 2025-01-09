@@ -36,13 +36,13 @@ const userCards = [
     level: null,
     image: null,
   },
-  {
+  /*   {
     type: 'regular' as const,
     title: 'Betalingmetode',
     description: 'Mobilepay',
     level: null,
     image: null,
-  },
+  }, */
   {
     type: 'regular' as const,
     title: 'Betalingshistorik',

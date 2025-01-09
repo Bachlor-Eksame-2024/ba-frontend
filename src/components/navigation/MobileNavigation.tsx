@@ -69,12 +69,27 @@ export default function MobileNavigation() {
                     Programmer
                   </Link>
                   <Link
-                    href='/profile/user'
+                    href='/user/profile'
                     className='text-lg hover:text-secondary transition-colors'
                     onClick={onClose}
                   >
                     Profil
                   </Link>
+                  {userInfo?.user_role_name !== 'admin' && (
+                    <Button
+                      spinner={isLoading}
+                      isLoading={isLoading}
+                      color='danger'
+                      className='text-md hover:text-danger transition-colors text-danger w-fit bg-transparent p-0 text-left min-w-0'
+                      onPress={() => {
+                        setAdminMenu('Dashboard');
+                        onClose();
+                        logout();
+                      }}
+                    >
+                      Log ud
+                    </Button>
+                  )}
 
                   {userInfo?.user_role_name === 'admin' && (
                     <div className='flex flex-col gap-4'>

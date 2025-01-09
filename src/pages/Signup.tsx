@@ -259,7 +259,7 @@ export default function Signup() {
               </Button>
               <p className='py-2 text-center sm:text-left text-sm'>
                 Har du allerede en konto?
-                <Link href='/login' className='text-indigo-500 underline text-sm ml-1'>
+                <Link href='/login' className='text-blue-400 underline text-sm ml-1'>
                   Login her
                 </Link>
               </p>

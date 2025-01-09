@@ -51,7 +51,7 @@ function AdminSidebar() {
             spinner={isLoading}
             isLoading={isLoading}
           >
-            LOGOUT
+            LOG UD
           </Button>
         </ul>
       </section>
