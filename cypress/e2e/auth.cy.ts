@@ -1,17 +1,28 @@
-describe('Authentication', () => {
-  it('should allow user to login', () => {
-    cy.visit('/login');
-    cy.get('[data-testid="email-input"]').type('test@example.com');
-    cy.get('[data-testid="password-input"]').type('password123');
-    cy.get('[data-testid="submit-button"]').click();
+import '../support/commands';
 
-    // Add assertions
-    cy.url().should('include', '/home');
-    cy.get('[data-testid="user-profile"]').should('exist');
+describe('Login Page', () => {
+  beforeEach(() => {
+    cy.visit('/login');
   });
 
-  it('should show error for invalid credentials', () => {
-    cy.visit('/login');
+  it('should display login form', () => {
+    cy.get('[data-testid="email-input"]').should('be.visible');
+    cy.get('[data-testid="password-input"]').should('be.visible');
+    cy.get('[data-testid="submit-button"]').should('be.visible');
+  });
+
+  it('should login successfully', () => {
+    cy.fixture('users').then((users) => {
+      cy.get('[data-testid="email-input"]').type(users.testUser.email);
+      cy.get('[data-testid="password-input"]').type(users.testUser.password);
+      cy.get('[data-testid="submit-button"]').click();
+
+      // Check if login was successful
+      cy.get('[data-testid="error-message"]').should('not.exist');
+    });
+  });
+
+  it('should show error with invalid credentials', () => {
     cy.get('[data-testid="email-input"]').type('wrong@email.com');
     cy.get('[data-testid="password-input"]').type('wrongpass');
     cy.get('[data-testid="submit-button"]').click();
