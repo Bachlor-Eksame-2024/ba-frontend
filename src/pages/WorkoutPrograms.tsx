@@ -18,6 +18,7 @@ export default function WorkoutPrograms() {
   if (error) return <div>Failed to load fetch data</div>;
   if (!data) return <div>Loading...</div>;
 
+  console.log(workoutPrograms);
   return (
     <div className='flex flex-col items-center gap-4 w-full max-w-7xl mx-auto p-4 pt-20'>
       {workoutPrograms?.map((workout: Workouts) => (
@@ -38,7 +39,11 @@ export default function WorkoutPrograms() {
           />
           <CardFooter className='absolute bg-black/40 bottom-0 z-10 border-t-1 border-default-600 dark:border-default-100'>
             <div className='flex flex-grow gap-2 items-center'>
-              <p className='text-base text-white/60'>{workout.workout_description}</p>
+              <p className='text-base text-white/60'>
+                {workout.workout_description.length > 60
+                  ? workout.workout_description.substring(0, 60) + '...'
+                  : workout.workout_description}
+              </p>
             </div>
             <Link
               className={`link-btn-sm`}

@@ -72,7 +72,7 @@ const DesktopNavigation = () => {
             onClick={logout}
             isLoading={isLoading}
           >
-            LOGOUT
+            LOG UD
           </Button>
         )}
       </div>

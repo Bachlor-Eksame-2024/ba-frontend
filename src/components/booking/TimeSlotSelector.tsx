@@ -32,15 +32,25 @@ const TimeSlotSelector = ({ setShowPayment }: TimeSlotSelectorProps) => {
   const timeAmount = ['1', '2', '3', '4'];
 
   // Function get available time slots
-
-  const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY/MM/DD format
+  const formatDateToISO = (date: string) => {
+    const d = new Date(date);
+    // Set to midnight local time
+    d.setHours(0, 0, 0, 0);
+    // Format with leading zeros
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+  const today = formatDateToISO(new Date().toISOString()); // Get today's date in YYYY/MM/DD format
 
   useEffect(() => {
     const getAvailableTimeSlots = async () => {
       const fitnessCenterId = userInfo?.fitness_center_id;
       const bookingDate = selectedDate;
+      const formattedSelectedDate = formatDateToISO(selectedDate);
       const currentTime =
-        selectedDate === today
+        formattedSelectedDate === today
           ? new Date(new Date().getTime())
               .toLocaleTimeString('da-DK', {
                 hour: '2-digit',

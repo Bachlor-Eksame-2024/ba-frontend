@@ -1,14 +1,25 @@
 import { Card, CardBody } from '@nextui-org/card';
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/table';
+import useSWR from 'swr';
+import useUserStore from '../../stores/UserStore';
+
+interface Payment {
+  payment_id: string;
+  amount: number;
+  currency: string;
+  status: string;
+  payment_intent_id: string;
+  created_at: string;
+  updated_at: string | null;
+}
 
 function PaymentHistory() {
-  const transactions = [
-    { id: 1, date: '2023-06-01', description: 'Coffee Shop', hours: 1, amount: 4.5 },
-    { id: 2, date: '2023-06-02', description: 'Grocery Store', hours: 1, amount: 65.75 },
-    { id: 3, date: '2023-06-03', description: 'Online Bookstore', hours: 1, amount: 29.99 },
-    { id: 4, date: '2023-06-04', description: 'Gas Station', hours: 1, amount: 40.0 },
-    { id: 5, date: '2023-06-05', description: 'Restaurant', hours: 1, amount: 55.2 },
-  ];
+  const { userInfo } = useUserStore();
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const { data, error } = useSWR(apiUrl + '/payment/' + userInfo?.user_id);
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
+  const transactions = data.payments;
 
   return (
     <Card shadow='none'>
@@ -16,17 +27,19 @@ function PaymentHistory() {
         <Table removeWrapper aria-label='Example table with static content'>
           <TableHeader>
             <TableColumn>DATO</TableColumn>
-            <TableColumn>BOKS</TableColumn>
-            <TableColumn>ANTAL TIMER</TableColumn>
+            <TableColumn>STATUS</TableColumn>
             <TableColumn>BELØB</TableColumn>
           </TableHeader>
           <TableBody>
-            {transactions.map((transaction) => (
-              <TableRow key={transaction.id}>
-                <TableCell>{transaction.date}</TableCell>
-                <TableCell>{transaction.description}</TableCell>
-                <TableCell>{transaction.hours}</TableCell>
-                <TableCell>${transaction.amount.toFixed(2)}</TableCell>
+            {transactions.map((transaction: Payment) => (
+              <TableRow key={transaction.payment_id}>
+                <TableCell>
+                  {new Date(transaction.created_at).toISOString().slice(0, 16).replace('T', '-')}
+                </TableCell>
+                <TableCell>{transaction.status}</TableCell>
+                <TableCell>
+                  {transaction.amount.toFixed(2)} {transaction.currency}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

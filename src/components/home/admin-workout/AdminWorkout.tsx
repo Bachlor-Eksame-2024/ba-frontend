@@ -69,7 +69,11 @@ function AdminWorkout() {
           />
           <CardFooter className='absolute bg-black/40 bottom-0 z-10 border-t-1 border-default-600 dark:border-default-100'>
             <div className='flex flex-grow gap-2 items-center'>
-              <p className='text-base text-white/60'>{workout.workout_description}</p>
+              <p className='text-base text-white/60'>
+                {workout.workout_description.length > 60
+                  ? workout.workout_description.substring(0, 60) + '...'
+                  : workout.workout_description}
+              </p>
             </div>
             <div className='flex md:gap-4 max-md:gap-2'>
               {deleteWorkout === workout.workout_id ? (

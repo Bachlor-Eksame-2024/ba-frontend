@@ -80,7 +80,7 @@ export default function Signin() {
               </Button>
               <p className='py-2 text-center sm:text-left text-sm flex gap-2 flex-wrap'>
                 Mangler du en konto?
-                <Link href='/signup' className='text-indigo-500 underline ml-1 text-sm'>
+                <Link href='/signup' className='text-blue-400 underline ml-1 text-sm'>
                   Opret en konto her
                 </Link>
               </p>
