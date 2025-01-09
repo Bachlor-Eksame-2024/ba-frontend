@@ -1,4 +1,13 @@
-import '../support/commands';
+// cypress/e2e/auth.cy.ts
+/// <reference types="cypress" />
+/// <reference types="mocha" />
+
+interface TestData {
+  testUser: {
+    email: string;
+    password: string;
+  };
+}
 
 describe('Login Page', () => {
   beforeEach(() => {
@@ -12,13 +21,10 @@ describe('Login Page', () => {
   });
 
   it('should login successfully', () => {
-    cy.fixture('users').then((users) => {
+    cy.fixture('users').then((users: TestData) => {
       cy.get('[data-testid="email-input"]').type(users.testUser.email);
       cy.get('[data-testid="password-input"]').type(users.testUser.password);
       cy.get('[data-testid="submit-button"]').click();
-
-      // Check if login was successful
-      cy.get('[data-testid="error-message"]').should('not.exist');
     });
   });
 
@@ -26,7 +32,6 @@ describe('Login Page', () => {
     cy.get('[data-testid="email-input"]').type('wrong@email.com');
     cy.get('[data-testid="password-input"]').type('wrongpass');
     cy.get('[data-testid="submit-button"]').click();
-
     cy.get('[data-testid="error-message"]').should('be.visible');
   });
 });

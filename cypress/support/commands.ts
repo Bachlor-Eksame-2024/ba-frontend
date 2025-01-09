@@ -1,7 +1,7 @@
-// commands.ts
+// cypress/support/commands.ts
+/* eslint-disable @typescript-eslint/no-namespace */
 /// <reference types="cypress" />
 
-/* eslint-disable @typescript-eslint/no-namespace */
 declare global {
   namespace Cypress {
     interface Chainable {
