@@ -12,7 +12,7 @@ interface Props {
 const UserInfoCard = memo(({ lastestBooking }: Props) => {
   const { userInfo } = useUserStore();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  console.log(lastestBooking);
+  //console.log(lastestBooking);
   return (
     <div className='flex flex-col gap-2 cursor-pointer' onClick={onOpen}>
       <Card className='h-full bg-default-100 rounded-md group'>

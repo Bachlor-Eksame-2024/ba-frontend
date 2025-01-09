@@ -10,10 +10,10 @@ import useConfirmedStore from '../../stores/ConfirmedStore';
 const apiUrl = import.meta.env.VITE_API_URL;
 const apiKey = import.meta.env.VITE_API_KEY;
 
-interface PaymentResponse {
+/* interface PaymentResponse {
   payment_id: number;
   client_secret: string;
-}
+} */
 
 const appearance = {
   theme: 'flat' as const,
@@ -127,10 +127,10 @@ const Payment = memo(() => {
   const stripePromise = loadStripe(test_key);
   const [clientSecret, setClientSecret] = useState('');
   const { collectedBooking } = useCollectedBooking();
-  const [paymentResponse, setPaymentResponse] = useState<PaymentResponse>({
+  /*   const [paymentResponse, setPaymentResponse] = useState<PaymentResponse>({
     payment_id: 0,
     client_secret: '',
-  });
+  }); */
 
   useEffect(() => {
     const createPayment = async () => {
@@ -153,8 +153,8 @@ const Payment = memo(() => {
         });
 
         const data = await response.json();
-        setPaymentResponse(data);
-        console.log(paymentResponse);
+        //setPaymentResponse(data);
+        //console.log(paymentResponse);
         setClientSecret(data.client_secret);
       } catch (error) {
         console.error('Error creating payment:', error);
@@ -162,7 +162,6 @@ const Payment = memo(() => {
     };
 
     createPayment();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collectedBooking]);
 
   if (!collectedBooking) {

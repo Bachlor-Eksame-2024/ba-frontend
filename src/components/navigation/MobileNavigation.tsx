@@ -17,7 +17,6 @@ export default function MobileNavigation() {
   const { userInfo } = useUserStore();
   const { setAdminMenu } = useAdminMenuStore();
 
-  console.log(userInfo);
   return (
     <>
       <div className='flex justify-end md:hidden absolute top-4 right-7'>
