@@ -18,6 +18,7 @@ export default function WorkoutPrograms() {
   if (error) return <div>Failed to load fetch data</div>;
   if (!data) return <div>Loading...</div>;
 
+  console.log(workoutPrograms);
   return (
     <div className='flex flex-col items-center gap-4 w-full max-w-7xl mx-auto p-4 pt-20'>
       {workoutPrograms?.map((workout: Workouts) => (
