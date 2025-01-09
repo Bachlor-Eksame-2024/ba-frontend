@@ -58,6 +58,7 @@ export default function Signin() {
               Email
             </label>
             <input
+              data-testid='email-input'
               type='email'
               id='email'
               name='email'
@@ -68,6 +69,7 @@ export default function Signin() {
               Password
             </label>
             <input
+              data-testid='password-input'
               type='password'
               id='password'
               name='password'
@@ -78,7 +80,10 @@ export default function Signin() {
               <Button type='submit' color='secondary' className='w-full sm:w-auto'>
                 Login
               </Button>
-              <p className='py-2 text-center sm:text-left text-sm flex gap-2 flex-wrap'>
+              <p
+                data-testid='submit-button'
+                className='py-2 text-center sm:text-left text-sm flex gap-2 flex-wrap'
+              >
                 Mangler du en konto?
                 <Link href='/signup' className='text-blue-400 underline ml-1 text-sm'>
                   Opret en konto her
