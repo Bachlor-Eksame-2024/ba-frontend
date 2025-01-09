@@ -14,7 +14,7 @@ const UserInfoCard = memo(({ lastestBooking }: Props) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   console.log(lastestBooking);
   return (
-    <div className='flex flex-col gap-2 cursor-pointer' onClick={onOpen}>
+    <div data-testid='user-profile' className='flex flex-col gap-2 cursor-pointer' onClick={onOpen}>
       <Card className='h-full bg-default-100 rounded-md group'>
         <CardHeader className='flex justify-between items-start gap-3'>
           <div className='flex flex-col px-2'>

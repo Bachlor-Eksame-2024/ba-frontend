@@ -29,5 +29,6 @@
     "react": {
       "version": "detect"
     }
-  }
+  },
+  "ignorePatterns": ["cypress/**/*", "cypress.config.ts", "cypress/support"]
 }
