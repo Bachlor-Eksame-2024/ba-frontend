@@ -1,7 +1,7 @@
 // commands.ts
-/* eslint-disable @typescript-eslint/no-namespace */
 /// <reference types="cypress" />
 
+/* eslint-disable @typescript-eslint/no-namespace */
 declare global {
   namespace Cypress {
     interface Chainable {
@@ -11,7 +11,6 @@ declare global {
   }
 }
 
-// Commands implementation
 Cypress.Commands.add('login', (email: string, password: string) => {
   cy.visit('/login');
   cy.get('[data-testid="email-input"]').type(email);
