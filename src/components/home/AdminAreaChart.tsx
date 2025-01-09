@@ -11,37 +11,37 @@ import {
 
 const data = [
   {
-    name: 'Jan',
+    name: 'Jul',
     uv: 4000,
     pv: 2400,
   },
   {
-    name: 'Feb',
+    name: 'Aug',
     uv: 3000,
     pv: 1398,
   },
   {
-    name: 'Mar',
+    name: 'Sept',
     uv: 2000,
     pv: 9800,
   },
   {
-    name: 'Apr',
+    name: 'Okt',
     uv: 2780,
     pv: 3908,
   },
   {
-    name: 'Maj',
+    name: 'Nov',
     uv: 1890,
     pv: 4800,
   },
   {
-    name: 'Jun',
+    name: 'Dec',
     uv: 2390,
     pv: 3800,
   },
   {
-    name: 'Jul',
+    name: 'Jan',
     uv: 3490,
     pv: 4300,
   },
