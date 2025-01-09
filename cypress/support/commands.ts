@@ -1,17 +1,17 @@
-// cypress/support/commands.ts
-export {};
+// commands.ts
+/* eslint-disable @typescript-eslint/no-namespace */
+/// <reference types="cypress" />
 
-// Extend Cypress interface
 declare global {
-  interface Cypress {
-    Chainable: {
+  namespace Cypress {
+    interface Chainable {
       login(email: string, password: string): Chainable<void>;
       logout(): Chainable<void>;
-    };
+    }
   }
 }
 
-// Implement commands
+// Commands implementation
 Cypress.Commands.add('login', (email: string, password: string) => {
   cy.visit('/login');
   cy.get('[data-testid="email-input"]').type(email);
@@ -22,3 +22,5 @@ Cypress.Commands.add('login', (email: string, password: string) => {
 Cypress.Commands.add('logout', () => {
   cy.get('[data-testid="logout-button"]').click();
 });
+
+export {};
