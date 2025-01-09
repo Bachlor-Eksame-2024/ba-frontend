@@ -38,7 +38,7 @@ function PaymentHistory() {
                 </TableCell>
                 <TableCell>{transaction.status}</TableCell>
                 <TableCell>
-                  {transaction.amount.toFixed(2)} {transaction.currency}
+                  {(transaction.amount / 1000).toFixed(2)} {transaction.currency}
                 </TableCell>
               </TableRow>
             ))}
