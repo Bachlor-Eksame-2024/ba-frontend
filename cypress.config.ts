@@ -8,6 +8,7 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
+    specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}', // Match test filessupportFile: 'cypress/support/e2e.ts'
   },
   env: {
     VITE_API_URL: 'http://localhost:3000/api',
