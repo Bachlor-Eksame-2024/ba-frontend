@@ -53,7 +53,11 @@ export default function Signin() {
         <div className='bg-zinc-900 md:p-24 rounded p-8'>
           <h1 className='text-lg pb-6'>Login</h1>
           <form onSubmit={handleLogin} className='flex flex-col space-y-4'>
-            {error && <div className='text-red-500 text-sm'>{error}</div>}
+            {error && (
+              <div className='text-red-500 text-sm' data-testid='error-message'>
+                {error}
+              </div>
+            )}
             <label htmlFor='email' className='text-sm'>
               Email
             </label>
@@ -63,6 +67,7 @@ export default function Signin() {
               name='email'
               className='p-2 rounded bg-zinc-800 text-white w-full'
               required
+              data-testid='email-input'
             />
             <label htmlFor='password' className='text-sm'>
               Password
@@ -73,9 +78,15 @@ export default function Signin() {
               name='password'
               className='p-2 rounded bg-zinc-800 text-white w-full'
               required
+              data-testid='password-input'
             />
             <div className='flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 pb-4 pt-4'>
-              <Button type='submit' color='secondary' className='w-full sm:w-auto'>
+              <Button
+                type='submit'
+                color='secondary'
+                className='w-full sm:w-auto'
+                data-testid='submit-button'
+              >
                 Login
               </Button>
               <p className='py-2 text-center sm:text-left text-sm flex gap-2 flex-wrap'>
