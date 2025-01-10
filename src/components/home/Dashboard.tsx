@@ -10,9 +10,9 @@ const AdminAreaChart = lazy(() => import('./AdminAreaChart'));
 const ApiUrl = import.meta.env.VITE_API_URL;
 
 function Dashboard() {
-  const currentHour = new Date().getHours();
-  const currentMinutes = new Date().getMinutes();
-  const currentTime = currentHour + '' + currentMinutes;
+  const currentHour = String(new Date().getHours()).padStart(2, '0');
+  const currentMinutes = String(new Date().getMinutes()).padStart(2, '0');
+  const currentTime = `${currentHour}${currentMinutes}`;
   const currentDate = new Date().toISOString().split('T')[0];
   const { userInfo } = useUserStore();
 
